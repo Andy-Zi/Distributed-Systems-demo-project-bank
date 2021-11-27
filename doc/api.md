@@ -12,7 +12,8 @@ Token: The Token of the User [Hex-String]
 1: Admin
 <br>
 
-## b) (Admin only) newaccount(in token, in username, in description, out account_number) 
+
+## b 1) (Admin only) newaccount(in token, in username, in description, out account_number) 
 <br>
 Token: The Token of the User making the request[Hex-String]
 <br>
@@ -21,6 +22,17 @@ Username: The Name of the User to Create a new Account for [string]
 Description: The Description of the Account [string]
 <br>
 Account_Number: The Account Number of the new Account [string (GUID)]
+<br>
+
+## b 2) (Admin only) newuser(in token, in username, in password, out user_token) 
+<br>
+Token: The Token of the User making the request[Hex-String]
+<br>
+Username: The Name of the User to Create [string]
+<br>
+Password: The Password of the User to Create [string]
+<br>
+user_token: The Token of the new User [Hex-String]
 <br>
 
 ## c) listaccounts(in token, out (Account_Number,Description))
