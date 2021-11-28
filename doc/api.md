@@ -24,15 +24,13 @@ Description: The Description of the Account [string]
 Account_Number: The Account Number of the new Account [string (GUID)]
 <br>
 
-## b 2) (Admin only) newuser(in token, in username, in password, out user_token) 
+## b 2) (Admin only) newuser(in token, in username, in password) 
 <br>
 Token: The Token of the User making the request[Hex-String]
 <br>
 Username: The Name of the User to Create [string]
 <br>
 Password: The Password of the User to Create [string]
-<br>
-user_token: The Token of the new User [Hex-String]
 <br>
 
 ## c) listaccounts(in token, out (Account_Number,Description))

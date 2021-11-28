@@ -1,0 +1,14 @@
+[
+	uuid(2954C661-5F60-4E65-BDC1-2838538F6428)
+]
+
+interface MyBank_i
+{
+	//void login([in,string] username, [in,string] password, [out,string] token);
+	//void newaccount([in,string] token, [in, string] username, [in, string] description, [out, string] account_number);
+	//void newuser([in, string] token, [in, string] username, [in, string] password);
+	//void listaccounts([in, string] token, [out] (Account_Number, Description));
+	//void transfer([in, string] token, [in, string] from_account_number, [in, string] to_account_number, [in] amount, [in, string] comment);
+	//void statement([in, string] token, [in, string] account_number, [in] detailed, [out] accounts);
+	void bye([in, string] token);
+};
