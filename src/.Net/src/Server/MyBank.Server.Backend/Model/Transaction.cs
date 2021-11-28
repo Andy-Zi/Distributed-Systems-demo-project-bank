@@ -4,7 +4,7 @@ using System;
 
 namespace MyBank.Server.Backend.Model
 {
-    internal class Transaction : ITransaction
+    public class Transaction : ITransaction
     {
         public TransactionStyle Style { get; set; }
         public float Amount { get; set; }

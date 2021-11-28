@@ -7,7 +7,6 @@ namespace MyBank.Interfaces
         Privileges Privilege { get; }
         string Username { get; set; }
         string Password { get; set; }
-        string AccountNumber { get; set; }
         string Token { get; }
 
     }

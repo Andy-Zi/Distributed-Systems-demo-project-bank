@@ -6,13 +6,13 @@ using System.Text;
 
 namespace MyBank.Server.Backend.Model
 {
-    internal class User : IUser
+    public class User : IUser, IEntity
     {
         public Privileges Privilege { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public string AccountNumber { get; set; }
-        public string Token => $"{AccountNumber}{Privilege}";
+        public string ID { get; set; }
+        public string Token => $"{ID}{Privilege}";
 
         public User()
         {
@@ -22,7 +22,12 @@ namespace MyBank.Server.Backend.Model
         private void OnInitialize()
         {
             Privilege = Privileges.User;
-            AccountNumber = Guid.NewGuid().ToString("N");
+            ID = Guid.NewGuid().ToString("N");
+        }
+
+        public string GetMappingKey()
+        {
+            return Username;
         }
     }
 }
