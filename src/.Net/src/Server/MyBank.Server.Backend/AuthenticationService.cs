@@ -1,4 +1,5 @@
 ﻿using MyBank.Nameservice;
+using MyBank.Nameservice.Exceptions;
 using MyBank.Server.Backend.Model;
 using MyBank.Server.Backend.Repository;
 using System;
@@ -24,18 +25,18 @@ namespace MyBank.Server.Backend
                 return false;
 
             var userPrivilege = token.Last() - '0'; // Char to int 
-            return userPrivilege <= (int)privileges;
+            return userPrivilege >= (int)privileges;
         }
 
         public string LogIn(string username,string password)
         {
             if (!UserRepository.Entities.ContainsKey(username))
-                throw new Exception("Wrong Username or Password!");
+                throw new LoginException("Wrong Username or Password!");
 
             var user = UserRepository.Entities[username];
 
             if(user.Password != password)
-                throw new Exception("Wrong Username or Password!");
+                throw new LoginException("Wrong Username or Password!");
 
             if (LoggedInUsers.ContainsKey(user.Token))
             {
@@ -50,7 +51,8 @@ namespace MyBank.Server.Backend
 
         public void LogOut(string token)
         {
-            LoggedInUsers.TryRemove(token, out _);
+            if(LoggedInUsers.ContainsKey(token))
+                LoggedInUsers.TryRemove(token, out _);
         }
     }
 }

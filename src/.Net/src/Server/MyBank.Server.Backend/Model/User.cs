@@ -12,7 +12,7 @@ namespace MyBank.Server.Backend.Model
         public string Username { get; set; }
         public string Password { get; set; }
         public string ID { get; set; }
-        public string Token => $"{ID}{Privilege}";
+        public string Token => $"{ID}{((int)Privilege)}";
 
         public User()
         {

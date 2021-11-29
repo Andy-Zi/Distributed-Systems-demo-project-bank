@@ -1,5 +1,6 @@
 ﻿using MyBank.Interfaces;
 using MyBank.Nameservice;
+using MyBank.Nameservice.Exceptions;
 using MyBank.Server.Backend.Model;
 using MyBank.Server.Backend.Repository;
 using System;
@@ -22,7 +23,7 @@ namespace MyBank.Server.Backend
         protected void Authenticate(string token, Privileges privilege = Privileges.User)
         {
             if (!AuthenticationService.Authenticate(token, privilege))
-                throw new Exception("Not permitted to use this funktion! Are you logged in with the correct user-account?");
+                throw new AuthenticationException("Not permitted to use this funktion! Are you logged in with the correct user-account?");
         }
 
         public void Initialize()
@@ -46,7 +47,7 @@ namespace MyBank.Server.Backend
         {
             Authenticate(token, Privileges.Admin);
             if (UserRepository.Entities.ContainsKey(username))
-                throw new Exception("Username already Exists!");
+                throw new ArgumentException("Username already Exists!");
 
             var user = new User()
             {
@@ -61,7 +62,7 @@ namespace MyBank.Server.Backend
         {
             Authenticate(token, Privileges.Admin);
             if (!UserRepository.Entities.ContainsKey(username))
-                throw new Exception("Username doesn't exist!");
+                throw new ArgumentException("Username doesn't exist!");
 
             var account = new Account()
             {
@@ -90,7 +91,7 @@ namespace MyBank.Server.Backend
         {
             Authenticate(token, Privileges.Admin);
             if (!AccountRepository.Entities.ContainsKey(accountNumber))
-                throw new Exception($"No account with number '{accountNumber}' exists!");
+                throw new ArgumentException($"No account with number '{accountNumber}' exists!");
 
             AccountRepository.Entities[accountNumber].Value += amount;
         }
@@ -100,15 +101,15 @@ namespace MyBank.Server.Backend
             Authenticate(token, Privileges.User);
 
             if (!AccountRepository.Entities.ContainsKey(from_accountNumber))
-                throw new Exception($"Source Account with number '{from_accountNumber}' doesn't exist!");
+                throw new ArgumentException($"Source Account with number '{from_accountNumber}' doesn't exist!");
 
             if (!AccountRepository.Entities.ContainsKey(to_accountNumber))
-                throw new Exception($"Target Account with number '{to_accountNumber}'  doesn't exist!");
+                throw new ArgumentException($"Target Account with number '{to_accountNumber}'  doesn't exist!");
 
             var from_Account = AccountRepository.Entities[from_accountNumber];
             var username = AuthenticationService.LoggedInUsers[token];
             if (from_Account.Owner != username)
-                throw new Exception($"You dont have access to Source Account with number '{from_accountNumber}'!");
+                throw new AuthenticationException($"You dont have access to Source Account with number '{from_accountNumber}'!");
 
             //Force a Lock here to ensure a threadsave List.Add()
             lock (AccountRepository.LockObject)
@@ -145,13 +146,13 @@ namespace MyBank.Server.Backend
             if (!string.IsNullOrEmpty(account_number))
             {
                 if (!AccountRepository.Entities.ContainsKey(account_number))
-                    throw new Exception($"Account with number '{account_number}' doesn't exist!");
+                    throw new ArgumentException($"Account with number '{account_number}' doesn't exist!");
 
                 var account = AccountRepository.Entities[account_number];
                 var username = AuthenticationService.LoggedInUsers[token];
 
                 if(account.Owner != username)
-                    throw new Exception($"You dont have access to account with number'{account_number}'!");
+                    throw new AuthenticationException($"You dont have access to account with number'{account_number}'!");
 
                 result.Add(new Account(account, detailed));
 
@@ -168,5 +169,10 @@ namespace MyBank.Server.Backend
 
         }
 
+        public void Bye(string token)
+        {
+            Authenticate(token, Privileges.User);
+            AuthenticationService.LogOut(token);
+        }
     }
 }
