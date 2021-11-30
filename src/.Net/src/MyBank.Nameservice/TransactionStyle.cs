@@ -6,7 +6,7 @@ namespace MyBank.Nameservice
 {
     public enum TransactionStyle
     {
-        Send,
-        Recieved
+        Send = 0,
+        Recieved = 1
     }
 }

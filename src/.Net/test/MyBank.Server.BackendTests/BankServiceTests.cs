@@ -19,7 +19,7 @@ namespace MyBank.Server.BackendTests
         UserRepository UserRepository;
         AccountRepository AccountRepository;
         BankService BankService;
-
+        TransactionRepository TransactionRepository;
         [SetUp]
         public void Setup()
         {
@@ -28,6 +28,7 @@ namespace MyBank.Server.BackendTests
             UserRepository = Container.Resolve<UserRepository>();
             AccountRepository = Container.Resolve<AccountRepository>();
             BankService = Container.Resolve<BankService>();
+            TransactionRepository = Container.Resolve<TransactionRepository>();
         }
 
 
@@ -355,15 +356,11 @@ namespace MyBank.Server.BackendTests
                 Assert.AreEqual(-100.0f, sender.Value);
                 Assert.AreEqual(100.0f, reciever.Value);
 
-                Assert.AreEqual(100.0f, reciever.Transactions[0].Amount);
-                Assert.AreEqual("Test Transaction", reciever.Transactions[0].Comment);
-                Assert.AreEqual(TransactionStyle.Recieved, reciever.Transactions[0].Style);
-
-                Assert.AreEqual(100.0f, sender.Transactions[0].Amount);
-                Assert.AreEqual("Test Transaction", sender.Transactions[0].Comment);
-                Assert.AreEqual(TransactionStyle.Send, sender.Transactions[0].Style);
-
-                Assert.AreEqual(sender.Transactions[0].Date, reciever.Transactions[0].Date);
+                Assert.AreEqual(100.0f, TransactionRepository.Entities.Values.First().Amount);
+                Assert.AreEqual("Test Transaction", TransactionRepository.Entities.Values.First().Comment);
+                Assert.AreEqual(sender.AccountNumber, TransactionRepository.Entities.Values.First().SenderAccount);
+                Assert.AreEqual(reciever.AccountNumber, TransactionRepository.Entities.Values.First().RecieverAccount);
+                Assert.IsNotNull(TransactionRepository.Entities.Values.First().Date);
             }); 
         }
 
@@ -466,7 +463,6 @@ namespace MyBank.Server.BackendTests
 
         protected void CheckTransaction(ITransaction a, ITransaction b)
         {
-            Assert.AreEqual(a.Style, b.Style);
             Assert.AreEqual(a.Amount, b.Amount);
             Assert.AreEqual(a.Date, b.Date);
             Assert.AreEqual(a.Comment, b.Comment);
@@ -492,7 +488,7 @@ namespace MyBank.Server.BackendTests
                 Description = "AC1",
                 Transactions = new List<ITransaction>()
                 {
-                    new Transaction() { Comment = "T1"},
+                    
                     new Transaction() { Comment = "T2"}
                 }
             };
@@ -506,25 +502,28 @@ namespace MyBank.Server.BackendTests
             AccountRepository.Entities.TryAdd(a.GetMappingKey(), a);
             AccountRepository.Entities.TryAdd(b.GetMappingKey(), b);
 
+            var t1 = new Transaction() { Comment = "T1",SenderAccount = a.AccountNumber, RecieverAccount = "asdasdasdasdasd",Date = DateTime.Now };
+            var t2 = new Transaction() { Comment = "T2", SenderAccount = "asdasdasdasdasd", RecieverAccount = a.AccountNumber, Date = DateTime.MinValue };
+
+            TransactionRepository.Entities.TryAdd(t1.GetMappingKey(), t1);
+            TransactionRepository.Entities.TryAdd(t2.GetMappingKey(), t2);
+
             var token = BankService.Login(user.Username, user.Password);
             var result = BankService.Statement(token,detailed:true);
             Assert.Multiple(() =>
             {
                 Assert.AreEqual(2, result.Count);
 
-                var r_a = result.First(x=>x.Description == "AC1");
+                var r_a = result.First(x=> x.Description == "AC1");
                 var r_b = result.First(x => x.Description == "AC2");
 
                 CheckAccount(a, r_a);
-                for (int i = 0; i < a.Transactions.Count; i++)
-                {
-                    CheckTransaction(a.Transactions[i], r_a.Transactions[i]);
-                }
+
+                CheckTransaction(t1, r_a.Transactions[0]);
+                CheckTransaction(t2, r_a.Transactions[1]);
+
                 CheckAccount(b, r_b);
-                for (int i = 0; i < b.Transactions.Count; i++)
-                {
-                    CheckTransaction(b.Transactions[i], r_b.Transactions[i]);
-                }
+                Assert.IsEmpty(r_b.Transactions);
             });
         }
 

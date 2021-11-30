@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="WCFBankService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8000/WCFBankService?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8000/WCFBankService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8000/WCFBankService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import schemaLocation="http://localhost:8000/WCFBankService?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IWCFBankService_Login_InputMessage">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="IWCFBankService_Login_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFBankService_NewUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:NewUser" />
+  </wsdl:message>
+  <wsdl:message name="IWCFBankService_NewUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:NewUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFBankService_NewAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:NewAccount" />
+  </wsdl:message>
+  <wsdl:message name="IWCFBankService_NewAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:NewAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFBankService_ListAccounts_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListAccounts" />
+  </wsdl:message>
+  <wsdl:message name="IWCFBankService_ListAccounts_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListAccountsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFBankService_PayInto_InputMessage">
+    <wsdl:part name="parameters" element="tns:PayInto" />
+  </wsdl:message>
+  <wsdl:message name="IWCFBankService_PayInto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PayIntoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFBankService_Transfere_InputMessage">
+    <wsdl:part name="parameters" element="tns:Transfere" />
+  </wsdl:message>
+  <wsdl:message name="IWCFBankService_Transfere_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TransfereResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFBankService_Statement_InputMessage">
+    <wsdl:part name="parameters" element="tns:Statement" />
+  </wsdl:message>
+  <wsdl:message name="IWCFBankService_Statement_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StatementResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFBankService_Bye_InputMessage">
+    <wsdl:part name="parameters" element="tns:Bye" />
+  </wsdl:message>
+  <wsdl:message name="IWCFBankService_Bye_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ByeResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IWCFBankService">
+    <wsdl:operation name="Login">
+      <wsdl:input wsam:Action="http://tempuri.org/IWCFBankService/Login" message="tns:IWCFBankService_Login_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/IWCFBankService/LoginResponse" message="tns:IWCFBankService_Login_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NewUser">
+      <wsdl:input wsam:Action="http://tempuri.org/IWCFBankService/NewUser" message="tns:IWCFBankService_NewUser_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/IWCFBankService/NewUserResponse" message="tns:IWCFBankService_NewUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NewAccount">
+      <wsdl:input wsam:Action="http://tempuri.org/IWCFBankService/NewAccount" message="tns:IWCFBankService_NewAccount_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/IWCFBankService/NewAccountResponse" message="tns:IWCFBankService_NewAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListAccounts">
+      <wsdl:input wsam:Action="http://tempuri.org/IWCFBankService/ListAccounts" message="tns:IWCFBankService_ListAccounts_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/IWCFBankService/ListAccountsResponse" message="tns:IWCFBankService_ListAccounts_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PayInto">
+      <wsdl:input wsam:Action="http://tempuri.org/IWCFBankService/PayInto" message="tns:IWCFBankService_PayInto_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/IWCFBankService/PayIntoResponse" message="tns:IWCFBankService_PayInto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Transfere">
+      <wsdl:input wsam:Action="http://tempuri.org/IWCFBankService/Transfere" message="tns:IWCFBankService_Transfere_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/IWCFBankService/TransfereResponse" message="tns:IWCFBankService_Transfere_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Statement">
+      <wsdl:input wsam:Action="http://tempuri.org/IWCFBankService/Statement" message="tns:IWCFBankService_Statement_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/IWCFBankService/StatementResponse" message="tns:IWCFBankService_Statement_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Bye">
+      <wsdl:input wsam:Action="http://tempuri.org/IWCFBankService/Bye" message="tns:IWCFBankService_Bye_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/IWCFBankService/ByeResponse" message="tns:IWCFBankService_Bye_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IWCFBankService" type="tns:IWCFBankService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://tempuri.org/IWCFBankService/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewUser">
+      <soap:operation soapAction="http://tempuri.org/IWCFBankService/NewUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewAccount">
+      <soap:operation soapAction="http://tempuri.org/IWCFBankService/NewAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListAccounts">
+      <soap:operation soapAction="http://tempuri.org/IWCFBankService/ListAccounts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PayInto">
+      <soap:operation soapAction="http://tempuri.org/IWCFBankService/PayInto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Transfere">
+      <soap:operation soapAction="http://tempuri.org/IWCFBankService/Transfere" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Statement">
+      <soap:operation soapAction="http://tempuri.org/IWCFBankService/Statement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Bye">
+      <soap:operation soapAction="http://tempuri.org/IWCFBankService/Bye" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WCFBankService">
+    <wsdl:port name="BasicHttpBinding_IWCFBankService" binding="tns:BasicHttpBinding_IWCFBankService">
+      <soap:address location="http://localhost:8000/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

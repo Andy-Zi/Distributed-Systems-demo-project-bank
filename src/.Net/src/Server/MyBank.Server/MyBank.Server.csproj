@@ -38,6 +38,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
@@ -63,9 +64,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\MyBank.Interfaces\MyBank.Interfaces.csproj">
+      <Project>{2018B27A-2154-4334-9A8B-973C9E9AC2B7}</Project>
+      <Name>MyBank.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MyBank.Nameservice\MyBank.Nameservice.csproj">
+      <Project>{448DFFCC-FEDD-4884-A160-9BFD6310BB1B}</Project>
+      <Name>MyBank.Nameservice</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyBank.Server.Backend\MyBank.Server.Backend.csproj">
       <Project>{BBFCB325-CC3D-4472-BF8F-3A0546CBA847}</Project>
       <Name>MyBank.Server.Backend</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyBank.Server.WCF\MyBank.Server.WCF.csproj">
+      <Project>{BF5F2245-4E81-4FEF-AA8A-6B4BA077F815}</Project>
+      <Name>MyBank.Server.WCF</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

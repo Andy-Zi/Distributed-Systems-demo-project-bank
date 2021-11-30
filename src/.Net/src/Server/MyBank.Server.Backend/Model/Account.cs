@@ -17,19 +17,13 @@ namespace MyBank.Server.Backend.Model
             OnInitialize();
         }
 
-        public Account(Account other,bool detailed=true)
+        public Account(Account other)
         {
             this.Value = other.Value;
             this.AccountNumber = other.AccountNumber;
             this.Description = other.Description;
             this.Owner = other.Owner;
             this.Transactions = new List<ITransaction>();
-
-            //Copy and break referenzes
-            if (detailed)
-                foreach (var transaktion in other.Transactions)
-                    this.Transactions.Add(transaktion);
-
         }
 
         private void OnInitialize()

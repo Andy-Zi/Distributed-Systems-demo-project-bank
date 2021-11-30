@@ -1,15 +1,13 @@
-﻿using MyBank.Nameservice;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace MyBank.Interfaces
 {
     public interface ITransaction
     {
-        TransactionStyle Style { get; set; }
         float Amount { get; set; }
         DateTime Date { get; set; }
         string Comment { get; set; }
+        string SenderAccount { get; set; }
+        string RecieverAccount { get; set; }
     }
 }

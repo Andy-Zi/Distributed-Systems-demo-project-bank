@@ -13,6 +13,7 @@ namespace MyBank.Server.Backend
     {
         [Dependency] public UserRepository UserRepository { get; set; }
         [Dependency] public AccountRepository AccountRepository { get; set; }
+        [Dependency] public TransactionRepository TransactionRepository { get; set; }
         [Dependency] public AuthenticationService AuthenticationService { get; set; }
 
         public BankService()
@@ -30,12 +31,14 @@ namespace MyBank.Server.Backend
         {
             UserRepository.Load();
             AccountRepository.Load();
+            TransactionRepository.Load();
         }
 
         public void Dispose()
         {
             UserRepository.Save();
             AccountRepository.Save();
+            TransactionRepository.Save();
         }
 
         public string Login(string username,string password)
@@ -115,31 +118,33 @@ namespace MyBank.Server.Backend
             lock (AccountRepository.LockObject)
             {
                 var to_Account = AccountRepository.Entities[to_accountNumber];
-                var executionTime = DateTime.Now;
 
                 from_Account.Value -= amount;
                 to_Account.Value += amount;
 
-                from_Account.Transactions.Add(new Transaction()
+                var tranaction = new Transaction()
                 {
-                    Date = executionTime,
+                    SenderAccount = from_Account.AccountNumber,
+                    RecieverAccount = to_Account.AccountNumber,
+                    Date = DateTime.Now,
                     Amount = amount,
-                    Comment = comment,
-                    Style = TransactionStyle.Send
-                });
+                    Comment = comment
+                };
 
-                to_Account.Transactions.Add(new Transaction()
-                {
-                    Date = executionTime,
-                    Amount = amount,
-                    Comment = comment,
-                    Style = TransactionStyle.Recieved
-                });
+                TransactionRepository.Entities.TryAdd(tranaction.GetMappingKey(), tranaction);
             }
         }
 
         public List<IAccount> Statement(string token,string account_number = "",bool detailed=true)
         {
+
+            Account CollectAccountData(Account a)
+            {
+                var cloned_account = new Account(a);
+                if (detailed)
+                    cloned_account.Transactions.AddRange(TransactionRepository.GetTransactions(cloned_account.AccountNumber));
+                return cloned_account;
+            }
             Authenticate(token, Privileges.User);
 
             var result = new List<IAccount>();
@@ -154,15 +159,14 @@ namespace MyBank.Server.Backend
                 if(account.Owner != username)
                     throw new AuthenticationException($"You dont have access to account with number'{account_number}'!");
 
-                result.Add(new Account(account, detailed));
-
+                result.Add(CollectAccountData(account));
             }
             else
             {
                 var username = AuthenticationService.LoggedInUsers[token];
                 foreach (var account in AccountRepository.GetAccounts(username))
                 {
-                    result.Add(new Account(account, detailed));
+                    result.Add(CollectAccountData(account));
                 }
             }
             return result;

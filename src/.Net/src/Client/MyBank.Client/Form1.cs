@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyBank.WCFConnector;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,10 @@ namespace MyBank.Client
         public Form1()
         {
             InitializeComponent();
+
+            WCFServiceConnector test = new WCFServiceConnector();
+            test.Connect("http://localhost:8000/WCFBankService",-1);
+            var token = test.Login("asd", "1234");
         }
     }
 }
