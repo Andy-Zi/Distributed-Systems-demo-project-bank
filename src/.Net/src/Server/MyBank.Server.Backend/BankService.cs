@@ -83,7 +83,8 @@ namespace MyBank.Server.Backend
             List<(string AccountNumber, string Description)> result = new List<(string AccountNumber, string Description)>();
 
             var username = AuthenticationService.LoggedInUsers[token];
-            foreach(var account in AccountRepository.GetAccounts(username))
+            var user = UserRepository.Entities[username];
+            foreach(var account in AccountRepository.GetAccounts(username, user.Privilege == Privileges.Admin))
             {
                 result.Add((account.AccountNumber, account.Description));
             }
@@ -97,6 +98,17 @@ namespace MyBank.Server.Backend
                 throw new ArgumentException($"No account with number '{accountNumber}' exists!");
 
             AccountRepository.Entities[accountNumber].Value += amount;
+
+            var transaction = new Transaction
+            {
+                Amount = amount,
+                SenderAccount = "ADMIN",
+                RecieverAccount = accountNumber,
+                Date = DateTime.Now,
+                Comment = "ADMIN Payed into your accont"
+            };
+
+            TransactionRepository.Entities.TryAdd(transaction.GetMappingKey(), transaction);
         }
 
         public void Transfere(string token, string from_accountNumber,string to_accountNumber, float amount, string comment = "")
@@ -155,8 +167,9 @@ namespace MyBank.Server.Backend
 
                 var account = AccountRepository.Entities[account_number];
                 var username = AuthenticationService.LoggedInUsers[token];
+                var user = UserRepository.Entities[username];
 
-                if(account.Owner != username)
+                if (account.Owner != username && user.Privilege == Privileges.User)
                     throw new AuthenticationException($"You dont have access to account with number'{account_number}'!");
 
                 result.Add(CollectAccountData(account));
@@ -164,7 +177,8 @@ namespace MyBank.Server.Backend
             else
             {
                 var username = AuthenticationService.LoggedInUsers[token];
-                foreach (var account in AccountRepository.GetAccounts(username))
+                var user = UserRepository.Entities[username];
+                foreach (var account in AccountRepository.GetAccounts(username, user.Privilege == Privileges.Admin))
                 {
                     result.Add(CollectAccountData(account));
                 }

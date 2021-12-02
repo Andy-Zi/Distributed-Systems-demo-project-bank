@@ -1,13 +1,10 @@
 ﻿using MyBank.Interfaces;
 using MyBank.Nameservice.Exceptions;
 using MyBank.Server.WCF;
-using MyBank.WCFConnector.WCFConnectedBankService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.ServiceModel;
-using System.ServiceModel.Web;
 using IWCFBankService = MyBank.Server.WCF.IWCFBankService;
 
 namespace MyBank.WCFConnector
@@ -90,7 +87,7 @@ namespace MyBank.WCFConnector
         {
             Execute(() =>
             {
-                Client.NewAccount(token, username, password);
+                Client.NewUser(token, username, password);
             });
         }
 

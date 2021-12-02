@@ -1,5 +1,6 @@
 ﻿
 using MyBank.Interfaces;
+using MyBank.Server.Backend.Model;
 using System.Collections.Generic;
 using System.ServiceModel;
 
@@ -30,7 +31,7 @@ namespace MyBank.Server.WCF
         void Transfere(string token, string from_accountNumber, string to_accountNumber, float amount, string comment = "");
         [FaultContract(typeof(UserFault))]
         [OperationContract]
-        List<IAccount> Statement(string token, string account_number = "", bool detailed = true);
+        List<Account> Statement(string token, string account_number = "", bool detailed = true);
         [FaultContract(typeof(UserFault))]
         [OperationContract]
         void Bye(string token);

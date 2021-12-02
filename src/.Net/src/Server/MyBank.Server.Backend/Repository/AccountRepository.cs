@@ -1,6 +1,7 @@
 ﻿using MyBank.Server.Backend.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MyBank.Server.Backend.Repository
@@ -12,8 +13,13 @@ namespace MyBank.Server.Backend.Repository
 
         }
 
-        public IList<Account> GetAccounts(string userName)
+        public IList<Account> GetAccounts(string userName,bool isAdmin = false)
         {
+            if (isAdmin)
+            {
+                return Entities.Values.ToList();
+            }
+
             IList<Account> result = new List<Account>();
             lock (LockObject)
             {

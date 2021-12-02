@@ -1,7 +1,9 @@
 ﻿using MyBank.Interfaces;
 using MyBank.Server.Backend;
+using MyBank.Server.Backend.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 using Unity;
 
@@ -70,12 +72,12 @@ namespace MyBank.Server.WCF
             });
         }
 
-        public List<IAccount> Statement(string token, string account_number = "", bool detailed = true)
+        public List<Account> Statement(string token, string account_number = "", bool detailed = true)
         {
-            var result = new List<IAccount>();
+            var result = new List<Account>();
             Execute(() =>
             {
-                result = BankService.Statement(token, account_number, detailed);
+                result = BankService.Statement(token, account_number, detailed).Cast<Account>().ToList();
             });
             return result;
         }
