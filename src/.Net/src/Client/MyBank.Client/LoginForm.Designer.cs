@@ -123,6 +123,11 @@
             // numericUpDown_port
             // 
             this.numericUpDown_port.Location = new System.Drawing.Point(58, 110);
+            this.numericUpDown_port.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
             this.numericUpDown_port.Name = "numericUpDown_port";
             this.numericUpDown_port.Size = new System.Drawing.Size(181, 20);
             this.numericUpDown_port.TabIndex = 2;
