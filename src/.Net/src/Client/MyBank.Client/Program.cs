@@ -1,5 +1,6 @@
 ﻿using MyBank.Interfaces;
 using MyBank.Nameservice;
+using MyBank.RESTConnector;
 using MyBank.WCFConnector;
 using System;
 using System.Windows.Forms;
@@ -22,6 +23,7 @@ namespace MyBank.Client
             container.RegisterType<MainForm>();
             container.RegisterInstance(new ApplicationEnvironment());
             container.RegisterType<IServiceConnector, WCFServiceConnector>(nameof(ConnectionTypes.WCF),new ContainerControlledLifetimeManager());
+            container.RegisterType<IServiceConnector, RESTServiceConnector>(nameof(ConnectionTypes.REST), new ContainerControlledLifetimeManager());
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

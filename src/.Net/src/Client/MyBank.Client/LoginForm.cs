@@ -15,11 +15,12 @@ namespace MyBank.Client
             InitializeComponent();
             Subscribe();
             this.comboBox_type.DataSource = Enum.GetValues(typeof(ConnectionTypes));
-            this.comboBox_type.SelectedIndex = 1;
+            this.comboBox_type.SelectedIndex = 2;
             this.comboBox_type.DropDownStyle = ComboBoxStyle.DropDownList;
-            this.textBox_address.Text = "http://localhost:8000/WCFBankService";
+            this.textBox_address.Text = "localhost";//"http://localhost:8000/WCFBankService";
             this.textBox_username.Text = "lukas";
             this.textBox_password.Text = "1234";
+            this.numericUpDown_port.Value = 8080;
         }
 
         protected void Subscribe()

@@ -1,7 +1,9 @@
-﻿using MyBank.Nameservice;
+﻿using Microsoft.Owin.Hosting;
+using MyBank.Nameservice;
 using MyBank.Server.Backend;
 using MyBank.Server.Backend.Model;
 using MyBank.Server.Backend.Repository;
+using MyBank.Server.RestAPI;
 using MyBank.Server.WCF;
 using System;
 using System.IO;
@@ -43,8 +45,7 @@ namespace MyBank.Server
             service.Initialize();
 
             CreateDummyData(container);
-            
-
+           
             var cancelationSource = new CancellationTokenSource();
 
             var wcfThread = new Thread(() =>
@@ -60,6 +61,10 @@ namespace MyBank.Server
 
                 host.Close();
             });
+
+            BankServiceConfiguration.StartWebApp("http://localhost:8080", container);
+            Console.WriteLine("Started REST Server!");
+
             wcfThread.Start();
 
             Console.ReadLine();
