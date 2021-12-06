@@ -1,25 +1,28 @@
 #pragma once
 #include <string>
 #include "Transaction.h"
-
-using namespace std;
+#include <list>
+#include "User.h"
 
 class Account
 {
 public:
-	string Get_Owner(void);
-	string Get_Description(void);
-	string Get_Accountnumber(void);
-	float Get_Value();
-	void add_transaction();
-	transaction* list_transactions();
+	~Account() {}
+	Account(int ownerID, std::string description, int AccountNumber) : OwnerID{ ownerID }, Description{ description }, AccountNumber{ AccountNumber }
+	{
+	}
+	int getOwnerID();
+	std::string getDescription();
+	int getAccountnumber();
+	float getValue();
+	void addValue(int change);
+	void addTransaction(Transaction t);
+	std::list<int> listTransactions();
 
 private:
-	char owner;
-	char description;
-	char AccountNumber;
-	float value;
-	transaction* transactionlist;
-	int numTransactions = 0;
+	int OwnerID;
+	std::string Description;
+	int AccountNumber;
+	float Value = 0;
+	std::list<int> Transactionlist;
 };
-

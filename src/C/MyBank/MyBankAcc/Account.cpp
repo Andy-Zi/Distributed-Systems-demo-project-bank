@@ -1,30 +1,34 @@
 #include "Account.h"
 
-string Account::Get_Owner(void)
-{
-    return string();
+int Account::getOwnerID() {
+	return this->OwnerID;
 }
-
-string Account::Get_Description(void)
-{
-    return string();
+string Account::getDescription() {
+	return this->Description;
 }
-
-string Account::Get_Accountnumber(void)
-{
-    return string();
+int Account::getAccountnumber() {
+	return this->AccountNumber;
 }
-
-float Account::Get_Value()
-{
-    return 0.0f;
+float Account::getValue() {
+	return this->Value;
 }
-
-void Account::add_transaction()
+void Account::addValue(int change)
 {
+	this->Value += change;
 }
-
-transaction* Account::list_transactions()
-{
-    return nullptr;
+void Account::addTransaction(Transaction t) {
+	if (t.getStartaccID() == getOwnerID())
+	{
+		if ((Value - t.getAmount()) > 0)
+		{
+			throw std::invalid_argument("not enough funds");
+		}
+		Value -= t.getAmount();
+	}
+	if (t.getEndaccID() == getOwnerID())
+		Value += t.getAmount();
+	this->Transactionlist.push_back(t.getId());
+}
+std::list<int> Account::listTransactions() {
+	return this->Transactionlist;
 }
