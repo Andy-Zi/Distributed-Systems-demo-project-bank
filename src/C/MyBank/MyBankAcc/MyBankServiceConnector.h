@@ -1,13 +1,19 @@
 #pragma once
+#include "User.h"
+#include "Priviliges.h"
+#include "Accountdesc.h"
 #include "MyBank.h"
 #include <string>
-#include "Accountdesc.h"
+
 
 using namespace std;
 
 class MyBankServiceConnector
 {
 public:
+    MyBankServiceConnector() {
+    }
+    ~MyBankServiceConnector(){}
     int login(string username, string password);
     void logout(int token);
 /*

@@ -5,11 +5,6 @@
 using namespace std;
 
 class User {
-	Priviliges Privilege;
-	string Username;
-	string Password;
-	int id;
-	int Token = -1;
 public:
 	~User() {}
 	User() {}
@@ -23,4 +18,10 @@ public:
 	void login(int Token);
 	void logout();
 	int getToken();
+private:
+	Priviliges Privilege = Priviliges::user;
+	string Username = "";
+	string Password = "";
+	int id = -1;
+	int Token = -1;
 };

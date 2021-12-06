@@ -1,10 +1,9 @@
 #pragma once
+#include "User.h"
 #include <string>
 #include <list>
-#include "User.h"
 #include "Account.h"
 #include "Statement.h"
-
 
 class MyBank
 {
@@ -33,11 +32,11 @@ public:
 	Statement generate_Statement(int accountID);
 	Account getAccountByID(int accountID);
 	//TODO
-	void shutdown();
+	//void shutdown();
 	//TODO
-	void loadData();
+	//void loadData();
 	//TODO
-	void storeData();
+	//void storeData();
 	list<User> getKnownUsers();
 	list<User*> getLoggedinUsers();
 private:

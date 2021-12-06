@@ -1,4 +1,8 @@
 #pragma once
+#include <string>
+
+using namespace std;
+
 struct Accountdesc
 {
 public:

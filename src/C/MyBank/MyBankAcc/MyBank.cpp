@@ -118,6 +118,7 @@ Priviliges MyBank::getPriviligesbyToken(int Token)
 {
     User usr = *getUserByToken(Token);
     return usr.getPriviliges();
+    
 }
 
 Priviliges MyBank::getPriviligesbyID(int ID)
