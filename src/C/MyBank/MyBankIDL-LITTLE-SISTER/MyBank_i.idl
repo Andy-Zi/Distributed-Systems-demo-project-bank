@@ -1,0 +1,99 @@
+[
+    uuid(2954C661-5F60-4E65-BDC1-2838538F6428),
+    pointer_default(unique)
+]
+
+interface MyBank_i
+{
+    /*void MAXQuadSum([in] long x, [in] long y, [out] long* quadSum);
+    void MAXNorm([in] double x, [in] double y, [out] double *norm);
+
+    void MAXVecAdd([in, size_is(dim)]  long vek1[],
+                  [in, size_is(dim)]  long vek2[],
+                  [in]                long dim,
+                  [out, size_is(dim)] long vekSum[]);
+
+    void MAXMatVecMul([in, size_is(dim*dim)] long mat[],
+                     [in, size_is(dim)]     long vek[],
+                     [in]                   long dim,
+                     [out, size_is(dim)]    long vekMul[]);
+    */
+
+    /*
+    a) login(in username, in password, out token)    
+    Username: The Username of the User [string]    
+    Password: The Password of the User [string]    
+    Token: The Token of the User [Hex-String]
+    (Last Digit represents the User-Type)
+    0: User
+    1: Admin    
+    */
+    void login(  [in, string] char* username,
+                [in, string] char* password,
+                [out,string] char **token
+                );
+    /*
+    b 1) (Admin only) newaccount(in token, in username, in description, out account_number)     
+    Token: The Token of the User making the request[Hex-String]    
+    Username: The Name of the User to Create a new Account for [string]    
+    Description: The Description of the Account [string]    
+    Account_Number: The Account Number of the new Account [string (GUID)]    
+    */
+    void newaccount( [in, string] char* token,
+                    [in, string] char* username,
+                    [in, string] char* description,
+                    [out, string] char** account_number
+                    );
+    /*
+    b 2) (Admin only) newuser(in token, in username, in password)    
+    Token: The Token of the User making the request[Hex-String]    
+    Username: The Name of the User to Create [string]    
+    Password: The Password of the User to Create [string]    
+    */
+    void newuser(   [in, string] char* token,
+                    [in, string] char* username,
+                    [in, string] char* password
+                    );
+    /*
+    c) listaccounts(in token, out (Account_Number,Description))    
+    Token: The Token of the User making the request[Hex-String]    
+    Account_Number,Description: A List of all Account_Numbers and Desciptions accessible by this User [(string,string)[]]    
+    ## d) (Admin only) payinto(in token, in account_number, in amount)    
+    Token: The Token of the User making the request[Hex-String]    
+    Account_Number: The Account Number of the Account to pay into [string (GUID)]    
+    Amount: The Amount to pay into the Account [float]    
+    */
+    void listaccounts([in, string] char* token
+    //                  [out] (Account_Number, Description)
+                      );
+    /*
+    e) transfer(in token, in from_account_number, in to_account_number, in amount, in comment)    
+    Token: The Token of the User making the request[Hex-String]    
+    From_Account_Number: The Account Number of the Account to pay from [string (GUID)]    
+    To_Account_Number: The Account Number of the Account to pay into [string (GUID)]
+    Amount: The Amount to pay into the Account [float]    
+    Comment: The Comment to add to the Transaction [string]
+    */
+    void transfer([in, string] char* token,
+                    [in, string] char* from_account_number,
+                    [in, string] char* to_account_number,
+                    [in] float amount,
+                    [in, string] char* comment);
+    /*
+    f) statement (in token, in [optional] account_number,in [optional] detailed , out accounts)    
+    Token: The Token of the User making the request[Hex-String]   
+    Account_Number: The Account Number of the Account to get the Statement for [string (GUID)]   
+    Detailed: If set to true, the Statement will include all Transactions, otherwise none [boolean]   
+    Accounts: A List of all Accounts or the given Account accessible by this User [Account-Object[]]
+    */
+    void statement([in, string] char* token,
+                    [in, string] char* account_number,  //option
+                    [in] boolean detailed               //option
+    //                [out] accounts
+                    );
+    /*
+    g) bye(in token)
+    Token: The Token of the User making the request[Hex-String]
+    */
+    void bye([in, string] char *token);
+}
