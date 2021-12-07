@@ -20,17 +20,17 @@ int main()
         endpoint,
         security);
     RPC_STATUS_ASSERT("RpcServerUseProtseqEp", status);
-
+    printf("Protokoll und Endpunkt registrieren\n");
     // Schnittstelle registrieren
     status = RpcServerRegisterIf(MyBank_i_v1_0_s_ifspec, // Zu reg. Schnittstelle
         NULL,                 // MgrTypeUuid
         NULL);                // MgrEpv
     RPC_STATUS_ASSERT("RpcServerRegisterIf", status);
-
+    printf("Schnittstelle registrieren\n");
     // Auf Anforderungen warten...
     status = RpcServerListen(minCalls, maxCalls, FALSE);
     RPC_STATUS_ASSERT("RpcServerListen", status);
-
+    printf("Auf Anforderungen warten...\n");
     /*MyBankServiceConnector bank;
     int token = bank.login("admin", "admin");
     std::cout << token;*/

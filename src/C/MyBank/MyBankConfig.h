@@ -18,6 +18,6 @@
 
 #define MYBANK_RPC_PROT_SEQ     (unsigned char*)"ncacn_ip_tcp"
 #define MYBANK_RPC_ENDPOINT		(unsigned char*)"1200"
-#define TLK_RPC_DEF_NETWADDR	(unsigned char*)"127.0.0.1"
+#define MYBANK_RPC_DEF_NETWADDR	(unsigned char*)"127.0.0.1"
 
 #endif  // TALK_CONFIG_H

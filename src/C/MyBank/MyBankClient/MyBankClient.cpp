@@ -7,7 +7,7 @@ static void UnBind(void);
 
 int main(int argc, char* argv[])
 {
-    unsigned char* netwAddr = TLK_RPC_DEF_NETWADDR;
+    unsigned char* netwAddr = MYBANK_RPC_DEF_NETWADDR;
     unsigned char* endpoint = MYBANK_RPC_ENDPOINT;
 
     if (argc > 1) netwAddr = (unsigned char*)argv[1];
@@ -50,11 +50,11 @@ void Bind(unsigned char* netwAddr, unsigned char* endpoint)
 
     // Erzeugung der Stringdarstellung des Binding-Handles 
     status = RpcStringBindingCompose(NULL,             // Objekt UUID
-        (RPC_WSTR)protocolSequence, // Server-/Verbindungsdaten
-        (RPC_WSTR)netwAddr,
-        (RPC_WSTR)endpoint,
+        protocolSequence, // Server-/Verbindungsdaten
+        netwAddr,
+        endpoint,
         NULL,             // Keine Optionen fuer TCP/IP
-        (RPC_WSTR*)(&stringBinding));
+        &stringBinding);
     if (status)
     {
         throw(RpcException(status, (string)"RpcStringBindingCompose failed: Network Address = " +
@@ -63,7 +63,7 @@ void Bind(unsigned char* netwAddr, unsigned char* endpoint)
     }
 
     // Erzeugung des Binding-Handles
-    status = RpcBindingFromStringBinding((RPC_WSTR)stringBinding,
+    status = RpcBindingFromStringBinding(stringBinding,
         &hMyBank_i);
     if (status)
     {
@@ -73,7 +73,7 @@ void Bind(unsigned char* netwAddr, unsigned char* endpoint)
     }
 
     // Freigabe der Stringdarstellung des Binding-Handles 
-    status = RpcStringFree((RPC_WSTR*)(&stringBinding));
+    status = RpcStringFree(&stringBinding);
     if (status)
     {
         throw(RpcException(status, "RpcStringFree failed", "RPC Error"));
