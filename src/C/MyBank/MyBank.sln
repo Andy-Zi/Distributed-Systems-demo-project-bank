@@ -16,6 +16,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyBankIDL", "MyBankIDL\MyBa
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyBankClient", "MyBankClient\MyBankClient.vcxproj", "{4B842DBB-0C53-4F90-9034-3A3A101BDC17}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyBankClientConsoleApp", "MyBankClientConsoleApp\MyBankClientConsoleApp.vcxproj", "{1C94118D-E26B-49F5-B022-B1B02F4A5CBC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -86,6 +88,18 @@ Global
 		{4B842DBB-0C53-4F90-9034-3A3A101BDC17}.Release|x64.Build.0 = Release|x64
 		{4B842DBB-0C53-4F90-9034-3A3A101BDC17}.Release|x86.ActiveCfg = Release|Win32
 		{4B842DBB-0C53-4F90-9034-3A3A101BDC17}.Release|x86.Build.0 = Release|Win32
+		{1C94118D-E26B-49F5-B022-B1B02F4A5CBC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1C94118D-E26B-49F5-B022-B1B02F4A5CBC}.Debug|Win32.Build.0 = Debug|Win32
+		{1C94118D-E26B-49F5-B022-B1B02F4A5CBC}.Debug|x64.ActiveCfg = Debug|x64
+		{1C94118D-E26B-49F5-B022-B1B02F4A5CBC}.Debug|x64.Build.0 = Debug|x64
+		{1C94118D-E26B-49F5-B022-B1B02F4A5CBC}.Debug|x86.ActiveCfg = Debug|Win32
+		{1C94118D-E26B-49F5-B022-B1B02F4A5CBC}.Debug|x86.Build.0 = Debug|Win32
+		{1C94118D-E26B-49F5-B022-B1B02F4A5CBC}.Release|Win32.ActiveCfg = Release|Win32
+		{1C94118D-E26B-49F5-B022-B1B02F4A5CBC}.Release|Win32.Build.0 = Release|Win32
+		{1C94118D-E26B-49F5-B022-B1B02F4A5CBC}.Release|x64.ActiveCfg = Release|x64
+		{1C94118D-E26B-49F5-B022-B1B02F4A5CBC}.Release|x64.Build.0 = Release|x64
+		{1C94118D-E26B-49F5-B022-B1B02F4A5CBC}.Release|x86.ActiveCfg = Release|Win32
+		{1C94118D-E26B-49F5-B022-B1B02F4A5CBC}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

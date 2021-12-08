@@ -1,6 +1,7 @@
 #include "MyBank_i.h"
 #include "MyBankConfig.h"
 #include "RpcException.h"
+#include "MyBankClientConsoleApp.h"
 
 static void Bind(unsigned char* netwAddr, unsigned char* endpoint);
 static void UnBind(void);
@@ -18,12 +19,7 @@ int main(int argc, char* argv[])
         Bind(netwAddr, endpoint);
         try
         {
-            printf("Hallo");
-            long token;
-            login((UCHAR*)"hallo", (UCHAR*)"hallo", &token);
-            printf("%d", token);
-            char c = getchar();
-
+            client::run();
         }
         catch (...)
         {
