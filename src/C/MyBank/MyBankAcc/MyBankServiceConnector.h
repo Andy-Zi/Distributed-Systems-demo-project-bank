@@ -75,6 +75,9 @@ Accounts: A List of all Accounts or the given Account accessible by this User [A
 ## g) bye(in token)
 Token: The Token of the User making the request[Hex-String]
 */
+
+    json SerializeAccountDescriptions(list<Accountdesc> accountDescriptions);
+
 private:
     MyBank mybank;
 };

@@ -1,8 +1,7 @@
 ﻿using MyBank.Interfaces;
 using MyBank.Nameservice;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MyBank.Server.Backend.Model
 {
@@ -12,6 +11,8 @@ namespace MyBank.Server.Backend.Model
         public string Username { get; set; }
         public string Password { get; set; }
         public string ID { get; set; }
+
+        [JsonIgnore]
         public string Token => $"{ID}{((int)Privilege)}";
 
         public User()

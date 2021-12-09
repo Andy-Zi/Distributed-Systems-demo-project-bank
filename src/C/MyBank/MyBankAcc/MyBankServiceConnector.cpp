@@ -1,4 +1,6 @@
 #include "MyBankServiceConnector.h"
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 int MyBankServiceConnector::login(string username, string password)
 {
@@ -37,6 +39,18 @@ list<Accountdesc> MyBankServiceConnector::listaccounts(int token)
 		out.push_back(adesc);
 	}
 	return out;
+}
+
+json MyBankServiceConnector::SerializeAccountDescriptions(list<Accountdesc> accountDescriptions) {
+	json serialized_list = json::array();
+	for (auto it = accountDescriptions.begin(); it != accountDescriptions.end(); it++)
+	{
+		json j;
+		(*it).to_json(j);
+		serialized_list.push_back(j);
+	}
+	
+	return serialized_list;
 }
 
 void MyBankServiceConnector::payinto(int token, int account_number, float amount)

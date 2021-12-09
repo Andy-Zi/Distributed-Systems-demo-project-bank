@@ -1,5 +1,6 @@
 ﻿using MyBank.Interfaces;
 using MyBank.Nameservice;
+using Newtonsoft.Json;
 using System;
 using System.Runtime.Serialization;
 
@@ -18,6 +19,7 @@ namespace MyBank.Server.Backend.Model
         public string SenderAccount { get; set; }
         [DataMember]
         public string RecieverAccount { get; set; }
+
         public string ID { get; set; }
 
         public Transaction()

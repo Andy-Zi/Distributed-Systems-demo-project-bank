@@ -1,0 +1,33 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {e96db8ed-48d8-47ae-b9d6-9cdf447ccc57} = s 'MyBankATL class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			TypeLib = s '{3feedad1-8c16-4a85-9440-b24d37ddfa2f}'
+			Version = s '1.0'
+			val AppID = s '{e96db8ed-48d8-47ae-b9d6-9cdf447ccc57}'
+
+			ProgID = s 'MyBankCCOM.MyBankAtl.1'
+		}
+	}
+
+	NoRemove MyBankCCOM.MyBankAtl.1 = s 'MyBankAtl Class'
+	{
+		CLSID = s '{e96db8ed-48d8-47ae-b9d6-9cdf447ccc57}'
+	}
+
+	NoRemove AppID
+	{
+		'{e96db8ed-48d8-47ae-b9d6-9cdf447ccc57}'
+		{
+			val DllSurrogate = s ''
+		}
+	}
+
+}

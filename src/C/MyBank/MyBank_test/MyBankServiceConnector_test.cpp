@@ -44,6 +44,16 @@ TEST_F(MyBankServiceConnector_Test, listaccounts) {
 	list<Accountdesc> accs = mybankserviceconnector->listaccounts(token_u);
 	EXPECT_EQ((*accs.begin()).Account_Number,accid);
 }
+
+TEST_F(MyBankServiceConnector_Test, serialize_Accounts) {
+	int token_a = mybankserviceconnector->login("admin", "admin");
+	int token_u = mybankserviceconnector->login("user", "user");
+	int accid = mybankserviceconnector->newaccount(token_a, "user", "useracc");
+	list<Accountdesc> accs = mybankserviceconnector->listaccounts(token_u);
+	auto test = mybankserviceconnector->SerializeAccountDescriptions(accs);
+	EXPECT_EQ((*accs.begin()).Account_Number, accid);
+}
+
 /*
 TEST_F(MyBankServiceConnector_Test, payinto) {
 	int token_a = mybankserviceconnector->login("admin", "admin");

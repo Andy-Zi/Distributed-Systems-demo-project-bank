@@ -1,0 +1,41 @@
+// MyBankCCOM.idl : IDL source for MyBankCCOM
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (MyBankCCOM.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(fed0c2f3-0b42-40bb-aae9-d1f510c6ac0d),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+
+interface IMyBankATL : IDispatch
+{
+	[id(1)] HRESULT Login([in] BSTR username, [in] BSTR password, [out, retval] LONG* token);
+	[id(2)] HRESULT NewUser([in] LONG token, [in] BSTR username, [in] BSTR password);
+	[id(3)] HRESULT ListAccounts([in] LONG token, [out, retval] BSTR* Accountdesc);
+	[id(4)] HRESULT Test([in] LONG token);
+};
+[
+	uuid(3feedad1-8c16-4a85-9440-b24d37ddfa2f),
+	version(1.0),
+]
+library MyBankCCOMLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(e96db8ed-48d8-47ae-b9d6-9cdf447ccc57)
+	]
+	coclass MyBankATL
+	{
+		[default] interface IMyBankATL;
+	};
+};
+
+import "shobjidl.idl";

@@ -1,4 +1,5 @@
-﻿using MyBank.Interfaces;
+﻿using MyBank.CCOMConnector;
+using MyBank.Interfaces;
 using MyBank.Nameservice;
 using MyBank.RESTConnector;
 using MyBank.WCFConnector;
@@ -24,7 +25,7 @@ namespace MyBank.Client
             container.RegisterInstance(new ApplicationEnvironment());
             container.RegisterType<IServiceConnector, WCFServiceConnector>(nameof(ConnectionTypes.WCF),new ContainerControlledLifetimeManager());
             container.RegisterType<IServiceConnector, RESTServiceConnector>(nameof(ConnectionTypes.REST), new ContainerControlledLifetimeManager());
-
+            container.RegisterType<IServiceConnector, CCOMServiceConnector>(nameof(ConnectionTypes.COM), new ContainerControlledLifetimeManager());
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(container.Resolve<LoginForm>());

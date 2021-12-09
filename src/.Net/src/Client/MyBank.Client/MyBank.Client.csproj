@@ -214,6 +214,10 @@
       <Project>{35F2505A-7725-4564-B07F-AC808AADAFE9}</Project>
       <Name>MyBank.WCFConnector</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\MyBank.CCOMConnector\MyBank.CCOMConnector.csproj">
+      <Project>{D5D09F67-4728-4E5F-9FF6-95F3DF241BFE}</Project>
+      <Name>MyBank.CCOMConnector</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\MyBank.Interfaces\MyBank.Interfaces.csproj">
       <Project>{2018B27A-2154-4334-9A8B-973C9E9AC2B7}</Project>
       <Name>MyBank.Interfaces</Name>

@@ -44,7 +44,8 @@ namespace MyBank.Server
             var service = container.Resolve<BankService>();
             service.Initialize();
 
-            CreateDummyData(container);
+            if(container.Resolve<UserRepository>().Entities.Count < 1)
+                CreateDummyData(container);
            
             var cancelationSource = new CancellationTokenSource();
 
@@ -52,25 +53,53 @@ namespace MyBank.Server
             {
                 var token = cancelationSource.Token;
                 var wcfService = container.Resolve<IWCFBankService>();
-                ServiceHost host = new ServiceHost(wcfService, new Uri("http://localhost:8000/WCFBankService"));
-                host.Description.Behaviors.Add(new ServiceMetadataBehavior() { HttpGetEnabled = true });
-                host.Open();
+                ServiceHost host;
+                try
+                {
+                    host = new ServiceHost(wcfService, new Uri("http://localhost:8000/WCFBankService"));
+                    host.Description.Behaviors.Add(new ServiceMetadataBehavior() { HttpGetEnabled = true });
+                    host.Open();
+                }catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to start  WCF Server!\nError:\n{ex}");
+                    return;
+                }
+                
                 Console.WriteLine("Started WCF Server!");
                 while (!token.IsCancellationRequested)
                     Task.Delay(500).Wait(token);
 
-                host.Close();
+                host?.Close();
             });
 
-            BankServiceConfiguration.StartWebApp("http://localhost:8080", container);
-            Console.WriteLine("Started REST Server!");
+            IDisposable restThread;
+            try
+            {
+                restThread = BankServiceConfiguration.StartWebApp("http://localhost:8080", container);
+                Console.WriteLine("Started REST Server!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to start REST Server!\nError:\n{ex}");
+                return;
+            }
+
 
             wcfThread.Start();
 
+            Console.WriteLine("Press Any Key to stop the Server!");
             Console.ReadLine();
+
+
             cancelationSource.Cancel(false);
+            Console.WriteLine("Stopped WCF Server!");
+
+            restThread?.Dispose();
+            Console.WriteLine("Stopped REST Server!");
 
             container.Dispose();
+            Console.WriteLine("Saved Data!");
+            Console.WriteLine("Goodbye!");
         }
 
         static void CreateDummyData(UnityContainer container)

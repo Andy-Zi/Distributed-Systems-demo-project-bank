@@ -37,7 +37,7 @@ TEST_F(MyBank_Test, login_wrongUsername) {
 }
 
 TEST_F(MyBank_Test, login) {
-	EXPECT_EQ(mybank->getLoggedinUsers().size()-1,mybank->Login("admin", "admin"));
+	EXPECT_EQ(11,mybank->Login("admin", "admin"));
 }
 
 TEST_F(MyBank_Test, loginUserList) {

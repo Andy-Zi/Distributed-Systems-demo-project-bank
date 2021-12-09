@@ -1,4 +1,5 @@
 ﻿using MyBank.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -18,6 +19,7 @@ namespace MyBank.Server.Backend.Model
         public string Description { get; set; }
         [DataMember]
         public float Value { get; set; }
+
         [DataMember]
         public List<ITransaction> Transactions { get; set; }
 
@@ -39,7 +41,6 @@ namespace MyBank.Server.Backend.Model
         {
             AccountNumber = Guid.NewGuid().ToString("N");
             Transactions = new List<ITransaction>();
-
         }
 
         public string GetMappingKey()

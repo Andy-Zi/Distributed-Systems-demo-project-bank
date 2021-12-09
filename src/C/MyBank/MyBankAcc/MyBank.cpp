@@ -15,7 +15,11 @@ int MyBank::Login(string username, string password)
         {
             if ((*it).checkPassword(password))
             {
-                int token = LoggedinUsers.size();
+                //Generate Token > 0 with appended Privilege
+                int token = LoggedinUsers.size()+1;
+                auto privilege = (*it).getPriviliges();
+                token = (token * 10) + (int)privilege;
+
                 (*it).login(token);
                 LoggedinUsers.push_back(&(*it));
                 return token;
