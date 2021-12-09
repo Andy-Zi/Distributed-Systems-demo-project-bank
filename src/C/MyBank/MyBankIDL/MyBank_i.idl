@@ -6,22 +6,8 @@
 
 interface MyBank_i
 {
-    /*void MAXQuadSum([in] long x, [in] long y, [out] long* quadSum);
-    void MAXNorm([in] double x, [in] double y, [out] double *norm);
-
-    void MAXVecAdd([in, size_is(dim)]  long vek1[],
-                  [in, size_is(dim)]  long vek2[],
-                  [in]                long dim,
-                  [out, size_is(dim)] long vekSum[]);
-
-    void MAXMatVecMul([in, size_is(dim*dim)] long mat[],
-                     [in, size_is(dim)]     long vek[],
-                     [in]                   long dim,
-                     [out, size_is(dim)]    long vekMul[]);
-    */
-
     /*
-    a) login(in username, in password, out token)    
+    a) 1) login(in username, in password, out token)    
     Username: The Username of the User [string]    
     Password: The Password of the User [string]    
     Token: The Token of the User [Hex-String]
@@ -64,9 +50,9 @@ interface MyBank_i
     Account_Number: The Account Number of the Account to pay into [string (GUID)]    
     Amount: The Amount to pay into the Account [float]    
     */
-    //void listaccounts([in, string] char* token
-    //                  [out] (Account_Number, Description)
-    //                  );
+    void listaccounts([in] long token,
+                      [out,string] char** listaccount
+                      );
     /*
     e) transfer(in token, in from_account_number, in to_account_number, in amount, in comment)    
     Token: The Token of the User making the request[Hex-String]    
@@ -89,8 +75,8 @@ interface MyBank_i
     */
     void statement([in] long token,
                     [in] long account_number,  //option
-                    [in] long detailed               //option
-    //                [out] accounts
+                    [in] long detailed,               //option
+                    [out,string] char** statement_out
                     );
     /*
     g) bye(in token)

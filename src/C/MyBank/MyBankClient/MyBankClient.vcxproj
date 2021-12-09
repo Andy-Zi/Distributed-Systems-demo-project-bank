@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)MyBankIDL\$(Configuration);$(SolutionDir);$(SolutionDir)MyBankClientConsoleApp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)MyBankIDL\$(Configuration);$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)MyBankIDL\$(Configuration);$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,17 +143,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="IMyBankFunctions.cpp" />
     <ClCompile Include="MyBankClient.cpp" />
+    <ClCompile Include="MyBankClientConsoleApp.cpp" />
     <ClCompile Include="MyBankClientStub.c" />
     <ClCompile Include="MyBankMem.c" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyBankClientConsoleApp\MyBankClientConsoleApp.vcxproj">
-      <Project>{1c94118d-e26b-49f5-b022-b1b02f4a5cbc}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\MyBankIDL\MyBankIDL.vcxproj">
       <Project>{d2c2c435-74d0-460a-b776-97ec1bf614ac}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="IMyBankFunctions.h" />
+    <ClInclude Include="MyBankClientConsoleApp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

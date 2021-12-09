@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MyBankServer.c">
+    <ClCompile Include="MyBankServer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyBankServerStub.c">
+    <ClCompile Include="MyBankServerStub.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyBankServerImpl.c">
+    <ClCompile Include="MyBankServerImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

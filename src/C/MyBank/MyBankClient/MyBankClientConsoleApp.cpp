@@ -1,26 +1,25 @@
 #include "MyBankClientConsoleApp.h"
 
-void client::run()
+void run(IMyBankFunctions& MyBank)
 {
-    IMyBankFunctions bank;
-    _start(bank);
-    cout << "Bank wird verbunden\n";
+    IMyBankFunctions& bank = MyBank;
     _login(bank);
     _loop(bank);
 }
 
-void client::_start(IMyBankFunctions& MyBank) {
+void start(IMyBankFunctions& MyBank) {
     IMyBankFunctions& bank = MyBank;
-    string netaddr;
-    string port;
+    string netwAddr;
+    string endpoint;
     cout << "Willkommen bei MyBank!\n" << "Bitte geben sie die Serveradresse ein:\n";
-    cin >> netaddr;
+    cin >> netwAddr;
     cout << "Bitte geben sie den Netzwerkport an:\n";
-    cin >> port;
-    bank.connect_c(netaddr + ":" + port);
+    cin >> endpoint;
+    cout << "Bank wird verbunden\n";
+    cout << bank.connect_c(netwAddr, endpoint);
 }
 
-void client::_login(IMyBankFunctions& MyBank) {
+void _login(IMyBankFunctions& MyBank) {
     IMyBankFunctions& bank = MyBank;
     string username;
     string password;
@@ -30,7 +29,7 @@ void client::_login(IMyBankFunctions& MyBank) {
     cin >> password;
     cout << bank.login_c(username, password);
 }
-void client::_loop(IMyBankFunctions& MyBank){
+void _loop(IMyBankFunctions& MyBank){
     IMyBankFunctions& bank = MyBank;
     string func;
     bool active = true;
@@ -66,13 +65,16 @@ void client::_loop(IMyBankFunctions& MyBank){
         else if (func == "transfer")
         {
             long to_account_number;
+            long from_account_number;
             float amount;
             string comment;
             cout << "Auf welches Konto möchten Sie überweisen?\n";
             cin >> to_account_number;
+            cout << "Von welchem konto möchten Sie überweisen?";
+            cin >> from_account_number;
             cout << "Wie viel möchten Sie überweisen?\n";
             cin >> amount;
-            cout << bank.transfer_c((long)to_account_number,(float)amount,comment);
+            cout << bank.transfer_c(from_account_number,to_account_number,amount,comment);
         }
         else if (func == "statement")
         {

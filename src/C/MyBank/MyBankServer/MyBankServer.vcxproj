@@ -148,9 +148,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="MyBankServer.c" />
-    <ClCompile Include="MyBankServerImpl.c" />
-    <ClCompile Include="MyBankServerStub.c" />
+    <ClCompile Include="MyBankServer.cpp" />
+    <ClCompile Include="MyBankServerImpl.cpp" />
+    <ClCompile Include="MyBankServerStub.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyBankAcc\MyBankAcc.vcxproj">

@@ -15,7 +15,7 @@ void newuser(long token, unsigned char* username, unsigned char* password)
 
 }
 
-void listaccounts(long token, long accountnumbers, unsigned char* descriptions)
+void listaccounts(long token, unsigned char** descriptions)
 {
 
 }
@@ -25,7 +25,7 @@ void transfer(long token, long from_account_number, long to_account_number, floa
 
 }
 
-void statement(long token, long account_number, long detailed)
+void statement(long token, long account_number, long detailed, unsigned char** statement_out )
 {
 
 }

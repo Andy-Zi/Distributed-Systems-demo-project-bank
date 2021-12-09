@@ -24,5 +24,19 @@
     <ClCompile Include="MyBankMem.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="IMyBankFunctions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MyBankClientConsoleApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="IMyBankFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MyBankClientConsoleApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
