@@ -53,6 +53,18 @@ json MyBankServiceConnector::SerializeAccountDescriptions(list<Accountdesc> acco
 	return serialized_list;
 }
 
+json MyBankServiceConnector::SerializeStatements(list<Statement> statements) {
+	json serialized_list = json::array();
+	for (auto it = statements.begin(); it != statements.end(); it++)
+	{
+		json j;
+		(*it).to_json(j);
+		serialized_list.push_back(j);
+	}
+
+	return serialized_list;
+}
+
 void MyBankServiceConnector::payinto(int token, int account_number, float amount)
 {
 	if (mybank.getPriviligesbyToken(token) == Priviliges::admin) {

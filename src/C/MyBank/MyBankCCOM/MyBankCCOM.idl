@@ -20,7 +20,6 @@ interface IMyBankATL : IDispatch
 	[id(1)] HRESULT Login([in] BSTR username, [in] BSTR password, [out, retval] LONG* token);
 	[id(2)] HRESULT NewUser([in] LONG token, [in] BSTR username, [in] BSTR password);
 	[id(3)] HRESULT ListAccounts([in] LONG token, [out, retval] BSTR* Accountdesc);
-	[id(4)] HRESULT Test([in] LONG token);
 };
 [
 	uuid(3feedad1-8c16-4a85-9440-b24d37ddfa2f),

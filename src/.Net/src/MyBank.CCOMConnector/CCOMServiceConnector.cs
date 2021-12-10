@@ -33,13 +33,14 @@ namespace MyBank.CCOMConnector
 
         public List<(string AccountNumber, string Description)> ListAccounts(string token)
         {
-
+            var result = ccomClient.ListAccounts(Int32.Parse(token));
+            return default;
         }
 
         public string Login(string username, string password)
         {
-            var test = ccomClient.Login(username, password);
-            return test.ToString();
+            var token = ccomClient.Login(username, password);
+            return token.ToString();
         }
 
         public string NewAccount(string token, string username, string description)

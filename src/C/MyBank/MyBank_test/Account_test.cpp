@@ -57,3 +57,25 @@ TEST_F(Account_Test, listTransaction) {
 	int it = (*transactions.cbegin());
 	EXPECT_EQ(it, id);
 }
+
+TEST_F(Account_Test, serialize) {
+	string expectedText = "{\"AccountNumber\":0,\"Description\":\"Das ist ein Account\",\"OwnerID\":0,\"TransactionList\":[123,666],\"Value\":100.0}";
+	Transaction t1(1, 0, 50, "comment", 123);
+	account->addTransaction(t1);
+	Transaction t2(1, 0, 50, "comment", 666);
+	account->addTransaction(t2);
+	json j;
+	account->to_json(j);
+	string text = j.dump();
+	EXPECT_EQ(expectedText, text);
+}
+
+TEST_F(Account_Test, deserialize) {
+	json jsonString = "{\"AccountNumber\":123,\"Description\":\"Das ist ein Account\",\"OwnerID\":69,\"TransactionList\":[123,666],\"Value\":100.0}"_json;
+	Account a;
+	a.from_json(jsonString);
+	EXPECT_EQ(a.getAccountnumber(),123);
+	EXPECT_EQ(a.getOwnerID(), 69);
+	EXPECT_EQ(a.getValue(), 100);
+	EXPECT_EQ(a.listTransactions().size(), 2);
+}

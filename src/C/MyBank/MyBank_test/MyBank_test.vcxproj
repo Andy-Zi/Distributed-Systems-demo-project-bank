@@ -39,6 +39,7 @@
     <ClCompile Include="Account_test.cpp" />
     <ClCompile Include="MyBankServiceConnector_test.cpp" />
     <ClCompile Include="MyBank_test.cpp" />
+    <ClCompile Include="Statement_test.cpp" />
     <ClCompile Include="Transaction_test.cpp" />
     <ClCompile Include="User_test.cpp" />
     <ClCompile Include="pch.cpp">

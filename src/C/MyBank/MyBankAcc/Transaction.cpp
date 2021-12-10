@@ -1,4 +1,5 @@
 #include "Transaction.h"
+#include <nlohmann/json.hpp>
 
 int Transaction::getStartaccID()
 {
@@ -44,4 +45,26 @@ void Transaction::checkValidTransaction()
 std::time_t Transaction::getTime()
 {
 	return this->time;
+}
+
+void Transaction::to_json(json& j) {
+	//Serialize the Account
+	j = json{
+		{"startaccID",startaccID},
+		{"endaccID", endaccID},
+		{"amount",amount},
+		{"comment", comment},
+		{"id",id},
+		{"time",time}
+	};
+}
+
+void Transaction::from_json(const json& j) {
+	//Deserilaize the Account
+	j.at("startaccID").get_to(startaccID);
+	j.at("endaccID").get_to(endaccID);
+	j.at("amount").get_to(amount);
+	j.at("comment").get_to(comment);
+	j.at("id").get_to(id);
+	j.at("time").get_to(time);
 }

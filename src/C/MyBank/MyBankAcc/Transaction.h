@@ -3,6 +3,9 @@
 #include <stdexcept>
 #include <ctime> 
 #include <chrono>
+#include <nlohmann/json.hpp>
+
+using nlohmann::json;
 
 class Transaction {
 public:
@@ -13,6 +16,9 @@ public:
 		auto now = std::chrono::system_clock::now();
 		time = std::chrono::system_clock::to_time_t(now);
 	}
+	Transaction() {
+
+	}
 	int getStartaccID();
 	int getEndaccID();
 	float getAmount();
@@ -20,6 +26,9 @@ public:
 	int getId();
 	void checkValidTransaction();
 	std::time_t getTime();
+	void to_json(json& j);
+	void from_json(const json& j);
+
 private:
 	int startaccID;
 	int endaccID ;

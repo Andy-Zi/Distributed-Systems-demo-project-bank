@@ -59,3 +59,24 @@ TEST_F(Transaction_Test, negativAmount) {
 TEST_F(Transaction_Test, Time) {
 	EXPECT_EQ(time,transaction->getTime());
 }
+
+TEST_F(Transaction_Test, Serialize) {
+	std::string expectedText = "{\"amount\":50.0,\"comment\":\"comment\",\"endaccID\":1,\"id\":0,\"startaccID\":0,\"time\":"+std::to_string(time)+"}";
+	json j;
+	transaction->to_json(j);
+	std::string text = j.dump();
+	EXPECT_EQ(expectedText,text);
+}
+
+TEST_F(Transaction_Test, Deserialize) {
+	std::string jsonString = ("{\"amount\":50.0,\"comment\":\"comment\",\"endaccID\":1,\"id\":0,\"startaccID\":0,\"time\":" + std::to_string(time) + "}");
+	auto j = json::parse(jsonString);
+	Transaction t;
+	t.from_json(j);
+	EXPECT_EQ(t.getAmount(), 50.0);
+	EXPECT_EQ(t.getComment(), "comment");
+	EXPECT_EQ(t.getEndaccID(), 1);
+	EXPECT_EQ(t.getId(), 0);
+	EXPECT_EQ(t.getStartaccID(), 0);
+	EXPECT_EQ(t.getTime(), time);
+}

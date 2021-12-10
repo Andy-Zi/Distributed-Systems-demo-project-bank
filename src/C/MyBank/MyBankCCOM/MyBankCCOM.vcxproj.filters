@@ -73,6 +73,7 @@
     <None Include="MyBankATL.rgs">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="MyBankCCOM.idl">

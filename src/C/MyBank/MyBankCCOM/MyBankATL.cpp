@@ -44,24 +44,16 @@ STDMETHODIMP CMyBankATL::NewUser(LONG token, BSTR username, BSTR password)
 }
 
 STDMETHODIMP CMyBankATL::ListAccounts(LONG token, BSTR* Accountdesc) {
-   /* try {
+    try {
 
         auto accountdescs = this->bank.listaccounts(token);
-        ATLAccountdesc* atlAccountDescs = new ATLAccountdesc[accountdescs.size()];
-        int i = 0;
-        for (auto it = accountdescs.begin(); it != accountdescs.end(); it++) {
-            ATLAccountdesc atlAccountDesc;
-            atlAccountDesc.Account_Number = (*it).Account_Number;
-            atlAccountDesc.Description = String2BSTR((*it).Description);
-            atlAccountDescs[i] = atlAccountDesc;
-            i++;
-        }
-
-        Accountdesc = &atlAccountDescs;
-
+        auto j = this->bank.SerializeAccountDescriptions(accountdescs);
+        string text = j.dump(4);
+        auto localAccountdesc = String2BSTR(text);
+        Accountdesc = &localAccountdesc;
     }catch (const std::exception& e) {
         return E_ACCESSDENIED;
-    }*/
+    }
     return S_OK;
 }
 

@@ -27,8 +27,28 @@ void Account::addTransaction(Transaction t) {
 	}
 	if (t.getEndaccID() == getOwnerID())
 		Value += t.getAmount();
-	this->Transactionlist.push_back(t.getId());
+	this->TransactionList.push_back(t.getId());
 }
 std::list<int> Account::listTransactions() {
-	return this->Transactionlist;
+	return this->TransactionList;
+}
+
+void Account::to_json(json& j) {
+	//Serialize the Account
+	j = json{ 
+		{"OwnerID", OwnerID},
+		{"Description", Description},
+		{"AccountNumber",AccountNumber},
+		{"Value", Value},
+		{"TransactionList",TransactionList}
+	};
+}
+
+void Account::from_json(const json& j) {
+	//Deserilaize the Account
+	j.at("OwnerID").get_to(OwnerID);
+	j.at("Description").get_to(Description);
+	j.at("AccountNumber").get_to(AccountNumber);
+	j.at("Value").get_to(Value);
+	j.at("TransactionList").get_to(TransactionList);
 }

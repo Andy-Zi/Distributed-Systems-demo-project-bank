@@ -110,9 +110,6 @@ EXTERN_C const IID IID_IMyBankATL;
             /* [in] */ LONG token,
             /* [retval][out] */ BSTR *Accountdesc) = 0;
         
-        virtual /* [id] */ HRESULT STDMETHODCALLTYPE Test( 
-            /* [in] */ LONG token) = 0;
-        
     };
     
     
@@ -198,11 +195,6 @@ EXTERN_C const IID IID_IMyBankATL;
             /* [in] */ LONG token,
             /* [retval][out] */ BSTR *Accountdesc);
         
-        DECLSPEC_XFGVIRT(IMyBankATL, Test)
-        /* [id] */ HRESULT ( STDMETHODCALLTYPE *Test )( 
-            IMyBankATL * This,
-            /* [in] */ LONG token);
-        
         END_INTERFACE
     } IMyBankATLVtbl;
 
@@ -247,9 +239,6 @@ EXTERN_C const IID IID_IMyBankATL;
 
 #define IMyBankATL_ListAccounts(This,token,Accountdesc)	\
     ( (This)->lpVtbl -> ListAccounts(This,token,Accountdesc) ) 
-
-#define IMyBankATL_Test(This,token)	\
-    ( (This)->lpVtbl -> Test(This,token) ) 
 
 #endif /* COBJMACROS */
 

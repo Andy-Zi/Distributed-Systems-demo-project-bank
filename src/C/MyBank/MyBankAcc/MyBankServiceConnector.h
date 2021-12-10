@@ -78,6 +78,8 @@ Token: The Token of the User making the request[Hex-String]
 
     json SerializeAccountDescriptions(list<Accountdesc> accountDescriptions);
 
+    json SerializeStatements(list<Statement> statements);
+
 private:
     MyBank mybank;
 };
