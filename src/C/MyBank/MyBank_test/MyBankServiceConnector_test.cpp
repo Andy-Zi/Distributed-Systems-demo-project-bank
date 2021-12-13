@@ -46,7 +46,7 @@ TEST_F(MyBankServiceConnector_Test, listaccounts) {
 }
 
 TEST_F(MyBankServiceConnector_Test, serialize_Accounts) {
-	string expectedText = "[{\"Account_Number\":0,\"Description\":\"useracc\"}]";
+	string expectedText = "[{\"AccountNumber\":0,\"Description\":\"useracc\"}]";
 	int token_a = mybankserviceconnector->login("admin", "admin");
 	int token_u = mybankserviceconnector->login("user", "user");
 	int accid = mybankserviceconnector->newaccount(token_a, "user", "useracc");
@@ -56,12 +56,3 @@ TEST_F(MyBankServiceConnector_Test, serialize_Accounts) {
 
 	EXPECT_EQ(expectedText, serializedText);
 }
-
-/*
-TEST_F(MyBankServiceConnector_Test, payinto) {
-	int token_a = mybankserviceconnector->login("admin", "admin");
-	int token_u = mybankserviceconnector->login("user", "user");
-	int accid = mybankserviceconnector->newaccount(token_a, "user", "useracc");
-	mybankserviceconnector->payinto(token_a,accid,20);
-	EXPECT_EQ((*accs.begin()).Account_Number, accid);
-}*/

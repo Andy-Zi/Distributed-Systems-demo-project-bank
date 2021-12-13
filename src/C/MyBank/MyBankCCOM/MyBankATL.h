@@ -54,10 +54,14 @@ END_COM_MAP()
 
 public:
 
-	STDMETHOD(Login)(BSTR username, BSTR password, LONG* token);
-	STDMETHOD(NewUser)(LONG token, BSTR username, BSTR password);
-	STDMETHOD(ListAccounts)(LONG token, BSTR* accountdesc);
-	STDMETHOD(Test)(LONG token);
+	STDMETHOD(Login)(BSTR username, BSTR password, INT* token);
+	STDMETHOD(NewUser)(INT token, BSTR username, BSTR password);
+	STDMETHOD(ListAccounts)(INT token, BSTR* accountdesc);
+	STDMETHOD(Logout)(INT token);
+	STDMETHOD(NewAccount)(INT token, BSTR username, BSTR description, INT* accountNumber);
+	STDMETHOD(PayInto)(INT token, INT accountNumber, FLOAT amount);
+	STDMETHOD(Transfer)(INT token, INT fromAccountNumber, INT toAccountNumber, FLOAT amount, BSTR comment);
+	STDMETHOD(Statement)(INT token, INT accountNumber, BOOL detailed, BSTR* statement);
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(MyBankATL), CMyBankATL)

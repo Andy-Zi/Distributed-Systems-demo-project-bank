@@ -38,7 +38,7 @@ void Account::to_json(json& j) {
 	j = json{ 
 		{"OwnerID", OwnerID},
 		{"Description", Description},
-		{"AccountNumber",AccountNumber},
+		{"AccNumber",AccountNumber},
 		{"Value", Value},
 		{"TransactionList",TransactionList}
 	};
@@ -48,7 +48,7 @@ void Account::from_json(const json& j) {
 	//Deserilaize the Account
 	j.at("OwnerID").get_to(OwnerID);
 	j.at("Description").get_to(Description);
-	j.at("AccountNumber").get_to(AccountNumber);
+	j.at("AccNumber").get_to(AccountNumber);
 	j.at("Value").get_to(Value);
 	j.at("TransactionList").get_to(TransactionList);
 }

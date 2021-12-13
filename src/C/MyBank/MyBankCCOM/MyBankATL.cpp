@@ -14,51 +14,101 @@ std::string BSTR2String(BSTR bs) {
 }
 
 BSTR String2BSTR(string s) {
-    std:wstring ws(s.begin(), s.end());
-    return SysAllocStringLen(ws.data(), ws.size());
+
+    const char* cstr = s.c_str();
+    return _bstr_t((char*)cstr).copy();
 }
 
-STDMETHODIMP CMyBankATL::Login(BSTR username, BSTR password, LONG* token)
+
+HRESULT HandleError(std::exception e) {
+    return E_ACCESSDENIED;
+}
+
+STDMETHODIMP CMyBankATL::Login(BSTR username, BSTR password, INT* token)
 {
+    *token = 23l;
     try {
         auto new_token = (long)(this->bank.login(BSTR2String(username), BSTR2String(password)));
-        token = &new_token;
     }
     catch (const std::exception& e) {
-        token = 0;
-        return E_ACCESSDENIED;
+        return HandleError(e);
     }
     return S_OK;
 }
 
 
-STDMETHODIMP CMyBankATL::NewUser(LONG token, BSTR username, BSTR password)
+STDMETHODIMP CMyBankATL::NewUser(INT token, BSTR username, BSTR password)
 {
     try {
         this->bank.newuser(token, BSTR2String(username), BSTR2String(password));
     }
     catch (const std::exception& e) {
-        return E_ACCESSDENIED;
+        return HandleError(e);
     }
     return S_OK;
 }
 
-STDMETHODIMP CMyBankATL::ListAccounts(LONG token, BSTR* Accountdesc) {
+STDMETHODIMP CMyBankATL::ListAccounts(INT token, BSTR* Accountdesc) {
     try {
-
         auto accountdescs = this->bank.listaccounts(token);
         auto j = this->bank.SerializeAccountDescriptions(accountdescs);
-        string text = j.dump(4);
-        auto localAccountdesc = String2BSTR(text);
-        Accountdesc = &localAccountdesc;
+        *Accountdesc = String2BSTR(j.dump());
     }catch (const std::exception& e) {
-        return E_ACCESSDENIED;
+        return HandleError(e);
     }
     return S_OK;
 }
 
-STDMETHODIMP CMyBankATL::Test(LONG token)
-{
+STDMETHODIMP CMyBankATL::Logout(INT token) {
+    try {
+        this->bank.logout(token);
+    }
+    catch (const std::exception& e) {
+        return HandleError(e);
+    }
     return S_OK;
 }
+
+STDMETHODIMP CMyBankATL::NewAccount(INT token, BSTR username, BSTR description, INT* accountNumber) {
+    try {
+        *accountNumber = this->bank.newaccount(token, BSTR2String(username), BSTR2String(description));
+    }
+    catch (const std::exception& e) {
+        return HandleError(e);
+    }
+    return S_OK;
+}
+
+STDMETHODIMP CMyBankATL::PayInto(INT token, INT accountNumber, FLOAT amount) {
+    try {
+        this->bank.payinto(token, accountNumber, amount);
+    }
+    catch (const std::exception& e) {
+        return HandleError(e);
+    }
+    return S_OK;
+}
+
+STDMETHODIMP CMyBankATL::Transfer(INT token, INT fromAccountNumber, INT toAccountNumber, FLOAT amount, BSTR comment) {
+    try {
+        this->bank.transfer(token, fromAccountNumber, toAccountNumber, amount, BSTR2String(comment));
+    }
+    catch (const std::exception& e) {
+        return HandleError(e);
+    }
+    return S_OK;
+}
+
+STDMETHODIMP CMyBankATL::Statement(INT token, INT accountNumber, BOOL detailed, BSTR* statement) {
+    try {
+        auto statements = this->bank.statement(token, accountNumber, detailed);
+        json j = this->bank.SerializeStatements(statements);
+        *statement = String2BSTR(j.dump());
+    }
+    catch (const std::exception& e) {
+        return HandleError(e);
+    }
+    return S_OK;
+}
+
 

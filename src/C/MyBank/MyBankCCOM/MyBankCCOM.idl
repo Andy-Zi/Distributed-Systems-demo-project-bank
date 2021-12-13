@@ -17,9 +17,14 @@ import "ocidl.idl";
 
 interface IMyBankATL : IDispatch
 {
-	[id(1)] HRESULT Login([in] BSTR username, [in] BSTR password, [out, retval] LONG* token);
-	[id(2)] HRESULT NewUser([in] LONG token, [in] BSTR username, [in] BSTR password);
-	[id(3)] HRESULT ListAccounts([in] LONG token, [out, retval] BSTR* Accountdesc);
+	[id(1)] HRESULT Login([in] BSTR username, [in] BSTR password, [out, retval] INT* token);
+	[id(2)] HRESULT NewUser([in] INT token, [in] BSTR username, [in] BSTR password);
+	[id(3)] HRESULT ListAccounts([in] INT token, [out, retval] BSTR* Accountdesc);
+	[id(4)] HRESULT Logout([in] INT token);
+	[id(5)] HRESULT NewAccount([in] INT token, [in] BSTR username, [in] BSTR description, [out, retval] INT* accountNumber);
+	[id(6)] HRESULT PayInto([in] INT token, [in] INT accountNumber, [in] FLOAT amount);
+	[id(7)] HRESULT Transfer([in] INT token, [in] INT fromAccountNumber, [in] INT toAccountNumber, [in] FLOAT amount, [in] BSTR comment);
+	[id(8)] HRESULT Statement([in] INT token, [in] INT accountNumber, [in] BOOL detailed, [out, retval] BSTR* statement);
 };
 [
 	uuid(3feedad1-8c16-4a85-9440-b24d37ddfa2f),

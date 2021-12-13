@@ -14,11 +14,11 @@ public:
 	string Description;
 
 	void to_json(json& j) {
-		j = json{ {"Account_Number", Account_Number}, {"Description", Description} };
+		j = json{ {"AccountNumber", Account_Number}, {"Description", Description} };
 	}
 
 	void from_json(const json& j) {
-		j.at("Account_Number").get_to(Account_Number);
+		j.at("AccountNumber").get_to(Account_Number);
 		j.at("Description").get_to(Description);
 	}
 };

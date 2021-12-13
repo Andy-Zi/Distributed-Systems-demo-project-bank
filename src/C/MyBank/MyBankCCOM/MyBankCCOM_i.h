@@ -99,16 +99,43 @@ EXTERN_C const IID IID_IMyBankATL;
         virtual /* [id] */ HRESULT STDMETHODCALLTYPE Login( 
             /* [in] */ BSTR username,
             /* [in] */ BSTR password,
-            /* [retval][out] */ LONG *token) = 0;
+            /* [retval][out] */ INT *token) = 0;
         
         virtual /* [id] */ HRESULT STDMETHODCALLTYPE NewUser( 
-            /* [in] */ LONG token,
+            /* [in] */ INT token,
             /* [in] */ BSTR username,
             /* [in] */ BSTR password) = 0;
         
         virtual /* [id] */ HRESULT STDMETHODCALLTYPE ListAccounts( 
-            /* [in] */ LONG token,
+            /* [in] */ INT token,
             /* [retval][out] */ BSTR *Accountdesc) = 0;
+        
+        virtual /* [id] */ HRESULT STDMETHODCALLTYPE Logout( 
+            /* [in] */ INT token) = 0;
+        
+        virtual /* [id] */ HRESULT STDMETHODCALLTYPE NewAccount( 
+            /* [in] */ INT token,
+            /* [in] */ BSTR username,
+            /* [in] */ BSTR description,
+            /* [retval][out] */ INT *accountNumber) = 0;
+        
+        virtual /* [id] */ HRESULT STDMETHODCALLTYPE PayInto( 
+            /* [in] */ INT token,
+            /* [in] */ INT accountNumber,
+            /* [in] */ FLOAT amount) = 0;
+        
+        virtual /* [id] */ HRESULT STDMETHODCALLTYPE Transfer( 
+            /* [in] */ INT token,
+            /* [in] */ INT fromAccountNumber,
+            /* [in] */ INT toAccountNumber,
+            /* [in] */ FLOAT amount,
+            /* [in] */ BSTR comment) = 0;
+        
+        virtual /* [id] */ HRESULT STDMETHODCALLTYPE Statement( 
+            /* [in] */ INT token,
+            /* [in] */ INT accountNumber,
+            /* [in] */ BOOL detailed,
+            /* [retval][out] */ BSTR *statement) = 0;
         
     };
     
@@ -180,20 +207,57 @@ EXTERN_C const IID IID_IMyBankATL;
             IMyBankATL * This,
             /* [in] */ BSTR username,
             /* [in] */ BSTR password,
-            /* [retval][out] */ LONG *token);
+            /* [retval][out] */ INT *token);
         
         DECLSPEC_XFGVIRT(IMyBankATL, NewUser)
         /* [id] */ HRESULT ( STDMETHODCALLTYPE *NewUser )( 
             IMyBankATL * This,
-            /* [in] */ LONG token,
+            /* [in] */ INT token,
             /* [in] */ BSTR username,
             /* [in] */ BSTR password);
         
         DECLSPEC_XFGVIRT(IMyBankATL, ListAccounts)
         /* [id] */ HRESULT ( STDMETHODCALLTYPE *ListAccounts )( 
             IMyBankATL * This,
-            /* [in] */ LONG token,
+            /* [in] */ INT token,
             /* [retval][out] */ BSTR *Accountdesc);
+        
+        DECLSPEC_XFGVIRT(IMyBankATL, Logout)
+        /* [id] */ HRESULT ( STDMETHODCALLTYPE *Logout )( 
+            IMyBankATL * This,
+            /* [in] */ INT token);
+        
+        DECLSPEC_XFGVIRT(IMyBankATL, NewAccount)
+        /* [id] */ HRESULT ( STDMETHODCALLTYPE *NewAccount )( 
+            IMyBankATL * This,
+            /* [in] */ INT token,
+            /* [in] */ BSTR username,
+            /* [in] */ BSTR description,
+            /* [retval][out] */ INT *accountNumber);
+        
+        DECLSPEC_XFGVIRT(IMyBankATL, PayInto)
+        /* [id] */ HRESULT ( STDMETHODCALLTYPE *PayInto )( 
+            IMyBankATL * This,
+            /* [in] */ INT token,
+            /* [in] */ INT accountNumber,
+            /* [in] */ FLOAT amount);
+        
+        DECLSPEC_XFGVIRT(IMyBankATL, Transfer)
+        /* [id] */ HRESULT ( STDMETHODCALLTYPE *Transfer )( 
+            IMyBankATL * This,
+            /* [in] */ INT token,
+            /* [in] */ INT fromAccountNumber,
+            /* [in] */ INT toAccountNumber,
+            /* [in] */ FLOAT amount,
+            /* [in] */ BSTR comment);
+        
+        DECLSPEC_XFGVIRT(IMyBankATL, Statement)
+        /* [id] */ HRESULT ( STDMETHODCALLTYPE *Statement )( 
+            IMyBankATL * This,
+            /* [in] */ INT token,
+            /* [in] */ INT accountNumber,
+            /* [in] */ BOOL detailed,
+            /* [retval][out] */ BSTR *statement);
         
         END_INTERFACE
     } IMyBankATLVtbl;
@@ -239,6 +303,21 @@ EXTERN_C const IID IID_IMyBankATL;
 
 #define IMyBankATL_ListAccounts(This,token,Accountdesc)	\
     ( (This)->lpVtbl -> ListAccounts(This,token,Accountdesc) ) 
+
+#define IMyBankATL_Logout(This,token)	\
+    ( (This)->lpVtbl -> Logout(This,token) ) 
+
+#define IMyBankATL_NewAccount(This,token,username,description,accountNumber)	\
+    ( (This)->lpVtbl -> NewAccount(This,token,username,description,accountNumber) ) 
+
+#define IMyBankATL_PayInto(This,token,accountNumber,amount)	\
+    ( (This)->lpVtbl -> PayInto(This,token,accountNumber,amount) ) 
+
+#define IMyBankATL_Transfer(This,token,fromAccountNumber,toAccountNumber,amount,comment)	\
+    ( (This)->lpVtbl -> Transfer(This,token,fromAccountNumber,toAccountNumber,amount,comment) ) 
+
+#define IMyBankATL_Statement(This,token,accountNumber,detailed,statement)	\
+    ( (This)->lpVtbl -> Statement(This,token,accountNumber,detailed,statement) ) 
 
 #endif /* COBJMACROS */
 

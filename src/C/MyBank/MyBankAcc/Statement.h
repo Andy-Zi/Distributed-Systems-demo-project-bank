@@ -6,7 +6,9 @@ struct Statement
 public:
 	Statement(Account acc, list<Transaction> trans) : acc{ acc }, trans{ trans }
 	{
+
 	}
+
 	Statement() {
 
 	}

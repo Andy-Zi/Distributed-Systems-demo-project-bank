@@ -33,7 +33,7 @@ struct Statement_Test : testing::Test
 TEST_F(Statement_Test, SerializationPipeline) {
 	json j;
 	statement->to_json(j);
-
+	string text = j.dump();
 	Statement deserializedStatement;
 	deserializedStatement.from_json(j);
 
