@@ -137,6 +137,9 @@ EXTERN_C const IID IID_IMyBankATL;
             /* [in] */ BOOL detailed,
             /* [retval][out] */ BSTR *statement) = 0;
         
+        virtual /* [id] */ HRESULT STDMETHODCALLTYPE GetError( 
+            /* [retval][out] */ BSTR *error) = 0;
+        
     };
     
     
@@ -259,6 +262,11 @@ EXTERN_C const IID IID_IMyBankATL;
             /* [in] */ BOOL detailed,
             /* [retval][out] */ BSTR *statement);
         
+        DECLSPEC_XFGVIRT(IMyBankATL, GetError)
+        /* [id] */ HRESULT ( STDMETHODCALLTYPE *GetError )( 
+            IMyBankATL * This,
+            /* [retval][out] */ BSTR *error);
+        
         END_INTERFACE
     } IMyBankATLVtbl;
 
@@ -318,6 +326,9 @@ EXTERN_C const IID IID_IMyBankATL;
 
 #define IMyBankATL_Statement(This,token,accountNumber,detailed,statement)	\
     ( (This)->lpVtbl -> Statement(This,token,accountNumber,detailed,statement) ) 
+
+#define IMyBankATL_GetError(This,error)	\
+    ( (This)->lpVtbl -> GetError(This,error) ) 
 
 #endif /* COBJMACROS */
 

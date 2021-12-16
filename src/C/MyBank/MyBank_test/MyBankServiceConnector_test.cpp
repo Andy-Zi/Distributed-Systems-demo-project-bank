@@ -56,3 +56,10 @@ TEST_F(MyBankServiceConnector_Test, serialize_Accounts) {
 
 	EXPECT_EQ(expectedText, serializedText);
 }
+
+TEST_F(MyBankServiceConnector_Test, statement) {
+	int token_a = mybankserviceconnector->login("admin", "admin");
+	int token_u = mybankserviceconnector->login("user", "user");
+	int accid = mybankserviceconnector->newaccount(token_a, "user", "useracc");
+	mybankserviceconnector->statement(token_a, accid, true);
+}

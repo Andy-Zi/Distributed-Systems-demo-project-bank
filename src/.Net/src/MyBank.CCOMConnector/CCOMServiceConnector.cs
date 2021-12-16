@@ -30,15 +30,11 @@ namespace MyBank.CCOMConnector
             }
             catch (Exception ex)
             {
-                //switch (faultException.Detail.Type)
-                //{
-                //    case nameof(AuthenticationException):
-                //        throw new AuthenticationException(faultException.Detail.Message);
-                //    case nameof(LoginException):
-                //        throw new LoginException(faultException.Detail.Message);
-                //    case nameof(ArgumentException):
-                //        throw new ArgumentException(faultException.Detail.Message);
-                //}
+                if(ex is ArgumentException)
+                {
+                    var errorMessage = ccomClient.GetError();
+                    throw new ArgumentException(errorMessage);
+                }
                 throw ex;
             }
         }
@@ -163,7 +159,7 @@ namespace MyBank.CCOMConnector
                 foreach(var statement in statements)
                 {
                     statement.Account.Transactions = new List<ITransaction>(statement.Transactions.Cast<ITransaction>());
-                    result.Append(statement.Account);
+                    result.Add(statement.Account);
                 }
             });
 

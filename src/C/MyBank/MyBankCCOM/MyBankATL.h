@@ -26,7 +26,8 @@ class ATL_NO_VTABLE CMyBankATL :
 	public IDispatchImpl<IMyBankATL, &IID_IMyBankATL, &LIBID_MyBankCCOMLib, /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
 public:
-	MyBankServiceConnector bank;
+	static MyBankServiceConnector bank;
+	std::string lastError;
 	CMyBankATL()
 	{
 	}
@@ -62,6 +63,7 @@ public:
 	STDMETHOD(PayInto)(INT token, INT accountNumber, FLOAT amount);
 	STDMETHOD(Transfer)(INT token, INT fromAccountNumber, INT toAccountNumber, FLOAT amount, BSTR comment);
 	STDMETHOD(Statement)(INT token, INT accountNumber, BOOL detailed, BSTR* statement);
+	STDMETHOD(GetError)(BSTR* error);
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(MyBankATL), CMyBankATL)
