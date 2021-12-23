@@ -13,6 +13,11 @@ public:
 	{
 		NewUser("admin", "admin", Priviliges::admin);
 		NewUser("user", "user", Priviliges::user);
+		auto admin = getUserByName("admin");
+		auto user = getUserByName("user");
+		NewAccount(admin->getId(),"Admin Account 1");
+		NewAccount(admin->getId(), "Admin Account 2");
+		NewAccount(user->getId(), "User Account 1");
 	}
 	int Login(string username, string password);
 	void Logout(int token);
