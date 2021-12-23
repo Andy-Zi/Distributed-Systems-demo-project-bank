@@ -8,17 +8,27 @@
 class MyBank
 {
 public:
-	~MyBank(){}
+	~MyBank(){
+		if (directory != "NONE") {
+			Save(directory);
+		}
+	}
 	MyBank()
 	{
 		NewUser("admin", "admin", Priviliges::admin);
 		NewUser("user", "user", Priviliges::user);
-		auto admin = getUserByName("admin");
-		auto user = getUserByName("user");
-		NewAccount(admin->getId(),"Admin Account 1");
-		NewAccount(admin->getId(), "Admin Account 2");
-		NewAccount(user->getId(), "User Account 1");
 	}
+
+	MyBank(string saveDirectory) {
+		directory = saveDirectory;
+		Load(directory);
+
+		if (KnownUsers.size() < 1) {
+			NewUser("admin", "admin", Priviliges::admin);
+			NewUser("user", "user", Priviliges::user);
+		}
+	}
+
 	int Login(string username, string password);
 	void Logout(int token);
 	void NewUser(string username, string password, Priviliges privilige);
@@ -36,15 +46,15 @@ public:
 	list<Transaction> getTransactionsForAccount(int acc_id);
 	Statement generate_Statement(int accountID);
 	Account getAccountByID(int accountID);
-	//TODO
-	//void shutdown();
-	//TODO
-	//void loadData();
-	//TODO
-	//void storeData();
 	list<User> getKnownUsers();
 	list<User*> getLoggedinUsers();
+	void Save(string directory);
+	void Load(string directory);
+
 private:
+	string directory= "NONE";
+	void SaveFile(string content, string path);
+	string LoadFile(string path);
 	list<User*> LoggedinUsers = {};
 	list<User> KnownUsers = {};
 	list<Account> Accounts = {};

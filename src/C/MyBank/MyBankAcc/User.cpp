@@ -38,3 +38,22 @@ int User::getToken()
 {
 	return this->Token;
 }
+
+void User::to_json(json& j) {
+	//Serialize the User
+	j = json{
+		{"Privilege",Privilege},
+		{"Username", Username},
+		{"Password",Password},
+		{"id",id}
+	};
+}
+
+void User::from_json(const json& j) {
+	//Deserilaize the User
+	j.at("Privilege").get_to(Privilege);
+	j.at("Username").get_to(Username);
+	j.at("Password").get_to(Password);
+	j.at("id").get_to(id);
+}
+

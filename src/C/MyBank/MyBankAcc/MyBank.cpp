@@ -1,4 +1,8 @@
 #include "MyBank.h"
+#include <iostream>
+#include <fstream>
+#include <direct.h>
+#include "JsonUtilityFunctions.cpp"
 
 int MyBank::Login(string username, string password)
 {
@@ -240,3 +244,42 @@ list<User*> MyBank::getLoggedinUsers()
 {
     return LoggedinUsers;
 }
+
+void MyBank::Save(string dir) {
+
+      _mkdir(dir.c_str());
+        SaveFile(SerilaizeList(KnownUsers).dump(4), dir + "\\users.json");
+        SaveFile(SerilaizeList(Accounts).dump(4), dir + "\\accounts.json");
+        SaveFile(SerilaizeList(Transactions).dump(4), dir + "\\transactions.json");
+
+}
+
+void MyBank::Load(string dir) {
+    try {
+        KnownUsers = DeserilaizeList<User>(json::parse(LoadFile(dir + "\\users.json")));
+        Accounts = DeserilaizeList<Account>(json::parse(LoadFile(dir + "\\accounts.json")));
+        Transactions = DeserilaizeList<Transaction>(json::parse(LoadFile(dir + "\\transactions.json")));
+    }
+    catch (...) {
+
+    }
+}
+
+void MyBank::SaveFile(string content, string path) {
+    ofstream outfile(path);
+    outfile << content;
+    outfile.close();
+}
+
+string MyBank::LoadFile(string path) {
+    string content;
+    ifstream  infile(path);
+    while (getline(infile, content)) {
+        // Output the text from the file
+        cout << content;
+    }
+    infile.close();
+    return content;
+}
+
+

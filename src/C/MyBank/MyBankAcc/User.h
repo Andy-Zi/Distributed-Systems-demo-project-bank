@@ -1,7 +1,9 @@
 #pragma once
 #include <string>
 #include "Priviliges.h"
+#include <nlohmann/json.hpp>
 
+using json = nlohmann::json;
 using namespace std;
 
 class User {
@@ -18,6 +20,9 @@ public:
 	void login(int Token);
 	void logout();
 	int getToken();
+	void to_json(json& j);
+	void from_json(const json& j);
+
 private:
 	Priviliges Privilege = Priviliges::user;
 	string Username = "";

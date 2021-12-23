@@ -12,7 +12,11 @@ class MyBankServiceConnector
 {
 public:
     MyBankServiceConnector() {
+        string appdata = getenv("APPDATA");
+        appdata += "\\..\\Local\\MyBank";
+        mybank = new MyBank(appdata);
     }
+
     ~MyBankServiceConnector(){}
     int login(string username, string password);
     void logout(int token);
@@ -81,6 +85,6 @@ Token: The Token of the User making the request[Hex-String]
     json SerializeStatements(list<Statement> statements);
 
 private:
-    MyBank mybank;
+    MyBank* mybank;
 };
 

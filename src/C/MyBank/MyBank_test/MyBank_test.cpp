@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "../MyBankAcc/MyBank.cpp"
+#include <filesystem>
 
 struct MyBank_Test : testing::Test
 {
@@ -125,4 +126,27 @@ TEST_F(MyBank_Test, getTransactionsForAccount) {
 	int aaccid = mybank->NewAccount(usr_a.getId(), "adminacc");
 	int transid = mybank->Transfer(uaccid, aaccid, 20, "testtrans");
 	EXPECT_EQ("testtrans", (*mybank->getTransactionsForAccount(aaccid).begin()).getComment());
+}
+
+TEST_F(MyBank_Test, SaveDoesNotThrow) {
+	int uaccid = mybank->NewAccount(usr_u.getId(), "usracc");
+	mybank->PayInto(uaccid, 50);
+	int aaccid = mybank->NewAccount(usr_a.getId(), "adminacc");
+	int transid = mybank->Transfer(uaccid, aaccid, 20, "testtrans");
+
+	string appdata = getenv("APPDATA");
+	appdata += "\\..\\Local\\MyBank\\test";
+	mybank->Save(appdata);
+}
+
+TEST_F(MyBank_Test, LoadDoesNotThrow) {
+	int uaccid = mybank->NewAccount(usr_u.getId(), "usracc");
+	mybank->PayInto(uaccid, 50);
+	int aaccid = mybank->NewAccount(usr_a.getId(), "adminacc");
+	int transid = mybank->Transfer(uaccid, aaccid, 20, "testtrans");
+
+	string appdata = getenv("APPDATA");
+	appdata += "\\..\\Local\\MyBank\\test";
+	mybank->Save(appdata);
+	mybank->Load(appdata);
 }

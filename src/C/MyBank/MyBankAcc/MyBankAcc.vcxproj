@@ -151,6 +151,7 @@
     <ClInclude Include="MyBankServiceConnector.h" />
     <ClInclude Include="Statement.h" />
     <ClCompile Include="ClientHelperFunctions.cpp" />
+    <ClCompile Include="JsonUtilityFunctions.cpp" />
     <ClCompile Include="User.cpp" />
     <ClInclude Include="Priviliges.h" />
     <ClInclude Include="Transaction.h" />

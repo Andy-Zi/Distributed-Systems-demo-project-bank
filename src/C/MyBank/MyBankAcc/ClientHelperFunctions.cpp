@@ -4,34 +4,20 @@
 #include <string>
 #include <iostream>
 #include <ctime>
+#include "JsonUtilityFunctions.cpp"
 
 using json = nlohmann::json;
 using namespace std;
 
 list<Accountdesc> DeserializeAccountDescriptions(string jsonString) {
-    list<Accountdesc> accounts;
-    json jsonArray = json::parse(jsonString);
 
-    for (auto it : jsonArray)
-    {
-        Accountdesc account;
-        account.from_json(it);
-        accounts.push_back(account);
-    }
-	return accounts;
+    json jsonArray = json::parse(jsonString);
+    return DeserilaizeList<Accountdesc>(jsonArray);
 }
 
 list<Statement> DeserializeStatements(string jsonString) {
-    list<Statement> statements;
     json jsonArray = json::parse(jsonString);
-
-    for (auto it : jsonArray)
-    {
-        Statement statement;
-        statement.from_json(it);
-        statements.push_back(statement);
-    }
-    return statements;
+    return DeserilaizeList<Statement>(jsonArray);
 }
 
 
