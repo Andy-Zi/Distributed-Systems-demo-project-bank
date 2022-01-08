@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include "MyBankServiceConnector.h"
 
+
 int main()
 {
     //RPC_STATUS status;

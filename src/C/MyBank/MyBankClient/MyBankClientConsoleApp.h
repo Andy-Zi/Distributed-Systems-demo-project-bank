@@ -6,6 +6,6 @@
 using namespace std;
 
 void run(IMyBankFunctions& MyBank);
-void start(IMyBankFunctions& MyBank);
-void _loop(IMyBankFunctions& MyBank);
-void _login(IMyBankFunctions& MyBank);
+bool start(IMyBankFunctions& MyBank);
+bool _loop(IMyBankFunctions& MyBank);
+bool _login(IMyBankFunctions& MyBank);

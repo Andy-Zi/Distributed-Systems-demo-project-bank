@@ -21,9 +21,6 @@
     <ClCompile Include="MyBankClientStub.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyBankMem.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="IMyBankFunctions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

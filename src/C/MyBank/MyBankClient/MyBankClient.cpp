@@ -12,9 +12,14 @@ int main(void)
 
     IMyBankFunctions bank;
 
+    bool connected = false;
+
     try
     {
-        start(bank);
+        while (!connected)
+        {
+            connected = start(bank);
+        }
         try
         {
             run(bank);
@@ -29,6 +34,7 @@ int main(void)
     }
     catch (RpcException& e)
     {
+        cout << "Verbindung unterbrochen";
         printf("stat=0x%x, text=%s, type=%s\n",
             (int)e.GetStatus(), e.GetErrorText(), e.GetErrorType());
     }

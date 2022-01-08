@@ -7,11 +7,14 @@ using namespace std;
 
 class IMyBankFunctions {
 public:
+	bool isConnected = false;
+	bool isLoggedIn = false;
+
 	void Bind(unsigned char* netwAddr, unsigned char* endpoint);
 
-	string connect_c(string netadr, string port);
+	string connect_c(string netadr, string port, bool& connected);
 
-	string login_c(string username, string password);
+	string login_c(string username, string password, bool& connected);
 
 	string newaccount_c(string username, string description);
 
@@ -26,4 +29,5 @@ public:
 	string bye_c();
 private:
 	long token;
+	bool HandleResult(HRESULT result);
 };

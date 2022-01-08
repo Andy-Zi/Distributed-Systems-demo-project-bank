@@ -6,6 +6,7 @@
 
 interface MyBank_i
 {
+    long is_connected();
     /*
     a) 1) login(in username, in password, out token)    
     Username: The Username of the User [string]    
@@ -15,9 +16,10 @@ interface MyBank_i
     0: User
     1: Admin    
     */
-    void login(  [in, string] char* username,
+    void login( [in, string] char* username,
                 [in, string] char* password,
-                [out] long *token
+                [out] long *token,
+                [out, string] char **res
                 );
     /*
     b 1) (Admin only) newaccount(in token, in username, in description, out account_number)     
@@ -29,7 +31,8 @@ interface MyBank_i
     void newaccount( [in] long token,
                     [in, string] char* username,
                     [in, string] char* description,
-                    [out] long* account_number
+                    [out] long* account_number,
+                    [out, string] char** res
                     );
     /*
     b 2) (Admin only) newuser(in token, in username, in password)    
@@ -39,7 +42,8 @@ interface MyBank_i
     */
     void newuser(   [in] long token,
                     [in, string] char* username,
-                    [in, string] char* password
+                    [in, string] char* password,
+                    [out, string] char** res
                     );
     /*
     c) listaccounts(in token, out (Account_Number,Description))    
@@ -51,8 +55,23 @@ interface MyBank_i
     Amount: The Amount to pay into the Account [float]    
     */
     void listaccounts([in] long token,
-                      [out,string] char** listaccount
+                      [out,string] char** listaccount,
+                      [out, string] char** res
                       );
+    
+    /*
+    d) (Admin only) payinto(in token, in account_number, in amount)
+    Token: The Token of the User making the request[Hex - String]
+    Account_Number : The Account Number of the Account to pay into[string (GUID)]
+    Amount : The Amount to pay into the Account[float]
+    */
+    void payinto([in] long token,
+                    [in] long account_number, 
+                    [in] float amount,
+                    [out, string] char** res
+                    );
+    
+    
     /*
     e) transfer(in token, in from_account_number, in to_account_number, in amount, in comment)    
     Token: The Token of the User making the request[Hex-String]    
@@ -65,7 +84,9 @@ interface MyBank_i
                     [in] long from_account_number,
                     [in] long to_account_number,
                     [in] float amount,
-                    [in, string] char* comment);
+                    [in, string] char* comment,
+                    [out, string] char** res
+                    );
     /*
     f) statement (in token, in [optional] account_number,in [optional] detailed , out accounts)    
     Token: The Token of the User making the request[Hex-String]   
@@ -76,11 +97,14 @@ interface MyBank_i
     void statement([in] long token,
                     [in] long account_number,  //option
                     [in] long detailed,               //option
-                    [out,string] char** statement_out
+                    [out,string] char** statement_out,
+                    [out, string] char** res
                     );
     /*
     g) bye(in token)
     Token: The Token of the User making the request[Hex-String]
     */
-    void bye([in] long token);
+    void bye([in] long token,
+                    [out, string] char** res
+                    );
 }

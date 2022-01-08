@@ -3,11 +3,11 @@
 /* this ALWAYS GENERATED file contains the definitions for the interfaces */
 
 
- /* File created by MIDL compiler version 8.01.0626 */
+ /* File created by MIDL compiler version 8.01.0622 */
 /* at Tue Jan 19 04:14:07 2038
  */
 /* Compiler settings for MyBankCCOM.idl:
-    Oicf, W1, Zp8, env=Win64 (32b run), target_arch=AMD64 8.01.0626 
+    Oicf, W1, Zp8, env=Win64 (32b run), target_arch=AMD64 8.01.0622 
     protocol : all , ms_ext, c_ext, robust
     error checks: allocation ref bounds_check enum stub_data 
     VC __declspec() decoration level: 
@@ -40,14 +40,6 @@
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1020)
 #pragma once
-#endif
-
-#ifndef DECLSPEC_XFGVIRT
-#if _CONTROL_FLOW_GUARD_XFG
-#define DECLSPEC_XFGVIRT(base, func) __declspec(xfg_virtual(base, func))
-#else
-#define DECLSPEC_XFGVIRT(base, func)
-#endif
 #endif
 
 /* Forward Declarations */ 
@@ -149,34 +141,28 @@ EXTERN_C const IID IID_IMyBankATL;
     {
         BEGIN_INTERFACE
         
-        DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
             IMyBankATL * This,
             /* [in] */ REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
-        DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
             IMyBankATL * This);
         
-        DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
             IMyBankATL * This);
         
-        DECLSPEC_XFGVIRT(IDispatch, GetTypeInfoCount)
         HRESULT ( STDMETHODCALLTYPE *GetTypeInfoCount )( 
             IMyBankATL * This,
             /* [out] */ UINT *pctinfo);
         
-        DECLSPEC_XFGVIRT(IDispatch, GetTypeInfo)
         HRESULT ( STDMETHODCALLTYPE *GetTypeInfo )( 
             IMyBankATL * This,
             /* [in] */ UINT iTInfo,
             /* [in] */ LCID lcid,
             /* [out] */ ITypeInfo **ppTInfo);
         
-        DECLSPEC_XFGVIRT(IDispatch, GetIDsOfNames)
         HRESULT ( STDMETHODCALLTYPE *GetIDsOfNames )( 
             IMyBankATL * This,
             /* [in] */ REFIID riid,
@@ -185,7 +171,6 @@ EXTERN_C const IID IID_IMyBankATL;
             /* [in] */ LCID lcid,
             /* [size_is][out] */ DISPID *rgDispId);
         
-        DECLSPEC_XFGVIRT(IDispatch, Invoke)
         /* [local] */ HRESULT ( STDMETHODCALLTYPE *Invoke )( 
             IMyBankATL * This,
             /* [annotation][in] */ 
@@ -205,32 +190,27 @@ EXTERN_C const IID IID_IMyBankATL;
             /* [annotation][out] */ 
             _Out_opt_  UINT *puArgErr);
         
-        DECLSPEC_XFGVIRT(IMyBankATL, Login)
         /* [id] */ HRESULT ( STDMETHODCALLTYPE *Login )( 
             IMyBankATL * This,
             /* [in] */ BSTR username,
             /* [in] */ BSTR password,
             /* [retval][out] */ INT *token);
         
-        DECLSPEC_XFGVIRT(IMyBankATL, NewUser)
         /* [id] */ HRESULT ( STDMETHODCALLTYPE *NewUser )( 
             IMyBankATL * This,
             /* [in] */ INT token,
             /* [in] */ BSTR username,
             /* [in] */ BSTR password);
         
-        DECLSPEC_XFGVIRT(IMyBankATL, ListAccounts)
         /* [id] */ HRESULT ( STDMETHODCALLTYPE *ListAccounts )( 
             IMyBankATL * This,
             /* [in] */ INT token,
             /* [retval][out] */ BSTR *Accountdesc);
         
-        DECLSPEC_XFGVIRT(IMyBankATL, Logout)
         /* [id] */ HRESULT ( STDMETHODCALLTYPE *Logout )( 
             IMyBankATL * This,
             /* [in] */ INT token);
         
-        DECLSPEC_XFGVIRT(IMyBankATL, NewAccount)
         /* [id] */ HRESULT ( STDMETHODCALLTYPE *NewAccount )( 
             IMyBankATL * This,
             /* [in] */ INT token,
@@ -238,14 +218,12 @@ EXTERN_C const IID IID_IMyBankATL;
             /* [in] */ BSTR description,
             /* [retval][out] */ INT *accountNumber);
         
-        DECLSPEC_XFGVIRT(IMyBankATL, PayInto)
         /* [id] */ HRESULT ( STDMETHODCALLTYPE *PayInto )( 
             IMyBankATL * This,
             /* [in] */ INT token,
             /* [in] */ INT accountNumber,
             /* [in] */ FLOAT amount);
         
-        DECLSPEC_XFGVIRT(IMyBankATL, Transfer)
         /* [id] */ HRESULT ( STDMETHODCALLTYPE *Transfer )( 
             IMyBankATL * This,
             /* [in] */ INT token,
@@ -254,7 +232,6 @@ EXTERN_C const IID IID_IMyBankATL;
             /* [in] */ FLOAT amount,
             /* [in] */ BSTR comment);
         
-        DECLSPEC_XFGVIRT(IMyBankATL, Statement)
         /* [id] */ HRESULT ( STDMETHODCALLTYPE *Statement )( 
             IMyBankATL * This,
             /* [in] */ INT token,
@@ -262,7 +239,6 @@ EXTERN_C const IID IID_IMyBankATL;
             /* [in] */ BOOL detailed,
             /* [retval][out] */ BSTR *statement);
         
-        DECLSPEC_XFGVIRT(IMyBankATL, GetError)
         /* [id] */ HRESULT ( STDMETHODCALLTYPE *GetError )( 
             IMyBankATL * This,
             /* [retval][out] */ BSTR *error);

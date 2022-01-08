@@ -147,7 +147,6 @@
     <ClCompile Include="MyBankClient.cpp" />
     <ClCompile Include="MyBankClientConsoleApp.cpp" />
     <ClCompile Include="MyBankClientStub.c" />
-    <ClCompile Include="MyBankMem.c" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyBankIDL\MyBankIDL.vcxproj">

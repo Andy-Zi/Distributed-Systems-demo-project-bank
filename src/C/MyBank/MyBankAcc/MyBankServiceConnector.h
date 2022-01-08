@@ -12,7 +12,11 @@ class MyBankServiceConnector
 {
 public:
     MyBankServiceConnector() {
-        string appdata = getenv("APPDATA");
+        char* buf = nullptr;
+        size_t sz = 0;
+        _dupenv_s(&buf, &sz, "APPDATA");
+        string appdata = buf;
+        free(buf);
         appdata += "\\..\\Local\\MyBank";
         mybank = new MyBank(appdata);
     }

@@ -2,24 +2,36 @@
 
 void run(IMyBankFunctions& MyBank)
 {
+    bool logged_in = false;
+    bool exit = false;
     IMyBankFunctions& bank = MyBank;
-    _login(bank);
-    _loop(bank);
+    
+    while (!exit)
+    {
+        while (!logged_in)
+        {
+            logged_in = _login(bank);
+        }
+        exit = _loop(bank);
+    }
 }
 
-void start(IMyBankFunctions& MyBank) {
+bool start(IMyBankFunctions& MyBank) {
     IMyBankFunctions& bank = MyBank;
     string netwAddr;
     string endpoint;
+    bool connected = false;
     cout << "Willkommen bei MyBank!\n" << "Bitte geben sie die Serveradresse ein:\n";
     cin >> netwAddr;
     cout << "Bitte geben sie den Netzwerkport an:\n";
     cin >> endpoint;
     cout << "Bank wird verbunden\n";
-    cout << bank.connect_c(netwAddr, endpoint);
+    cout << bank.connect_c(netwAddr, endpoint, connected);
+    return connected;
 }
 
-void _login(IMyBankFunctions& MyBank) {
+bool _login(IMyBankFunctions& MyBank) {
+    bool logged_in = false;
     IMyBankFunctions& bank = MyBank;
     string username;
     string password;
@@ -27,11 +39,13 @@ void _login(IMyBankFunctions& MyBank) {
     cin >> username;
     cout << "Geben sie ihr Passwort ein:\n";
     cin >> password;
-    cout << bank.login_c(username, password);
+    cout << bank.login_c(username, password, logged_in);
+    return logged_in;
 }
-void _loop(IMyBankFunctions& MyBank){
+bool _loop(IMyBankFunctions& MyBank){
     IMyBankFunctions& bank = MyBank;
     string func;
+    bool exit = false;
     bool active = true;
     while (active)
     {
@@ -91,7 +105,17 @@ void _loop(IMyBankFunctions& MyBank){
             cout << bank.bye_c();
             active = false;
         }
-    } 
+        else if (func == "exit")
+        {
+            cout << bank.bye_c();
+            active = false;
+            exit = true;
+        }
+        else {
+            cout << "Unbekanntes Command '" << func << "'\n";
+        }
+    }
+    return exit;
 }
 
 
