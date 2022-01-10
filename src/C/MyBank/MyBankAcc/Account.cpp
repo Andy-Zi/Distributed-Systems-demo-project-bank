@@ -29,6 +29,7 @@ void Account::addTransaction(Transaction t) {
 		Value += t.getAmount();
 	this->TransactionList.push_back(t.getId());
 }
+
 std::list<int> Account::listTransactions() {
 	return this->TransactionList;
 }

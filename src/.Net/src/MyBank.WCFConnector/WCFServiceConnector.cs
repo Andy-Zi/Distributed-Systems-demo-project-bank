@@ -43,7 +43,8 @@ namespace MyBank.WCFConnector
 
         public void Connect(string address, int port)
         {
-            Client = factory.CreateChannel(new EndpointAddress(address));
+            var url = $"http://{address}:{port}/WCFBankService";
+            Client = factory.CreateChannel(new EndpointAddress(url));
         }
 
         public void Disconnect()

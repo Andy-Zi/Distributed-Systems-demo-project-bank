@@ -21,7 +21,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Tests", "_Tests", "{795786
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBank.Server.BackendTests", "test\MyBank.Server.BackendTests\MyBank.Server.BackendTests.csproj", "{7D3CF108-0BC7-4FEE-AFF5-DEE139018FD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBank.WCFConnector", "MyBank.WCFConnector\MyBank.WCFConnector.csproj", "{35F2505A-7725-4564-B07F-AC808AADAFE9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile", "Mobile", "{0FC1AC1B-48C3-4E6F-A27E-6ED277F44BB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBank.Mobile.Android", "src\Mobile\MyBank.Mobile\MyBank.Mobile.Android\MyBank.Mobile.Android.csproj", "{18413F41-ED52-4490-BBA1-E4BDFAA0BB99}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBank.Mobile", "src\Mobile\MyBank.Mobile\MyBank.Mobile\MyBank.Mobile.csproj", "{E139B834-42DA-4F16-B6C1-3C377B115EE7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBank.Server.WCF", "src\Server\MyBank.Server.WCF\MyBank.Server.WCF.csproj", "{BF5F2245-4E81-4FEF-AA8A-6B4BA077F815}"
 EndProject

@@ -72,19 +72,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\MyBank.Interfaces\MyBank.Interfaces.csproj">
+    <ProjectReference Include="..\MyBank.Interfaces\MyBank.Interfaces.csproj">
       <Project>{2018B27A-2154-4334-9A8B-973C9E9AC2B7}</Project>
       <Name>MyBank.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\src\MyBank.Nameservice\MyBank.Nameservice.csproj">
+    <ProjectReference Include="..\MyBank.Nameservice\MyBank.Nameservice.csproj">
       <Project>{448DFFCC-FEDD-4884-A160-9BFD6310BB1B}</Project>
       <Name>MyBank.Nameservice</Name>
     </ProjectReference>
-    <ProjectReference Include="..\src\Server\MyBank.Server.Backend\MyBank.Server.Backend.csproj">
+    <ProjectReference Include="..\Server\MyBank.Server.Backend\MyBank.Server.Backend.csproj">
       <Project>{BBFCB325-CC3D-4472-BF8F-3A0546CBA847}</Project>
       <Name>MyBank.Server.Backend</Name>
     </ProjectReference>
-    <ProjectReference Include="..\src\Server\MyBank.Server.WCF\MyBank.Server.WCF.csproj">
+    <ProjectReference Include="..\Server\MyBank.Server.WCF\MyBank.Server.WCF.csproj">
       <Project>{bf5f2245-4e81-4fef-aa8a-6b4ba077f815}</Project>
       <Name>MyBank.Server.WCF</Name>
     </ProjectReference>

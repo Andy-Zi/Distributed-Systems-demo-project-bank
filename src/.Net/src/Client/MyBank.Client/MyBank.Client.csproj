@@ -210,10 +210,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\MyBank.WCFConnector\MyBank.WCFConnector.csproj">
-      <Project>{35F2505A-7725-4564-B07F-AC808AADAFE9}</Project>
-      <Name>MyBank.WCFConnector</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\MyBank.CCOMConnector\MyBank.CCOMConnector.csproj">
       <Project>{D5D09F67-4728-4E5F-9FF6-95F3DF241BFE}</Project>
       <Name>MyBank.CCOMConnector</Name>
@@ -229,6 +225,10 @@
     <ProjectReference Include="..\..\MyBank.RESTConnector\MyBank.RESTConnector.csproj">
       <Project>{342D0770-29D7-4009-A0C9-85C0C1C6E503}</Project>
       <Name>MyBank.RESTConnector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MyBank.WCFConnector\MyBank.WCFConnector.csproj">
+      <Project>{35F2505A-7725-4564-B07F-AC808AADAFE9}</Project>
+      <Name>MyBank.WCFConnector</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
