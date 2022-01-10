@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
-namespace MyBank.Mobile
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace MyBank.Mobile.Views
 {
-    public partial class MainPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class connect : ContentPage
     {
-        public MainPage()
+        public connect()
         {
             InitializeComponent();
         }

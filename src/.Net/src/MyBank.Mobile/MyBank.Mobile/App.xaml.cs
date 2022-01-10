@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MyBank.Mobile.Services;
+using MyBank.Mobile.Views;
+using MyBank.RESTConnector;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -8,10 +11,14 @@ namespace MyBank.Mobile
     {
         public App()
         {
+            mybank = new RESTServiceConnector();
             InitializeComponent();
-
-            MainPage = new MainPage();
+            
+            DependencyService.Register<MockDataStore>();
+            MainPage = new AppShell();
         }
+        public static RESTServiceConnector mybank;
+        public static string Token = "";
 
         protected override void OnStart()
         {

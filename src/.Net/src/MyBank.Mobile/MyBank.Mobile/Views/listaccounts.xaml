@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:MyBank.Mobile.ViewModels"
+             x:Class="MyBank.Mobile.Views.listaccounts"
+             x:DataType="viewmodels:listaccountsViewModel">
+    <ContentPage.BindingContext>
+        <viewmodels:listaccountsViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid RowDefinitions="*,Auto,Auto,Auto,Auto,Auto,Auto">
+            <Label 
+                Grid.Row="0"
+                Text="{Binding ListAccountsstr}"
+                FontSize="Large"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"/>
+            <Button
+                Grid.Row="5"
+                Command="{Binding ListAccounts}"
+                Text="Login"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

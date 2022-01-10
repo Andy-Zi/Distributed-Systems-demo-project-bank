@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:MyBank.Mobile.ViewModels"
+             x:Class="MyBank.Mobile.Views.statement"
+             x:DataType="viewmodels:statementViewModel">
+    <ContentPage.BindingContext>
+        <viewmodels:statementViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid RowDefinitions="*,Auto,Auto,Auto,Auto,Auto,Auto">
+            <Label 
+                Grid.Row="0"
+                Text="{Binding Statementstr}"
+                FontSize="Large"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"/>
+            <Label
+                Grid.Row="1"
+                Text="Accountnumber:"
+                FontSize="Body"/>
+            <Entry
+                Grid.Row="2"
+                Text="{Binding Account_Number_Statement}"/>
+            <Label
+                Grid.Row="3"
+                Text="Detailed:"
+                FontSize="Body"/>
+            <Entry
+                Grid.Row="4"
+                Text="{Binding Detailed_Statement}"/>
+            <Button
+                Grid.Row="5"
+                Command="{Binding Statement}"
+                Text="Login"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
