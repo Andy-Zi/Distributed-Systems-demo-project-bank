@@ -21,7 +21,10 @@ public:
         mybank = new MyBank(appdata);
     }
 
-    ~MyBankServiceConnector(){}
+    ~MyBankServiceConnector()
+    {
+        delete mybank;
+    }
     int login(string username, string password);
     void logout(int token);
 /*

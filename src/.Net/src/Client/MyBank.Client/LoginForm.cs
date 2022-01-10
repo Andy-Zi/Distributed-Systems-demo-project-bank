@@ -17,10 +17,6 @@ namespace MyBank.Client
             this.comboBox_type.DataSource = Enum.GetValues(typeof(ConnectionTypes));
             this.comboBox_type.SelectedIndex = 0;
             this.comboBox_type.DropDownStyle = ComboBoxStyle.DropDownList;
-            this.textBox_address.Text = "localhost";//"http://localhost:8000/WCFBankService";
-            this.textBox_username.Text = "admin";
-            this.textBox_password.Text = "admin";
-            this.numericUpDown_port.Value = 8080;
         }
 
         protected void Subscribe()
@@ -51,7 +47,7 @@ namespace MyBank.Client
             this.numericUpDown_port.Enabled = true;
             this.textBox_address.Enabled = true;
             Enum.TryParse<ConnectionTypes>(this.comboBox_type.SelectedValue.ToString(), out var connectionType);
-            if(connectionType == ConnectionTypes.WCF)
+            if(connectionType == ConnectionTypes.COM)
                 this.numericUpDown_port.Enabled = false;
         }
 

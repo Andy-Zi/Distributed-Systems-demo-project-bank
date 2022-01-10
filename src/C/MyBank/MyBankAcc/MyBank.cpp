@@ -260,7 +260,7 @@ void MyBank::Load(string dir) {
         Accounts = DeserilaizeList<Account>(json::parse(LoadFile(dir + "\\accounts.json")));
         Transactions = DeserilaizeList<Transaction>(json::parse(LoadFile(dir + "\\transactions.json")));
     }
-    catch (...) {
+    catch (std::exception e) {
 
     }
 }
@@ -272,13 +272,9 @@ void MyBank::SaveFile(string content, string path) {
 }
 
 string MyBank::LoadFile(string path) {
-    string content;
     ifstream  infile(path);
-    while (getline(infile, content)) {
-        // Output the text from the file
-        cout << content;
-    }
-    infile.close();
+    std::string content((std::istreambuf_iterator<char>(infile)),
+        std::istreambuf_iterator<char>());
     return content;
 }
 
