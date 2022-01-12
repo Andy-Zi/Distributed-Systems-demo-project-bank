@@ -24,9 +24,12 @@ string IMyBankFunctions::login_c(string username, string password,bool& logged_i
     if (!memcmp(res, (unsigned char*)"0", 1))
     {
         logged_in = true;
+        midl_user_free(res);
         return "Hallo " + username + "\n";
     }
-    return (string)reinterpret_cast<char*>(res) + "\n";
+    string out = (string)reinterpret_cast<char*>(res);
+    midl_user_free(res);
+    return out + "\n";
 }
 
 string IMyBankFunctions::newaccount_c(string username, string description)
@@ -36,9 +39,12 @@ string IMyBankFunctions::newaccount_c(string username, string description)
     newaccount(token, (unsigned char*)username.c_str(), (unsigned char*)username.c_str(), &accountnumber, &res);
     if (!memcmp(res, (unsigned char*)"0", 1))
     {
+        midl_user_free(res);
         return "Der Account für " + username + " wurde angelegt\n";
     }
-    return (string)reinterpret_cast<char*>(res) + "\n";
+    string out = (string)reinterpret_cast<char*>(res);
+    midl_user_free(res);
+    return out + "\n";
 }
 
 string IMyBankFunctions::newuser_c(string username, string password)
@@ -47,9 +53,12 @@ string IMyBankFunctions::newuser_c(string username, string password)
     newuser(token, (unsigned char*)username.c_str(), (unsigned char*)password.c_str(), &res);
     if (!memcmp(res, (unsigned char*)"0", 1))
     {
+        midl_user_free(res);
         return "Der Nutzer " + username + " wurde angelegt\n";
     }
-    return (string)reinterpret_cast<char*>(res) + "\n";
+    string out = (string)reinterpret_cast<char*>(res);
+    midl_user_free(res);
+    return out + "\n";
 }
 
 string IMyBankFunctions::listaccounts_c()
@@ -59,9 +68,14 @@ string IMyBankFunctions::listaccounts_c()
     listaccounts(token,&listacc, &res);
     if (!memcmp(res, (unsigned char*)"0", 1))
     {
-        return (string)(reinterpret_cast<char*>(listacc)) + "\n";
+        midl_user_free(res);
+        string out = (string)(reinterpret_cast<char*>(listacc));
+        midl_user_free(listacc);
+        return out + "\n";
     }
-    return (string)reinterpret_cast<char*>(res) + "\n";
+    string out = (string)reinterpret_cast<char*>(res);
+    midl_user_free(res);
+    return out + "\n";
 }
 
 string IMyBankFunctions::transfer_c(long from_account_number,long to_account_number, float amount, string comment)
@@ -70,9 +84,12 @@ string IMyBankFunctions::transfer_c(long from_account_number,long to_account_num
     transfer(token, from_account_number, to_account_number, amount, (unsigned char*)comment.c_str(), &res);
     if (!memcmp(res, (unsigned char*)"0", 1))
     {
+        midl_user_free(res);
         return "Das Geld wurde überwiesen\n";
     }
-    return (string)reinterpret_cast<char*>(res) + "\n";
+    string out = (string)reinterpret_cast<char*>(res);
+    midl_user_free(res);
+    return out + "\n";
 }
 
 string IMyBankFunctions::statement_c(long account_number, long detailed)
@@ -82,9 +99,14 @@ string IMyBankFunctions::statement_c(long account_number, long detailed)
     statement(token, account_number, detailed, &statement_out, &res);
     if (!memcmp(res, (unsigned char*)"0", 1))
     {
-        return (string)(reinterpret_cast<char*>(statement_out)) + "\n";
+        midl_user_free(res);
+        string out = (string)(reinterpret_cast<char*>(statement_out));
+        midl_user_free(statement_out);
+        return out + "\n";
     }
-    return (string)reinterpret_cast<char*>(res) + "\n";
+    string out = (string)reinterpret_cast<char*>(res);
+    midl_user_free(res);
+    return out + "\n";
 }
 
 string IMyBankFunctions::bye_c()
@@ -93,9 +115,12 @@ string IMyBankFunctions::bye_c()
     bye(token, &res);
     if (!memcmp(res, (unsigned char*)"0", 1))
     {
+        midl_user_free(res);
         return "Bis zum nächsten mal.\n";
     }
-    return (string)reinterpret_cast<char*>(res) + "\n";
+    string out = (string)reinterpret_cast<char*>(res);
+    midl_user_free(res);
+    return out + "\n";
 }
 
 void IMyBankFunctions::Bind(unsigned char* netwAddr, unsigned char* endpoint)

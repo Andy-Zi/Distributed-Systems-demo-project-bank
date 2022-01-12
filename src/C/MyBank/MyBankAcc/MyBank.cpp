@@ -3,6 +3,9 @@
 #include <fstream>
 #include <direct.h>
 #include "JsonUtilityFunctions.cpp"
+#include <mutex>
+
+std::mutex my_bank_mutex;
 
 int MyBank::Login(string username, string password)
 {
@@ -25,6 +28,7 @@ int MyBank::Login(string username, string password)
                 token = (token * 10) + (int)privilege;
 
                 (*it).login(token);
+                std::lock_guard<std::mutex> guard(my_bank_mutex);
                 LoggedinUsers.push_back(&(*it));
                 return token;
             }
@@ -42,6 +46,7 @@ void MyBank::Logout(int token)
         if ((**it).getToken() == token)
         {
             (**it).logout();
+            std::lock_guard<std::mutex> guard(my_bank_mutex);
             LoggedinUsers.erase(it);
             break;
         }
@@ -57,12 +62,14 @@ void MyBank::NewUser(string username, string password, Priviliges privilige)
             throw std::invalid_argument("Username already in use");
         }
     }
+    std::lock_guard<std::mutex> guard(my_bank_mutex);
     this->KnownUsers.push_back(User(privilige, username, password, this->KnownUsers.size()));
 }
 
 int MyBank::NewAccount(int ownerID, string description)
 {
     int accnr = this->Accounts.size();
+    std::lock_guard<std::mutex> guard(my_bank_mutex);
     this->Accounts.push_back(Account(ownerID,description, accnr));
     return accnr;
 }
@@ -93,6 +100,7 @@ list<Account> MyBank::ListAccounts(int Token)
 
 int MyBank::PayInto(int Accountnumber, float amount)
 {
+    std::lock_guard<std::mutex> guard(my_bank_mutex);
     return this->Transfer(-1, Accountnumber, amount, "Bareinzahlung");
 }
 
@@ -118,6 +126,7 @@ int MyBank::Transfer(int from_accountnumber, int to_accountnumber, float amount,
             throw std::invalid_argument("not enough funds");
         }   
     }
+    std::lock_guard<std::mutex> guard(my_bank_mutex);
     Transactions.push_back(t);
     return transid;
 }
