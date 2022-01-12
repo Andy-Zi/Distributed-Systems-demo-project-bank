@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyBank.Mobile.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using Xamarin.Forms;
 
 namespace MyBank.Mobile.ViewModels
 {
-    public class connectViewModel : ContentPage
+    public class connectViewModel : BaseViewModel
     {
         public connectViewModel()
         {
@@ -16,13 +17,6 @@ namespace MyBank.Mobile.ViewModels
         public ICommand Connect { get; }
         string _ip_address = "192.168.178.58";
         int _port = 8080;
-        string _connect = "connect";
-
-        public string Connected
-        {
-            get { return _connect; }
-            set { _connect = value; OnPropertyChanged(); }
-        }
 
         public string IP_Address
         {
@@ -36,10 +30,32 @@ namespace MyBank.Mobile.ViewModels
             set { _port = (int)value; OnPropertyChanged(); }
         }
 
-        void OnConnect()
+        async void OnConnect()
         {
-            App.mybank.Connect(this._ip_address, this._port);
-            if (App.mybank.IsConnected()) { Connected = "Juhu!"; }
+            try
+            {
+                IsBusy = true;
+                App.mybank.Connect(this._ip_address, this._port);
+                IsBusy = false;
+                if (App.mybank.IsConnected())
+                {
+                    var route = $"..?Connect_color=green";
+                    await Shell.Current.GoToAsync(route);
+                }
+                else
+                {
+                    var route = $"..?Connect_color=red";
+                    await Shell.Current.GoToAsync(route);
+                    await Application.Current.MainPage.DisplayAlert("Error:", "Connecttion Failed", "Ok");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error:", ex.Message, "Ok");
+                IsBusy = false;
+            }
+            
         }
     }
 }

@@ -7,14 +7,14 @@ using Xamarin.Forms;
 
 namespace MyBank.Mobile.ViewModels
 {
-    public class payintoViewModel : ContentPage
+    public class payintoViewModel : BaseViewModel
     {
         public payintoViewModel()
         {
             PayInto = new Command(OnPayInto);
         }
         public ICommand PayInto { get; }
-        string _accountnumber;
+        string _accountnumber = "35abfe63138f43098eb3d7f9a6eb45c3";
         float _amount;
         string _payinto = "Pay Into";
 
@@ -38,8 +38,18 @@ namespace MyBank.Mobile.ViewModels
 
         void OnPayInto()
         {
-            App.mybank.PayInto(App.Token, _accountnumber, _amount);
-
+            try
+            {
+                IsBusy = true;
+                App.mybank.PayInto(App.Token, _accountnumber, _amount);
+                Application.Current.MainPage.DisplayAlert("Success:", "Amount Deposited", "Ok");
+                IsBusy = false;
+            }
+            catch (Exception ex)
+            {
+                Application.Current.MainPage.DisplayAlert("Error:", ex.Message, "Ok");
+                IsBusy = false;
+            }
         }
     }
 }

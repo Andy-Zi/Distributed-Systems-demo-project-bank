@@ -1,38 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:MyBank.Mobile.ViewModels"
-             x:Class="MyBank.Mobile.Views.statement"
-             x:DataType="viewmodels:statementViewModel">
-    <ContentPage.BindingContext>
-        <viewmodels:statementViewModel/>
-    </ContentPage.BindingContext>
+             xmlns:interfaces="clr-namespace:MyBank.Interfaces;assembly=MyBank.Interfaces"
+             x:Class="MyBank.Mobile.Views.statement">
     <ContentPage.Content>
-        <Grid RowDefinitions="*,Auto,Auto,Auto,Auto,Auto,Auto">
-            <Label 
-                Grid.Row="0"
-                Text="{Binding Statementstr}"
-                FontSize="Large"
-                HorizontalOptions="CenterAndExpand"
-                VerticalOptions="CenterAndExpand"/>
-            <Label
-                Grid.Row="1"
-                Text="Accountnumber:"
-                FontSize="Body"/>
-            <Entry
-                Grid.Row="2"
-                Text="{Binding Account_Number_Statement}"/>
-            <Label
-                Grid.Row="3"
-                Text="Detailed:"
-                FontSize="Body"/>
-            <Entry
-                Grid.Row="4"
-                Text="{Binding Detailed_Statement}"/>
-            <Button
-                Grid.Row="5"
-                Command="{Binding Statement}"
-                Text="Login"/>
-        </Grid>
+        <ListView
+                CachingStrategy="RecycleElement"
+                ItemsSource="{Binding Statement_res[0].Transactions}"
+                HasUnevenRows="True"
+                SeparatorVisibility="None"
+                IsPullToRefreshEnabled="True"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                RefreshCommand="{Binding Statement}"
+                SelectedItem="{Binding SelectedTransaction, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="interfaces:ITransaction">
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Frame
+                                    CornerRadius="20"
+                                    HasShadow="True">
+                                <StackLayout Orientation="Vertical">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label HorizontalOptions="StartAndExpand" Text="{Binding Date}"/>
+                                        <Label Text="{Binding Amount}"/>
+                                        <Label Text="€"/>
+                                    </StackLayout>
+                                    <Label Text="{Binding Comment}"/>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label HorizontalOptions="StartAndExpand" Text="Empfänger:"/>
+                                        <Label Text="{Binding RecieverAccount}"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label HorizontalOptions="StartAndExpand" Text="Sender:"/>
+                                        <Label Text="{Binding SenderAccount}"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Header >
+                <StackLayout Padding="20">
+                    <Label HorizontalTextAlignment="Center" Text="Statement" FontSize="Large"/>
+                    <StackLayout Orientation="Horizontal" >
+                        <Label HorizontalOptions="StartAndExpand" Text="Account:"/>
+                        <Label Text="{Binding Statement_res[0].AccountNumber}"/>
+                    </StackLayout>
+                    <Label Text="{Binding Statement_res[0].Description}"/>
+                    <StackLayout Orientation="Horizontal">
+                        <Label HorizontalOptions="StartAndExpand" Text="{Binding Statement_res[0].Owner}"/>
+                        <Label Text="{Binding Statement_res[0].Value}"/>
+                        <Label Text="€"/>
+                    </StackLayout>
+                </StackLayout>
+            </ListView.Header>
+        </ListView>
     </ContentPage.Content>
 </ContentPage>

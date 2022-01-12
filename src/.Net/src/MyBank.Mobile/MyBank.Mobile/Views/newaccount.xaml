@@ -32,7 +32,7 @@
             <Button
                 Grid.Row="5"
                 Command="{Binding NewAccount}"
-                Text="Login"/>
+                Text="NewAccount"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

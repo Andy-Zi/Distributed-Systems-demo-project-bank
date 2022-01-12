@@ -78,11 +78,8 @@
         FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
-    <FlyoutItem Title="Connect" Icon="icon_about.png">
-        <ShellContent Route="Connect" ContentTemplate="{DataTemplate local:connect}" />
-    </FlyoutItem>
-    <FlyoutItem Title="Login" Icon="icon_feed.png">
-        <ShellContent Route="Login" ContentTemplate="{DataTemplate local:login}" />
+    <FlyoutItem Title="Start" Icon="icon_about.png">
+        <ShellContent Route="Start" ContentTemplate="{DataTemplate local:start}" />
     </FlyoutItem>
     <FlyoutItem Title="NewAccount" Icon="icon_feed.png">
         <ShellContent Route="NewAccount" ContentTemplate="{DataTemplate local:newaccount}" />
@@ -96,6 +93,12 @@
     <FlyoutItem Title="Transfere" Icon="icon_feed.png">
         <ShellContent Route="Transfere" ContentTemplate="{DataTemplate local:transfere}" />
     </FlyoutItem>
+    <FlyoutItem Title="ListAccounts" Icon="icon_feed.png">
+        <ShellContent Route="ListAccounts" ContentTemplate="{DataTemplate local:listaccounts}" />
+    </FlyoutItem>
+    <!-- <FlyoutItem Title="Statement" Icon="icon_feed.png">
+        <ShellContent Route="Statement" ContentTemplate="{DataTemplate local:statement}" />
+    </FlyoutItem>-->
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
     <MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnLogoutClicked">
@@ -115,6 +118,14 @@
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
     </TabBar> -->
 
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid>
+                <Label Text="{Binding Token}"/>
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+    
     <!-- Optional Templates 
     // These may be provided inline as below or as separate classes.
 

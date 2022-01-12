@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace MyBank.Mobile.ViewModels
 {
-    public class newaccountViewModel : ContentPage
+    public class newaccountViewModel : BaseViewModel
     {
         public newaccountViewModel()
         {
@@ -38,8 +38,17 @@ namespace MyBank.Mobile.ViewModels
 
         void OnNewAccount()
         {
-            NewAccountstr = App.mybank.NewAccount(App.Token, _username, _description);
-            
+            try
+            {
+                IsBusy = true;
+                NewAccountstr = App.mybank.NewAccount(App.Token, _username, _description);
+                IsBusy = false;
+            }
+            catch (Exception ex)
+            {
+                Application.Current.MainPage.DisplayAlert("Error:", ex.Message, "Ok");
+                IsBusy = false;
+            }
         }
     }
 }

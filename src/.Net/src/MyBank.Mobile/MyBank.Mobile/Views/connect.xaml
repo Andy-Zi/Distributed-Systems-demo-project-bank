@@ -11,7 +11,7 @@
         <Grid RowDefinitions="*,Auto,Auto,Auto,Auto,Auto,Auto">
             <Label 
                 Grid.Row="0"
-                Text="{Binding Connected}"
+                Text="Connect to Server"
                 FontSize="Large"
                 HorizontalOptions="CenterAndExpand"
                 VerticalOptions="CenterAndExpand"/>
@@ -32,7 +32,7 @@
             <Button
                 Grid.Row="5"
                 Command="{Binding Connect}"
-                Text="Login"/>
+                Text="Connect"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

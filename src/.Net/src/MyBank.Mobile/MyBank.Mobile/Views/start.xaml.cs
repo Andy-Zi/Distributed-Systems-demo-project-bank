@@ -1,5 +1,4 @@
-﻿using MyBank.Mobile.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,11 +10,12 @@ using Xamarin.Forms.Xaml;
 namespace MyBank.Mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class listaccounts : ContentPage
+    public partial class start : ContentPage
     {
-        public listaccounts()
+        public start()
         {
             InitializeComponent();
+
         }
     }
 }

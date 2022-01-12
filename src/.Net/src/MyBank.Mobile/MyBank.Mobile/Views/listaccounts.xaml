@@ -1,14 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:MyBank.Mobile.ViewModels"
+             xmlns:viewmodels="clr-namespace:MyBank.Mobile.ViewModels" 
+             xmlns:models="clr-namespace:MyBank.Mobile.Models"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="MyBank.Mobile.Views.listaccounts"
              x:DataType="viewmodels:listaccountsViewModel">
     <ContentPage.BindingContext>
         <viewmodels:listaccountsViewModel/>
     </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:ItemSelectedEventArgsConverter x:Key="ItemSelectedEventArgsConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid RowDefinitions="*,Auto,Auto,Auto,Auto,Auto,Auto">
+        <Grid RowDefinitions="Auto,Auto,Auto">
             <Label 
                 Grid.Row="0"
                 Text="{Binding ListAccountsstr}"
@@ -16,9 +23,42 @@
                 HorizontalOptions="CenterAndExpand"
                 VerticalOptions="CenterAndExpand"/>
             <Button
-                Grid.Row="5"
+                Grid.Row="1"
                 Command="{Binding ListAccounts}"
-                Text="Login"/>
+                Text="ListAccounts"/>
+            <ListView
+                Grid.Row="2"
+                ItemsSource="{Binding ListAccount_res}"
+                CachingStrategy="RecycleElement"
+                HasUnevenRows="True"
+                SeparatorVisibility="None"
+                IsPullToRefreshEnabled="True"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                RefreshCommand="{Binding ListAccounts}"
+                SelectedItem="{Binding SelectedAccount, Mode=TwoWay}">
+                <ListView.Behaviors>
+                    <xct:EventToCommandBehavior
+                        EventName="ItemSelected"
+                        Command="{Binding SelectedCommand}"
+                        EventArgsConverter="{StaticResource ItemSelectedEventArgsConverter}"/>
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Statement_item">
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <Frame
+                                    CornerRadius="20"
+                                    HasShadow="True">
+                                    <StackLayout Orientation="Vertical">
+                                        <Label VerticalOptions="Start" Text="{Binding Description}"/>
+                                        <Label VerticalOptions="End" Text="{Binding Accountnumber}"/>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

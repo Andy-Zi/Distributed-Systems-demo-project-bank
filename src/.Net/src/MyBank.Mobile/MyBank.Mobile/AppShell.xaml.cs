@@ -11,23 +11,33 @@ namespace MyBank.Mobile
         public AppShell()
         {
             InitializeComponent();
-            //Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            //Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            Routing.RegisterRoute(nameof(connect), typeof(connect));
+            Routing.RegisterRoute(nameof(listaccounts), typeof(listaccounts));
+            Routing.RegisterRoute(nameof(login), typeof(login));
+            Routing.RegisterRoute(nameof(newaccount), typeof(newaccount));
+            Routing.RegisterRoute(nameof(newuser), typeof(newuser));
+            Routing.RegisterRoute(nameof(payinto), typeof(payinto));
+            Routing.RegisterRoute(nameof(statement), typeof(statement));
+            Routing.RegisterRoute(nameof(transfere), typeof(transfere));
         }
 
-        private void OnLogoutClicked(object sender, EventArgs e)
+        async private void OnLogoutClicked(object sender, EventArgs e)
         {
-            App.mybank.Bye(App.Token);
+            try
+            {
+                App.mybank.Bye(App.Token);
+                App.Token = "";
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error:", ex.Message, "Ok");
+            }
+            
         }
 
         private void OnDisconnectClicked(object sender, EventArgs e)
         {
             App.mybank.Disconnect();
         }
-
-        //private async void OnMenuItemClicked(object sender, EventArgs e)
-        //{
-        //    await Shell.Current.GoToAsync("//LoginPage");
-        //}
     }
 }

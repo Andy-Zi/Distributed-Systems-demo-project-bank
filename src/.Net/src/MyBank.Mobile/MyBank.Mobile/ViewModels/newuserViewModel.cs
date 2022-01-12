@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace MyBank.Mobile.ViewModels
 {
-    public class newuserViewModel : ContentPage
+    public class newuserViewModel : BaseViewModel
     {
         public newuserViewModel()
         {
@@ -38,8 +38,19 @@ namespace MyBank.Mobile.ViewModels
 
         void OnNewUser()
         {
-            App.mybank.NewUser(App.Token, _username, _password);
-
+            
+            try
+            {
+                IsBusy = true;
+                App.mybank.NewUser(App.Token, _username, _password);
+                Application.Current.MainPage.DisplayAlert("Success:", "User Added", "Ok");
+                IsBusy = false;
+            }
+            catch (Exception ex)
+            {
+                Application.Current.MainPage.DisplayAlert("Error:", ex.Message, "Ok");
+                IsBusy = false;
+            }
         }
     }
 }

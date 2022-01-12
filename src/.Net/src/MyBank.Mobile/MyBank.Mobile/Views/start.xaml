@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:MyBank.Mobile.ViewModels"
+             x:Class="MyBank.Mobile.Views.start"
+             x:DataType="viewmodels:startViewModel">
+    <ContentPage.BindingContext>
+        <viewmodels:startViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label 
+                FontSize="Large"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"
+                Text="Wellcome to MyBank"/>
+            <Button 
+                Text="Connect" 
+                BackgroundColor="{Binding Connect_color}"
+                Command="{Binding Connect_Clicked}"/>
+            <Button 
+                Text="Login" 
+                BackgroundColor="{Binding Login_color}"
+                Command="{Binding Login_Clicked}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

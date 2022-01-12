@@ -1,12 +1,14 @@
-﻿using System;
+﻿using MyBank.Mobile.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace MyBank.Mobile.ViewModels
 {
-    internal class loginViewModel : BindableObject
+    public class loginViewModel : BaseViewModel
     {
         
         public loginViewModel()
@@ -34,10 +36,32 @@ namespace MyBank.Mobile.ViewModels
             set { _password = value; OnPropertyChanged(); }
         }
 
-        void OnLogin()
+        async void OnLogin()
         {
-            App.Token = App.mybank.Login(this._username,this._password);
-            Token = App.Token;
+            try
+            {
+                IsBusy = true;
+                App.Token = App.mybank.Login(this._username, this._password);
+                Token = App.Token;
+                IsBusy = false;
+                if(Token != null)
+                {
+                    var route = $"..?Login_color=green";
+                    await Shell.Current.GoToAsync(route);
+                }
+                else
+                {
+                    var route = $"..?Login_color=red";
+                    await Shell.Current.GoToAsync(route);
+                    await Application.Current.MainPage.DisplayAlert("Error:", "Connecttion Failed", "Ok");
+                }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error:", ex.Message, "Ok");
+                IsBusy = false;
+            }
+            
         }
     }
 }

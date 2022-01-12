@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace MyBank.Mobile.ViewModels
 {
-    public class transfereViewModel : ContentPage
+    public class transfereViewModel : BaseViewModel
     {
         public transfereViewModel()
         {
@@ -52,8 +52,17 @@ namespace MyBank.Mobile.ViewModels
 
         void OnTransfere()
         {
-            App.mybank.Transfere(App.Token, _from_acc_nr,_to_acc_nr,_amount,_comment) ;
-
+            try
+            {
+                IsBusy = true;
+                App.mybank.Transfere(App.Token, _from_acc_nr, _to_acc_nr, _amount, _comment);
+                IsBusy = false;
+            }
+            catch (Exception ex)
+            {
+                Application.Current.MainPage.DisplayAlert("Error:", ex.Message, "Ok");
+                IsBusy = false;
+            }
         }
     }
 }
