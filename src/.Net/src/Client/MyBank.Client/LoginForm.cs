@@ -1,5 +1,6 @@
 ﻿using MyBank.Interfaces;
 using MyBank.Nameservice;
+using MyBank.Nameservice.Exceptions;
 using System;
 using System.Windows.Forms;
 using Unity;
@@ -48,7 +49,15 @@ namespace MyBank.Client
             this.textBox_address.Enabled = true;
             Enum.TryParse<ConnectionTypes>(this.comboBox_type.SelectedValue.ToString(), out var connectionType);
             if(connectionType == ConnectionTypes.COM)
+            {
                 this.numericUpDown_port.Enabled = false;
+            }else if(connectionType == ConnectionTypes.WCF)
+            {
+                this.numericUpDown_port.Value = 8000;
+            }else if(connectionType == ConnectionTypes.REST)
+            {
+                this.numericUpDown_port.Value = 8080;
+            } 
         }
 
   
@@ -73,7 +82,11 @@ namespace MyBank.Client
             }
             catch(Exception ex)
             {
-                MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK);
+                if(ex is ServerNotReachableException serverNotReachableException)
+                    MessageBox.Show(this, 
+                        $"The Server is not Reachable!\nError Message:\n{serverNotReachableException.InnerException.Message}", "Error", MessageBoxButtons.OK);
+                else
+                    MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK);
             }
             finally
             {

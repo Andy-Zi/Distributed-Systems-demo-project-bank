@@ -34,6 +34,11 @@ namespace MyBank.WCFConnector
                     case nameof(ArgumentException):
                         throw new ArgumentException(faultException.Detail.Message);
                 }
+            }catch(Exception ex)
+            {
+                if (ex is EndpointNotFoundException)
+                    throw new ServerNotReachableException(ex);
+                throw;
             }
         }
         public void Bye(string token)
