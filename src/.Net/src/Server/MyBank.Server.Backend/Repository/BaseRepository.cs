@@ -52,11 +52,19 @@ namespace MyBank.Server.Backend.Repository
                 using (StreamReader file = File.OpenText(filePath))
                 using (JsonTextReader reader = new JsonTextReader(file))
                 {
-                    var items = Serializer.Deserialize<List<TType>>(reader);
-                    foreach(var item in items)
+                    try
                     {
-                        Entities.TryAdd(item.GetMappingKey(), item);
+                        var items = Serializer.Deserialize<List<TType>>(reader);
+                        foreach (var item in items)
+                        {
+                            Entities.TryAdd(item.GetMappingKey(), item);
+                        }
                     }
+                    catch
+                    {
+                        Entities.Clear();
+                    }
+
                 }
             }
         }

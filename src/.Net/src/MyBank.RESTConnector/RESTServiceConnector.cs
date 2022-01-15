@@ -7,6 +7,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Text;
 
 namespace MyBank.RESTConnector
@@ -50,6 +51,13 @@ namespace MyBank.RESTConnector
                             throw new Exception(message);
                     }
                 default:
+                    if(response.ErrorException is WebException webException)
+                    {
+                        if(webException.Status == WebExceptionStatus.ConnectFailure)
+                        {
+                            throw new ServerNotReachableException(webException);
+                        }
+                    }
                     throw new Exception($"An error occured!\n{response.ErrorMessage}");
 
             }
@@ -115,7 +123,7 @@ namespace MyBank.RESTConnector
 
         public void Transfere(string token, string from_accountNumber, string to_accountNumber, float amount, string comment = "")
         {
-            var request = new RestRequest($"Statement?token={token}&from_accountNumber={from_accountNumber}&to_accountNumber={to_accountNumber}&amount={amount}&comment={comment}", DataFormat.Json);
+            var request = new RestRequest($"Transfere?token={token}&from_accountNumber={from_accountNumber}&to_accountNumber={to_accountNumber}&amount={amount}&comment={comment}", DataFormat.Json);
             MakeRequest<string>(request);
         }
     }

@@ -97,6 +97,9 @@ namespace MyBank.Server.Backend
             if (!AccountRepository.Entities.ContainsKey(accountNumber))
                 throw new ArgumentException($"No account with number '{accountNumber}' exists!");
 
+            if (amount < 0.01)
+                throw new ArgumentException($"PayInto Amount has to be 0,01 or higher!");
+
             AccountRepository.Entities[accountNumber].Value += amount;
 
             var transaction = new Transaction
@@ -120,6 +123,9 @@ namespace MyBank.Server.Backend
 
             if (!AccountRepository.Entities.ContainsKey(to_accountNumber))
                 throw new ArgumentException($"Target Account with number '{to_accountNumber}'  doesn't exist!");
+
+            if (amount < 0.01)
+                throw new ArgumentException($"Transaction Amount has to be 0,01 or higher!");
 
             var from_Account = AccountRepository.Entities[from_accountNumber];
             var username = AuthenticationService.LoggedInUsers[token];

@@ -28,6 +28,9 @@ namespace MyBank.Client
                     MessageBox.Show(mainForm, "Your Session Expired!\nThe Application will close now!","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     mainForm.Close();
                     break;
+                case ServerNotReachableException _:
+                    MessageBox.Show(mainForm, "The Server is not Reachable right now! Any Action you take won't have any effect until the connection is restored!", "Connection Lost!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
                 default:
                     MessageBox.Show(mainForm, exception.Message,"Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;

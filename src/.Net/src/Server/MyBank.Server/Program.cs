@@ -67,7 +67,17 @@ namespace MyBank.Server
                 
                 Console.WriteLine("Started WCF Server!");
                 while (!token.IsCancellationRequested)
-                    Task.Delay(500).Wait(token);
+                {
+                    try
+                    {
+                        Task.Delay(500).Wait(token);
+                    }
+                    catch(OperationCanceledException _)
+                    {
+                        //Void TaskCanceledException 
+                    }
+                }
+                    
 
                 host?.Close();
             });
@@ -75,7 +85,7 @@ namespace MyBank.Server
             IDisposable restThread;
             try
             {
-                restThread = BankServiceConfiguration.StartWebApp("http://localhost:8080", container);
+                restThread = BankServiceConfiguration.StartWebApp("http://*:8080", container);
                 Console.WriteLine("Started REST Server!");
             }
             catch (Exception ex)
@@ -86,12 +96,13 @@ namespace MyBank.Server
 
 
             wcfThread.Start();
-
+            Task.Delay(200).Wait();
             Console.WriteLine("Press Any Key to stop the Server!");
             Console.ReadLine();
 
 
             cancelationSource.Cancel(false);
+
             Console.WriteLine("Stopped WCF Server!");
 
             restThread?.Dispose();
