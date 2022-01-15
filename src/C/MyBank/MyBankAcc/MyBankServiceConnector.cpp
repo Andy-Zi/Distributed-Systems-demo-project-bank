@@ -17,7 +17,7 @@ void MyBankServiceConnector::logout(int token)
 int MyBankServiceConnector::newaccount(int token, string username, string description)
 {
 	if (mybank->getPriviligesbyToken(token) != Priviliges::admin) {
-		throw std::invalid_argument("not admin");
+		throw std::invalid_argument("You need admin Priviliges to do that. Please check that you are logged in with the correct user.\n");
 	}
 	return mybank->NewAccount((*mybank->getUserByName(username)).getId(), description);
 	
@@ -26,7 +26,7 @@ int MyBankServiceConnector::newaccount(int token, string username, string descri
 void MyBankServiceConnector::newuser(int token, string username, string password)
 {
 	if (mybank->getPriviligesbyToken(token) != Priviliges::admin) {
-		throw std::invalid_argument("not admin");
+		throw std::invalid_argument("You need admin Priviliges to do that. Please check that you are logged in with the correct user.\n");
 	}
 	mybank->NewUser(username, password, Priviliges::user);
 }
@@ -60,7 +60,7 @@ json MyBankServiceConnector::SerializeStatements(list<Statement> statements) {
 void MyBankServiceConnector::payinto(int token, int account_number, float amount)
 {
 	if (mybank->getPriviligesbyToken(token) != Priviliges::admin) {
-		throw std::invalid_argument("not admin");
+		throw std::invalid_argument("You need admin Priviliges to do that. Please check that you are logged in with the correct user.\n");
 	}
 	mybank->PayInto(account_number, amount);
 	
@@ -100,7 +100,7 @@ list<Statement> MyBankServiceConnector::statement(int token, int account_number,
 			}
 		}
 		if(!match)
-			throw std::invalid_argument("wrong accountnumber");
+			throw std::invalid_argument("Please check the accountnumber. You do not have acces to this account.\n");
 	}
 	for (auto it = accs.begin(); it != accs.end(); it++)
 	{

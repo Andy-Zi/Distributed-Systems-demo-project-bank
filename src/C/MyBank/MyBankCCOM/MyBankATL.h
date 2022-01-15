@@ -3,11 +3,9 @@
 #pragma once
 #include "resource.h"       // main symbols
 
-
-
 #include "MyBankCCOM_i.h"
 #include "atlstr.h"
-#include "../MyBankAcc/MyBankServiceConnector.h"
+#include "MyBankServiceConnector.h"
 
 
 

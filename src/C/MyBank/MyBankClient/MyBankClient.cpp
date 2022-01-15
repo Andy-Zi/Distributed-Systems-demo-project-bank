@@ -6,10 +6,18 @@
 
 static void UnBind(void);
 
-int main(void)
+int main(int argc, char* argv[])
 {
-    unsigned char* netwAddr = MYBANK_RPC_DEF_NETWADDR;
-    unsigned char* endpoint = MYBANK_RPC_ENDPOINT;
+    char empty = '\0';
+    char* netwAddr = &empty;
+    char* endpointCln = &empty;
+    char* username = &empty;
+    char* password = &empty;
+
+    if (argc > 1) netwAddr = argv[1];
+    if (argc > 2) endpointCln = argv[2];
+    if (argc > 3) username = argv[3];
+    if (argc > 4) password = argv[4];
 
     MyBankClientFunctions bank;
 
@@ -19,11 +27,11 @@ int main(void)
 
     while (!connected)
     {
-        connected = console.start();
+        connected = console.start(netwAddr, endpointCln);
     }
     try
     {
-        console.run();
+        console.run(username, password);
         UnBind();
     }
     catch (...)
@@ -32,6 +40,8 @@ int main(void)
         cout << "Unexpected error occurred on the server. Please contact a system administrator.\n";
         cout << "Maybe the server can no longer be reached.\n";
     }
+    printf("Press enter!\n");
+    getchar();
 }
 
 void UnBind(void)

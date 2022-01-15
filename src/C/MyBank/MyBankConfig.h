@@ -13,11 +13,10 @@
 /*                                                          */
 /************************************************************/
 
-#ifndef TALK_CONFIG_H
-#define TALK_CONFIG_H
+#ifndef MYBANK_CONFIG_H
+#define MYBANK_CONFIG_H
 
 #define MYBANK_RPC_PROT_SEQ     (unsigned char*)"ncacn_ip_tcp"
 #define MYBANK_RPC_ENDPOINT		(unsigned char*)"1200"
-#define MYBANK_RPC_DEF_NETWADDR	(unsigned char*)"127.0.0.1"
 
-#endif  // TALK_CONFIG_H
+#endif  // MYBANK_CONFIG_H

@@ -10,7 +10,7 @@ int MyBank::Login(string username, string password)
     {
         if ((*it)->getName() == username)
         {
-            throw std::invalid_argument("already logged in");
+            throw std::invalid_argument("This user is already logged in.\n");
         }
     }
     for (auto it = this->KnownUsers.begin(); it != this->KnownUsers.end(); it++)
@@ -30,10 +30,10 @@ int MyBank::Login(string username, string password)
                 mybank_mutex.unlock();
                 return token;
             }
-            throw std::invalid_argument("Wrong password");
+            throw std::invalid_argument("Please check your credentials. Username or password is wrong.\n");
         }     
     }
-    throw std::invalid_argument("unknown User");
+    throw std::invalid_argument("Please check your credentials. Username or password is wrong.\n");
     return -1;
 }
 
@@ -58,7 +58,7 @@ void MyBank::NewUser(string username, string password, Priviliges privilige)
     {
         if ((*it).getName() == username)
         {
-            throw std::invalid_argument("Username already in use");
+            throw std::invalid_argument("This user already exists. Please choose another username.\n");
         }
     }
     mybank_mutex.lock();
@@ -101,7 +101,7 @@ list<Account> MyBank::ListAccounts(int Token)
 
 int MyBank::PayInto(int Accountnumber, float amount)
 {
-    return this->Transfer(-1, Accountnumber, amount, "Bareinzahlung");
+    return this->Transfer(-1, Accountnumber, amount, "cash deposit");
 }
 
 int MyBank::Transfer(int from_accountnumber, int to_accountnumber, float amount, string comment)
@@ -123,7 +123,7 @@ int MyBank::Transfer(int from_accountnumber, int to_accountnumber, float amount,
         }
         catch (const std::exception&)
         {
-            throw std::invalid_argument("not enough funds");
+            throw std::invalid_argument("You do not have enough funds to do this transaction.\n");
         }   
     }
     mybank_mutex.lock();
@@ -160,7 +160,7 @@ User* MyBank::getUserByToken(int Token)
             return &(**it);
         }
     }
-    throw std::invalid_argument("unknown Token");
+    throw std::invalid_argument("User cannot be found by this Token.\n");
     return nullptr;
 }
 
@@ -173,7 +173,7 @@ User* MyBank::getUserByID(int ID)
             return &(*it);
         }
     }
-    throw std::invalid_argument("unknown ID");
+    throw std::invalid_argument("User cannot be found by this ID.\n");
     return nullptr;
 }
 
@@ -186,7 +186,7 @@ User* MyBank::getUserByName(string username)
             return &(*it);
         }
     }
-    throw std::invalid_argument("unknown User");
+    throw std::invalid_argument("User cannot be found by this Name.\n");
     return nullptr;
 }
 
@@ -199,7 +199,7 @@ Transaction MyBank::getTransactionbyID(int transac_id)
             return *it;
         }
     }
-    throw std::invalid_argument("unknown transac_id");
+    throw std::invalid_argument("Transaction cannot be found by this ID.\n");
 }
 
 list<Transaction> MyBank::getTransactionsForAccount(int acc_id)
@@ -224,7 +224,7 @@ Account MyBank::getAccountByID(int accountID)
             return (*it);
         }
     }
-    throw std::invalid_argument("Account not found");
+    throw std::invalid_argument("Account cannot be found by this ID.\n");
 }
 
 Statement MyBank::generate_Statement(int accountID)

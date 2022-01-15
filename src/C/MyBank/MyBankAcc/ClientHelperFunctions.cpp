@@ -41,7 +41,7 @@ void PrettyPrintStatements(list<Statement> statements) {
         cout << "AccountNumber: " << account.getAccountnumber() << "\n";
         cout << "Description: " << account.getDescription() << "\n";
         cout << "Owner: " << account.getOwnerID() << "\n";
-        cout << "Value: " << to_string(account.getValue())<< "\n";
+        cout << "Value: " << to_string(account.getValue())<<"€" << "\n";
         cout << "------------------------------------------------\n\n";
         list<Transaction> transactions = currentStatement.trans;
 

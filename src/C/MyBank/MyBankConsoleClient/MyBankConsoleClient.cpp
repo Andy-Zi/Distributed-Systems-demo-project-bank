@@ -1,7 +1,7 @@
 #include "MyBankConsoleClient.h"
 #include <stdio.h>
 
-void MyBankConsoleClient::run()
+void MyBankConsoleClient::run(string username_from_cmd, string password_from_cmd)
 {
     bool logged_in = false;
     bool exit = false;
@@ -10,59 +10,71 @@ void MyBankConsoleClient::run()
     {
         while (!logged_in)
         {
-            logged_in = _login();
+            logged_in = _login(username_from_cmd, password_from_cmd);
         }
         exit = _loop(&logged_in);
     }
 }
 
-bool MyBankConsoleClient::start() {
+bool MyBankConsoleClient::start(string netwAddr_from_cmd, string endpoint_from_cmd) {
     string in;
     string delimiter = ":";
     size_t pos = 0;
 
-    string netwAddr;
-    string endpoint;
+    string netwAddr = netwAddr_from_cmd;
+    string endpoint = endpoint_from_cmd;
     long connected = 0;
-    cout << "Welcomme at MyBank!\n" << "Please enter the serveraddress:\n";
-    getline(cin, in);
-    if ((pos = in.find(delimiter)) != string::npos)
+    if (netwAddr == "" || endpoint == "")
     {
-        netwAddr = in.substr(0, pos);
-        in.erase(0, pos + delimiter.length());
-        endpoint = in;
-    }
-    else
-    {
-        netwAddr = in;
-        cout << "Please enter the port:\n";
-        getline(cin, endpoint);
+        cout << "Welcomme at MyBank!\n" << "Please enter the serveraddress:\n";
+        getline(cin, in);
+        if ((pos = in.find(delimiter)) != string::npos)
+        {
+            netwAddr = in.substr(0, pos);
+            in.erase(0, pos + delimiter.length());
+            endpoint = in;
+        }
+        else
+        {
+            netwAddr = in;
+            cout << "Please enter the port:\n";
+            getline(cin, endpoint);
+        }
     }
     cout << "Bank will be connected\n";
     cout << bank.connect_c(netwAddr, endpoint, connected);
     return connected;
 }
 
-bool MyBankConsoleClient::_login() {
+bool MyBankConsoleClient::_login(string username_from_cmd, string password_from_cmd) {
     bool logged_in = false;
     string in;
     string delimiter = " ";
     size_t pos = 0;
 
-    string username;
-    string password;
-    cout << "Please log in:\n";
-    getline(cin, in);
-    if ((pos = in.find(delimiter)) != string::npos)
+    string username = username_from_cmd;
+    string password = password_from_cmd;
+
+    if (username == "" || password == "")
     {
-        if (in.substr(0, pos) == "user")
+        cout << "Please log in:\n";
+        getline(cin, in);
+        if ((pos = in.find(delimiter)) != string::npos)
         {
-            in.erase(0, pos + delimiter.length());
-            if ((pos = in.find(delimiter)) != string::npos)
+            if (in.substr(0, pos) == "user")
             {
-                username = in.substr(0, pos);
                 in.erase(0, pos + delimiter.length());
-                password = in;
+                if ((pos = in.find(delimiter)) != string::npos)
+                {
+                    username = in.substr(0, pos);
+                    in.erase(0, pos + delimiter.length());
+                    password = in;
+                }
+                else
+                {
+                    cout << "unknown function";
+                    return false;
+                }
             }
             else
             {
@@ -72,15 +84,10 @@ bool MyBankConsoleClient::_login() {
         }
         else
         {
-            cout << "unknown function";
-            return false;
+            username = in;
+            cout << "Enter your password:\n";
+            getline(cin, password);
         }
-    }
-    else
-    {
-        username = in;
-        cout << "Enter your password:\n";
-        getline(cin, password);
     }
     cout << bank.login_c(username, password, logged_in);
     return logged_in;
@@ -128,16 +135,6 @@ void MyBankConsoleClient::_parseSingleCommand(string func, bool* exit, bool* act
         getline(cin, comment);
         cout << bank.transfer_c(stod(from_account_number), stod(to_account_number), stof(amount), comment);
     }
-    else if (func == "statement")
-    {
-        string account_number;
-        string detailed;
-        cout << "Show all accounts(enter -1) or show a specific one?";
-        getline(cin, account_number);
-        cout << "Show detailed informations?(0/1)";
-        getline(cin, detailed);
-        cout << bank.statement_c(stod(account_number), stod(detailed));
-    }
     else if (func == "payinto")
     {
         string account_number;
@@ -173,7 +170,7 @@ void MyBankConsoleClient::_parseSingleCommand(string func, bool* exit, bool* act
                 << "bye\n";
     }
     else {
-        cout << "unknown function" << func << "'\n";
+        cout << "unknown command: " << func << "'\n";
     }
 }
 void MyBankConsoleClient::_parseFullCommadn(string func, bool* exit, bool* active, bool* logged_in)

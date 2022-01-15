@@ -22,10 +22,10 @@ public:
 	{
 		NewUser("admin", "admin", Priviliges::admin);
 		NewUser("user", "user", Priviliges::user);
-		NewAccount(0, "Das ist ein Account fuer Admin.");
-		NewAccount(1, "Das ist ein Account fuer User.");
+		NewAccount(0, "Thats an account of admin.");
+		NewAccount(1, "Thats an account of user");
 		PayInto(0, 100);
-		Transfer(0, 1, 10, "Das ist eine ueberweisung.");
+		Transfer(0, 1, 10, "Thats an transacton from admin to user.");
 	}
 
 	MyBank(string saveDirectory) {
@@ -35,10 +35,10 @@ public:
 		if (KnownUsers.size() < 1) {
 			NewUser("admin", "admin", Priviliges::admin);
 			NewUser("user", "user", Priviliges::user);
-			NewAccount(0, "Das ist ein Account fuer Admin.");
-			NewAccount(1, "Das ist ein Account fuer User.");
+			NewAccount(0, "Thats an account of admin.");
+			NewAccount(1, "Thats an account of user");
 			PayInto(0, 100);
-			Transfer(0, 1, 10, "Das ist eine ueberweisung.");
+			Transfer(0, 1, 10, "Thats an transacton from admin to user.");
 		}
 	}
 

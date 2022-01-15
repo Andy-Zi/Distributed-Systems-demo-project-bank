@@ -21,7 +21,7 @@ void Account::addTransaction(Transaction t) {
 	{
 		if ((Value - t.getAmount()) < 0)
 		{
-			throw std::invalid_argument("not enough funds");
+			throw std::invalid_argument("You do not have enough funds to do this transaction.\n");
 		}
 		Value -= t.getAmount();
 	}

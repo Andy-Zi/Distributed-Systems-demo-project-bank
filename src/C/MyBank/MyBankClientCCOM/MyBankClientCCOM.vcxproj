@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)MyBankAcc;$(SolutionDir)MyBankConsoleClient</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)MyBankAcc;$(SolutionDir)MyBankConsoleClient;$(SolutionDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -103,7 +103,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)MyBankAcc;$(SolutionDir)MyBankConsoleClient</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)MyBankAcc;$(SolutionDir)MyBankConsoleClient;$(SolutionDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,6 +151,12 @@
     <ProjectReference Include="..\MyBankAcc\MyBankAcc.vcxproj">
       <Project>{850831ea-41c0-4fd7-9bfe-8c69f3b6f44c}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\MyBankConsoleClient\MyBankConsoleClient.vcxproj">
+      <Project>{ae77a6f9-6d2a-4c30-ba7a-35d00c60dad3}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MyBankClientFunctions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

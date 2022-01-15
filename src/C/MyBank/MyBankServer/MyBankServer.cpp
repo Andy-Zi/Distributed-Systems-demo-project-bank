@@ -3,44 +3,71 @@
 #include "RpcException.h"
 #include "MyBankConfig.h"
 #include <stdio.h>
+#include <iostream>
 
+using namespace std;
 
 int main()
 {
-    //RPC_STATUS status;
+    RPC_STATUS status;
+    const string errorText;
+    const string errorType;
     unsigned char* protocolSequence = MYBANK_RPC_PROT_SEQ;
     unsigned char* endpoint = MYBANK_RPC_ENDPOINT;
     unsigned char* security = NULL;             // Keine Sicherheit
     unsigned int   minCalls = 1;
     unsigned int   maxCalls = 10;
 
-    // Protokoll und Endpunkt registrieren
-    RpcServerUseProtseqEp(protocolSequence,
-        maxCalls,
-        endpoint,
-        security);
-    //RPC_STATUS_ASSERT("RpcServerUseProtseqEp", status);
-    printf("Protokoll und Endpunkt registrieren\n");
-    // Schnittstelle registrieren
-    RpcServerRegisterIf(MyBank_i_v1_0_s_ifspec, // Zu reg. Schnittstelle
-        NULL,                 // MgrTypeUuid
-        NULL);                // MgrEpv
-    //RPC_STATUS_ASSERT("RpcServerRegisterIf", status);
-    printf("Schnittstelle registrieren\n");
-    // Auf Anforderungen warten...
-    RpcServerListen(minCalls, maxCalls, FALSE);
-    //RPC_STATUS_ASSERT("RpcServerListen", status);
-    printf("Auf Anforderungen warten...\n");
+    try
+    {
+        // Protokoll und Endpunkt registrieren
+        status = RpcServerUseProtseqEp(protocolSequence,
+            maxCalls,
+            endpoint,
+            security);
+        if (status)
+        {
+            RpcException::Raise(status, "Error calling RpcServerRegisterIf","connectionerror");
+        }
+        printf("Protokoll und Endpunkt registrieren\n");
+        // Schnittstelle registrieren
+        status = RpcServerRegisterIf(MyBank_i_v1_0_s_ifspec, // Zu reg. Schnittstelle
+            NULL,                 // MgrTypeUuid
+            NULL);                // MgrEpv
+        if (status)
+        {
+            RpcException::Raise(status, "Error calling RpcServerRegisterIf", "connectionerror");
+        }
+        printf("Schnittstelle registrieren\n");
+        // Auf Anforderungen warten...
+        status = RpcServerListen(minCalls, maxCalls, FALSE);
+        if (status)
+        {
+            RpcException::Raise(status, "Error calling RpcServerListen", "connectionerror");
+        }
+        printf("Auf Anforderungen warten...\n");
+    }
+    catch (RpcException& e)
+    {
+        printf("stat=0x%x, text=%s, type=%s\n",
+            (int)e.GetStatus(), e.GetErrorText(), e.GetErrorType());
+    }
 }
 
 void Shutdown(void)
 {
-
+    RPC_STATUS status;
     // Warten abbrechen
-    RpcMgmtStopServerListening(NULL);
-    //RPC_STATUS_ASSERT("RpcMgmtStopServerListening", status);
+    status = RpcMgmtStopServerListening(NULL);
+    if (status)
+    {
+        RpcException::Raise(status, "Error calling RpcMgmtStopServerListening", "connectionerror");
+    }
 
     // Schnittstelle deregistrieren
-    RpcServerUnregisterIf(NULL, NULL, FALSE);
-    //RPC_STATUS_ASSERT("RpcServerUnregisterIf", status);
+    status = RpcServerUnregisterIf(NULL, NULL, FALSE);
+    if (status)
+    {
+        RpcException::Raise(status, "Error calling RpcServerUnregisterIf", "connectionerror");
+    }
 }

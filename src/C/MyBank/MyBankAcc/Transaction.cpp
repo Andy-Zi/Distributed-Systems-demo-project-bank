@@ -30,15 +30,15 @@ void Transaction::checkValidTransaction()
 {
 	if (this->startaccID == this->endaccID)
 	{
-		throw std::invalid_argument("startaccount equals endaccount");
+		throw std::invalid_argument("You can't send money to the same account.\n");
 	}
 	if(this->amount == 0)
 	{
-		throw std::invalid_argument("zeroAmount Transaction");
+		throw std::invalid_argument("Transactions of 0 are not allowed.\n");
 	}
 	if (this->amount < 0)
 	{
-		throw std::invalid_argument("negativAmount Transaction");
+		throw std::invalid_argument("Transactions with a negative amount are not allowed.\n");
 	}
 }
 
