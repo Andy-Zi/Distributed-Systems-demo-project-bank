@@ -1,10 +1,4 @@
-#include <nlohmann/json.hpp>
-#include "Statement.h"
-#include "Accountdesc.h"
-#include <string>
-#include <iostream>
-#include <ctime>
-#include "JsonUtilityFunctions.cpp"
+#include "ClientHelperFunctions.h"
 
 using json = nlohmann::json;
 using namespace std;
@@ -27,7 +21,8 @@ void PrettyPrintAccountDescriptions(list<Accountdesc> accounts) {
     {
         Accountdesc currentAccount = (*it);
         cout << "------------------------------------------------\n";
-        cout << ("Account Number: " + currentAccount.Account_Number) << "\n";
+        cout << ("Account Number: " + to_string(currentAccount.Account_Number)) << "\n";
+        //cout << ("Account Owner: " + currentAccount.Owner) << "\n";
         cout << ("Description: " + currentAccount.Description) << "\n";
         cout << "------------------------------------------------\n\n";
     }

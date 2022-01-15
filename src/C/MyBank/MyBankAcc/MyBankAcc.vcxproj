@@ -147,6 +147,8 @@
   <ItemGroup>
     <ClInclude Include="Account.h" />
     <ClInclude Include="Accountdesc.h" />
+    <ClInclude Include="ClientHelperFunctions.h" />
+    <ClInclude Include="JsonUtilityFunctions.h" />
     <ClInclude Include="MyBank.h" />
     <ClInclude Include="MyBankServiceConnector.h" />
     <ClInclude Include="Statement.h" />

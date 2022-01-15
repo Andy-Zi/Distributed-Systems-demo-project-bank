@@ -8,11 +8,11 @@ using namespace std;
 
 class User {
 public:
-	~User() {}
 	User() {}
 	User(Priviliges priv, string u, string pw, int id) : Username{ u }, Password{ pw }, Privilege{ priv }, id {id}
 	{
 	}
+
 	Priviliges getPriviliges();
 	string getName();
 	int getId();

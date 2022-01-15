@@ -1,4 +1,5 @@
 #include "MyBankServiceConnector.h"
+#include "MyBankServiceConnector.h"
 #include <nlohmann/json.hpp>
 #include "JsonUtilityFunctions.cpp"
 using json = nlohmann::json;
@@ -36,10 +37,16 @@ list<Accountdesc> MyBankServiceConnector::listaccounts(int token)
 	list<Account> myaccs = mybank->ListAccounts(token);
 	for (auto it = myaccs.begin(); it != myaccs.end(); it++)
 	{
-		Accountdesc adesc((*it).getAccountnumber(), (*it).getDescription());
+		Accountdesc adesc((*it).getAccountnumber(), mybank->getUserByID((*it).getOwnerID())->getName(), (*it).getDescription());
 		out.push_back(adesc);
 	}
 	return out;
+	
+}
+
+void MyBankServiceConnector::bye(int token)
+{
+	mybank->Logout(token);
 }
 
 json MyBankServiceConnector::SerializeAccountDescriptions(list<Accountdesc> accountDescriptions) {

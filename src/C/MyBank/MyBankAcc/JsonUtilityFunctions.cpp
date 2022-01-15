@@ -1,6 +1,4 @@
-#include <nlohmann/json.hpp>
-#include <string>
-#include "Statement.h"
+#include "JsonUtilityFunctions.h"
 
 using json = nlohmann::json;
 using namespace std;

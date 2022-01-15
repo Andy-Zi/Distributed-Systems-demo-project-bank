@@ -1,4 +1,14 @@
 [implicit_handle(handle_t hMyBank_i)]
 interface MyBank_i
   {
+	[comm_status, fault_status]is_connected();
+	[comm_status, fault_status]login();
+	[comm_status, fault_status]newaccount();
+	[comm_status, fault_status]newuser();
+	[comm_status, fault_status]listaccounts();
+	[comm_status, fault_status]payinto();
+	[comm_status, fault_status]transfer();
+	[comm_status, fault_status]statement();
+	[comm_status, fault_status]bye();
+
   }

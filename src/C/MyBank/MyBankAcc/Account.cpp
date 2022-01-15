@@ -19,7 +19,7 @@ void Account::addValue(int change)
 void Account::addTransaction(Transaction t) {
 	if (t.getStartaccID() == getOwnerID())
 	{
-		if ((Value - t.getAmount()) > 0)
+		if ((Value - t.getAmount()) < 0)
 		{
 			throw std::invalid_argument("not enough funds");
 		}

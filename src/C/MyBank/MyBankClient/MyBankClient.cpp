@@ -1,7 +1,8 @@
 #include "MyBank_i.h"
 #include "MyBankConfig.h"
 #include "RpcException.h"
-#include "MyBankClientConsoleApp.h"
+#include "MyBankConsoleClient.h"
+#include <MyBankClient/MyBankClientFunctions.h>
 
 static void UnBind(void);
 
@@ -10,33 +11,26 @@ int main(void)
     unsigned char* netwAddr = MYBANK_RPC_DEF_NETWADDR;
     unsigned char* endpoint = MYBANK_RPC_ENDPOINT;
 
-    IMyBankFunctions bank;
+    MyBankClientFunctions bank;
+
+    MyBankConsoleClient console(bank);
 
     bool connected = false;
 
+    while (!connected)
+    {
+        connected = console.start();
+    }
     try
     {
-        while (!connected)
-        {
-            connected = start(bank);
-        }
-        try
-        {
-            run(bank);
-        }
-        catch (...)
-        {
-            UnBind();
-            throw;
-        }
-        /* RPC-Bindung freigeben */
+        console.run();
         UnBind();
     }
-    catch (RpcException& e)
+    catch (...)
     {
-        cout << "Verbindung unterbrochen";
-        printf("stat=0x%x, text=%s, type=%s\n",
-            (int)e.GetStatus(), e.GetErrorText(), e.GetErrorType());
+        UnBind();
+        cout << "Unexpected error occurred on the server. Please contact a system administrator.\n";
+        cout << "Maybe the server can no longer be reached.\n";
     }
 }
 

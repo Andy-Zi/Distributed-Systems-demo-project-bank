@@ -6,7 +6,7 @@
 
 interface MyBank_i
 {
-    long is_connected();
+    error_status_t is_connected([out] long* connected);
     /*
     a) 1) login(in username, in password, out token)    
     Username: The Username of the User [string]    
@@ -16,7 +16,7 @@ interface MyBank_i
     0: User
     1: Admin    
     */
-    void login( [in, string] char* username,
+    error_status_t login( [in, string] char* username,
                 [in, string] char* password,
                 [out] long *token,
                 [out, string] char **res
@@ -28,7 +28,7 @@ interface MyBank_i
     Description: The Description of the Account [string]    
     Account_Number: The Account Number of the new Account [string (GUID)]    
     */
-    void newaccount( [in] long token,
+    error_status_t newaccount( [in] long token,
                     [in, string] char* username,
                     [in, string] char* description,
                     [out] long* account_number,
@@ -40,7 +40,7 @@ interface MyBank_i
     Username: The Name of the User to Create [string]    
     Password: The Password of the User to Create [string]    
     */
-    void newuser(   [in] long token,
+    error_status_t newuser(   [in] long token,
                     [in, string] char* username,
                     [in, string] char* password,
                     [out, string] char** res
@@ -54,7 +54,7 @@ interface MyBank_i
     Account_Number: The Account Number of the Account to pay into [string (GUID)]    
     Amount: The Amount to pay into the Account [float]    
     */
-    void listaccounts([in] long token,
+    error_status_t listaccounts([in] long token,
                       [out,string] char** listaccount,
                       [out, string] char** res
                       );
@@ -65,7 +65,7 @@ interface MyBank_i
     Account_Number : The Account Number of the Account to pay into[string (GUID)]
     Amount : The Amount to pay into the Account[float]
     */
-    void payinto([in] long token,
+    error_status_t payinto([in] long token,
                     [in] long account_number, 
                     [in] float amount,
                     [out, string] char** res
@@ -80,7 +80,7 @@ interface MyBank_i
     Amount: The Amount to pay into the Account [float]    
     Comment: The Comment to add to the Transaction [string]
     */
-    void transfer([in] long token,
+    error_status_t transfer([in] long token,
                     [in] long from_account_number,
                     [in] long to_account_number,
                     [in] float amount,
@@ -94,7 +94,7 @@ interface MyBank_i
     Detailed: If set to true, the Statement will include all Transactions, otherwise none [boolean]   
     Accounts: A List of all Accounts or the given Account accessible by this User [Account-Object[]]
     */
-    void statement([in] long token,
+    error_status_t statement([in] long token,
                     [in] long account_number,  //option
                     [in] long detailed,               //option
                     [out,string] char** statement_out,
@@ -104,7 +104,7 @@ interface MyBank_i
     g) bye(in token)
     Token: The Token of the User making the request[Hex-String]
     */
-    void bye([in] long token,
+    error_status_t bye([in] long token,
                     [out, string] char** res
                     );
 }

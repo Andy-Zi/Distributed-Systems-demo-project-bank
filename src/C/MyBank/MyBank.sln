@@ -15,12 +15,23 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyBankIDL", "MyBankIDL\MyBankIDL.vcxproj", "{D2C2C435-74D0-460A-B776-97EC1BF614AC}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyBankClient", "MyBankClient\MyBankClient.vcxproj", "{4B842DBB-0C53-4F90-9034-3A3A101BDC17}"
+	ProjectSection(ProjectDependencies) = postProject
+		{850831EA-41C0-4FD7-9BFE-8C69F3B6F44C} = {850831EA-41C0-4FD7-9BFE-8C69F3B6F44C}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyBankCCOM", "MyBankCCOM\MyBankCCOM.vcxproj", "{95E53271-5F9D-412A-AE6A-4903E873C257}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyBankCCOMPS", "MyBankCCOMPS\MyBankCCOMPS.vcxproj", "{D95573AF-A221-4CD0-84B4-91AC91643726}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyBankClientCCOM", "MyBankClientCCOM\MyBankClientCCOM.vcxproj", "{624B8C4F-329A-4B38-B9AA-8F2C80AC0E3C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4B842DBB-0C53-4F90-9034-3A3A101BDC17} = {4B842DBB-0C53-4F90-9034-3A3A101BDC17}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyBankConsoleClient", "MyBankConsoleClient\MyBankConsoleClient.vcxproj", "{AE77A6F9-6D2A-4C30-BA7A-35D00C60DAD3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{850831EA-41C0-4FD7-9BFE-8C69F3B6F44C} = {850831EA-41C0-4FD7-9BFE-8C69F3B6F44C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -128,6 +139,18 @@ Global
 		{624B8C4F-329A-4B38-B9AA-8F2C80AC0E3C}.Release|x64.Build.0 = Release|x64
 		{624B8C4F-329A-4B38-B9AA-8F2C80AC0E3C}.Release|x86.ActiveCfg = Release|Win32
 		{624B8C4F-329A-4B38-B9AA-8F2C80AC0E3C}.Release|x86.Build.0 = Release|Win32
+		{AE77A6F9-6D2A-4C30-BA7A-35D00C60DAD3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AE77A6F9-6D2A-4C30-BA7A-35D00C60DAD3}.Debug|Win32.Build.0 = Debug|Win32
+		{AE77A6F9-6D2A-4C30-BA7A-35D00C60DAD3}.Debug|x64.ActiveCfg = Debug|x64
+		{AE77A6F9-6D2A-4C30-BA7A-35D00C60DAD3}.Debug|x64.Build.0 = Debug|x64
+		{AE77A6F9-6D2A-4C30-BA7A-35D00C60DAD3}.Debug|x86.ActiveCfg = Debug|Win32
+		{AE77A6F9-6D2A-4C30-BA7A-35D00C60DAD3}.Debug|x86.Build.0 = Debug|Win32
+		{AE77A6F9-6D2A-4C30-BA7A-35D00C60DAD3}.Release|Win32.ActiveCfg = Release|Win32
+		{AE77A6F9-6D2A-4C30-BA7A-35D00C60DAD3}.Release|Win32.Build.0 = Release|Win32
+		{AE77A6F9-6D2A-4C30-BA7A-35D00C60DAD3}.Release|x64.ActiveCfg = Release|x64
+		{AE77A6F9-6D2A-4C30-BA7A-35D00C60DAD3}.Release|x64.Build.0 = Release|x64
+		{AE77A6F9-6D2A-4C30-BA7A-35D00C60DAD3}.Release|x86.ActiveCfg = Release|Win32
+		{AE77A6F9-6D2A-4C30-BA7A-35D00C60DAD3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

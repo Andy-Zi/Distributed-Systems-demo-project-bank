@@ -18,6 +18,10 @@ public:
 	Account() {
 
 	}
+	Account(const Account& old) : OwnerID {old.OwnerID}, Description {old.Description}, AccountNumber {old.AccountNumber}, Value {old.Value }, TransactionList {old.TransactionList }
+	{
+
+	}
 	int getOwnerID();
 	std::string getDescription();
 	int getAccountnumber();

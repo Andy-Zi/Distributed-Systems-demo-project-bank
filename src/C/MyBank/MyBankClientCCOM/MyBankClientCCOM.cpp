@@ -1,18 +1,24 @@
 #include <iostream>
 #include <atlcomcli.h>
-#include "IMyBankFunctions.h"
-#include "MyBankClientConsoleApp.h"
+#include "MyBankConsoleClient.h"
+#include "MyBankClientFunctions.cpp"
 
 int main()
 {
-    IMyBankFunctions bank;
+    MyBankClientFunctions bank;
 
+    MyBankConsoleClient console(bank);
+
+    bool connected = false;
   
-        start(bank);
+    while (!connected)
+    {
+        connected = console.start();
+    }
         if (bank.isConnected) {
             try
             {
-                run(bank);
+                console.run();
             }
             catch (...)
             {

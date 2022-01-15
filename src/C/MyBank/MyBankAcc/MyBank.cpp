@@ -3,9 +3,6 @@
 #include <fstream>
 #include <direct.h>
 #include "JsonUtilityFunctions.cpp"
-#include <mutex>
-
-std::mutex my_bank_mutex;
 
 int MyBank::Login(string username, string password)
 {
@@ -28,8 +25,9 @@ int MyBank::Login(string username, string password)
                 token = (token * 10) + (int)privilege;
 
                 (*it).login(token);
-                std::lock_guard<std::mutex> guard(my_bank_mutex);
+                mybank_mutex.lock();
                 LoggedinUsers.push_back(&(*it));
+                mybank_mutex.unlock();
                 return token;
             }
             throw std::invalid_argument("Wrong password");
@@ -46,8 +44,9 @@ void MyBank::Logout(int token)
         if ((**it).getToken() == token)
         {
             (**it).logout();
-            std::lock_guard<std::mutex> guard(my_bank_mutex);
+            mybank_mutex.lock();
             LoggedinUsers.erase(it);
+            mybank_mutex.unlock();
             break;
         }
     }
@@ -62,15 +61,17 @@ void MyBank::NewUser(string username, string password, Priviliges privilige)
             throw std::invalid_argument("Username already in use");
         }
     }
-    std::lock_guard<std::mutex> guard(my_bank_mutex);
+    mybank_mutex.lock();
     this->KnownUsers.push_back(User(privilige, username, password, this->KnownUsers.size()));
+    mybank_mutex.unlock();
 }
 
 int MyBank::NewAccount(int ownerID, string description)
 {
     int accnr = this->Accounts.size();
-    std::lock_guard<std::mutex> guard(my_bank_mutex);
+    mybank_mutex.lock();
     this->Accounts.push_back(Account(ownerID,description, accnr));
+    mybank_mutex.unlock();
     return accnr;
 }
 
@@ -100,7 +101,6 @@ list<Account> MyBank::ListAccounts(int Token)
 
 int MyBank::PayInto(int Accountnumber, float amount)
 {
-    std::lock_guard<std::mutex> guard(my_bank_mutex);
     return this->Transfer(-1, Accountnumber, amount, "Bareinzahlung");
 }
 
@@ -126,8 +126,9 @@ int MyBank::Transfer(int from_accountnumber, int to_accountnumber, float amount,
             throw std::invalid_argument("not enough funds");
         }   
     }
-    std::lock_guard<std::mutex> guard(my_bank_mutex);
+    mybank_mutex.lock();
     Transactions.push_back(t);
+    mybank_mutex.unlock();
     return transid;
 }
 
@@ -165,11 +166,11 @@ User* MyBank::getUserByToken(int Token)
 
 User* MyBank::getUserByID(int ID)
 {
-    for (auto it = this->LoggedinUsers.begin(); it != this->LoggedinUsers.end(); it++)
+    for (auto it = this->KnownUsers.begin(); it != this->KnownUsers.end(); it++)
     {
-        if ((**it).getId() == ID)
+        if ((*it).getId() == ID)
         {
-            return &(**it);
+            return &(*it);
         }
     }
     throw std::invalid_argument("unknown ID");

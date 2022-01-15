@@ -3,7 +3,6 @@
 #include "RpcException.h"
 #include "MyBankConfig.h"
 #include <stdio.h>
-#include "MyBankServiceConnector.h"
 
 
 int main()
@@ -14,8 +13,6 @@ int main()
     unsigned char* security = NULL;             // Keine Sicherheit
     unsigned int   minCalls = 1;
     unsigned int   maxCalls = 10;
-
-    MyBankServiceConnector bank;
 
     // Protokoll und Endpunkt registrieren
     RpcServerUseProtseqEp(protocolSequence,

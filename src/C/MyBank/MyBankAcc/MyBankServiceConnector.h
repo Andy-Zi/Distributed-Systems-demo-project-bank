@@ -1,10 +1,6 @@
 #pragma once
-#include "User.h"
-#include "Priviliges.h"
-#include "Accountdesc.h"
 #include "MyBank.h"
 #include <string>
-
 
 using namespace std;
 

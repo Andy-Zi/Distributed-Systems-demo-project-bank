@@ -1,13 +1,18 @@
 #pragma once
+#include "Priviliges.h"
+#include "Accountdesc.h"
 #include "User.h"
 #include <string>
 #include <list>
 #include "Account.h"
 #include "Statement.h"
+#include <mutex>
 
 class MyBank
 {
 public:
+	std::mutex mybank_mutex;
+
 	~MyBank(){
 		if (directory != "NONE") {
 			Save(directory);
@@ -17,6 +22,10 @@ public:
 	{
 		NewUser("admin", "admin", Priviliges::admin);
 		NewUser("user", "user", Priviliges::user);
+		NewAccount(0, "Das ist ein Account fuer Admin.");
+		NewAccount(1, "Das ist ein Account fuer User.");
+		PayInto(0, 100);
+		Transfer(0, 1, 10, "Das ist eine ueberweisung.");
 	}
 
 	MyBank(string saveDirectory) {
@@ -26,6 +35,10 @@ public:
 		if (KnownUsers.size() < 1) {
 			NewUser("admin", "admin", Priviliges::admin);
 			NewUser("user", "user", Priviliges::user);
+			NewAccount(0, "Das ist ein Account fuer Admin.");
+			NewAccount(1, "Das ist ein Account fuer User.");
+			PayInto(0, 100);
+			Transfer(0, 1, 10, "Das ist eine ueberweisung.");
 		}
 	}
 
