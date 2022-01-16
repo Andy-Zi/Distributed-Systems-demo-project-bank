@@ -14,8 +14,8 @@ namespace MyBank.Mobile.ViewModels
             Transfere = new Command(OnTransfere);
         }
         public ICommand Transfere { get; }
-        string _from_acc_nr;
-        string _to_acc_nr;
+        string _from_acc_nr = "9acd01b3af694ca49d2de2e5e6f5efa1";
+        string _to_acc_nr = "aafa6b18f39347cb85c20761aaa90037";
         string _transfere = "Transfere";
         float _amount;
         string _comment;
@@ -56,6 +56,7 @@ namespace MyBank.Mobile.ViewModels
             {
                 IsBusy = true;
                 App.mybank.Transfere(App.Token, _from_acc_nr, _to_acc_nr, _amount, _comment);
+                Application.Current.MainPage.DisplayAlert("Succes:", "Money has been transferes.", "Ok");
                 IsBusy = false;
             }
             catch (Exception ex)

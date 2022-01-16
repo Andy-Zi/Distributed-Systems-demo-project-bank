@@ -51,20 +51,20 @@ namespace MyBank.RESTConnector
                             throw new Exception(message);
                     }
                 default:
-                    if(response.ErrorException is WebException webException)
+                    if (response.ErrorException is WebException webException)
                     {
-                        if(webException.Status == WebExceptionStatus.ConnectFailure)
+                        if (webException.Status == WebExceptionStatus.ConnectFailure || webException.Status == WebExceptionStatus.Timeout)
                         {
                             throw new ServerNotReachableException(webException);
                         }
                     }
                     throw new Exception($"An error occured!\n{response.ErrorMessage}");
-
             }
         }
         public void Connect(string address, int port)
         {
             client = new RestClient($"http://{address}:{port}/bank/");
+            client.Timeout = 5000;
         }
 
         public void Disconnect()

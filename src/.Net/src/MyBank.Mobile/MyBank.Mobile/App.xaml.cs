@@ -19,6 +19,7 @@ namespace MyBank.Mobile
         }
         public static RESTServiceConnector mybank;
         public static string Token = "";
+        public static string Username = "";
 
         protected override void OnStart()
         {

@@ -21,17 +21,17 @@ namespace MyBank.Mobile
             Routing.RegisterRoute(nameof(transfere), typeof(transfere));
         }
 
-        async private void OnLogoutClicked(object sender, EventArgs e)
+        private void OnLogoutClicked(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 App.mybank.Bye(App.Token);
                 App.Token = "";
-            }
-            catch (Exception ex)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error:", ex.Message, "Ok");
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    await Application.Current.MainPage.DisplayAlert("Error:", ex.Message, "Ok");
+            //}
             
         }
 

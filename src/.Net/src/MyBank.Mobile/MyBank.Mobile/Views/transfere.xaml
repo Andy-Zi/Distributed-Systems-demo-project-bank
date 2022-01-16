@@ -24,7 +24,7 @@
                 Text="{Binding From_AccountNumber_Transfere}"/>
             <Label
                 Grid.Row="3"
-                Text="From Accountnumber:"
+                Text="To Accountnumber:"
                 FontSize="Body"/>
             <Entry
                 Grid.Row="4"

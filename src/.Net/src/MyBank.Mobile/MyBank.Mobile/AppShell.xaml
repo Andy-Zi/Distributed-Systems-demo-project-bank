@@ -117,14 +117,6 @@
     <!--<TabBar>
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
     </TabBar> -->
-
-    <Shell.FlyoutHeaderTemplate>
-        <DataTemplate>
-            <Grid>
-                <Label Text="{Binding Token}"/>
-            </Grid>
-        </DataTemplate>
-    </Shell.FlyoutHeaderTemplate>
     
     <!-- Optional Templates 
     // These may be provided inline as below or as separate classes.
