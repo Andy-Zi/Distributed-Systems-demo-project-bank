@@ -1,10 +1,12 @@
 ﻿using MyBank.CCOMConnector.Model;
 using MyBank.Interfaces;
+using MyBank.Nameservice.Exceptions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace MyBank.CCOMConnector
 {
@@ -30,6 +32,14 @@ namespace MyBank.CCOMConnector
             }
             catch (Exception ex)
             {
+                if(ex is COMException comException)
+                {
+                    //Error Code for not reachable
+                    if(comException.ErrorCode == -2147023174)
+                    {
+                        throw new ServerNotReachableException(ex);
+                    }
+                }
                 if(ex is ArgumentException)
                 {
                     var errorMessage = ccomClient.GetError();
@@ -59,8 +69,14 @@ namespace MyBank.CCOMConnector
 
         public void Connect(string address = "127.0.0.1", int port = 0)
         {
-            Type type = Type.GetTypeFromCLSID(new Guid(CCOMDLLGUID), address, false);
-            ccomClient = (MyBankCCOMLib.IMyBankATL)Activator.CreateInstance(type);
+            try
+            {
+                Type type = Type.GetTypeFromCLSID(new Guid(CCOMDLLGUID), address, false);
+                ccomClient = (MyBankCCOMLib.IMyBankATL)Activator.CreateInstance(type);
+            }catch(Exception ex)
+            {
+                throw new ServerNotReachableException(ex);
+            }
         }
 
         public void Disconnect()

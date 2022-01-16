@@ -56,6 +56,10 @@
       <Project>{2018B27A-2154-4334-9A8B-973C9E9AC2B7}</Project>
       <Name>MyBank.Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MyBank.Nameservice\MyBank.Nameservice.csproj">
+      <Project>{448DFFCC-FEDD-4884-A160-9BFD6310BB1B}</Project>
+      <Name>MyBank.Nameservice</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
