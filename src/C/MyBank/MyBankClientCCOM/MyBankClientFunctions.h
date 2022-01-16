@@ -18,7 +18,13 @@ public:
     string connect_c(string netwAddr, string endpoint, long& connected)
     {
         connected = false;
-        Bind((unsigned char*)netwAddr.c_str(), (unsigned char*)endpoint.c_str());
+        try {
+            Bind((unsigned char*)netwAddr.c_str(), (unsigned char*)endpoint.c_str());
+        }
+        catch (...) {
+            CoUninitialize();
+            return "Konnte keine Verbindung zur Bank herstellen!\n";
+        }
         if (this->isConnected)
         {
             connected = true;
@@ -159,10 +165,6 @@ private:
                 BSTR errormessage;
                 comInterfacePtr->GetError(&errormessage);
                 cout << "Error: " << BSTR2String(errormessage) << "\n";
-            }
-            else {
-                _com_error err(result);
-                cout << "CCOM Error: " << err.ErrorMessage() << "\n";
             }
             return false;
         }
