@@ -246,6 +246,19 @@ public:
         }
     }
 
+
+    void UnBind(void)
+    {
+        RPC_STATUS status;
+
+        // Freigabe des Binding-Handles 
+        status = RpcBindingFree(&hMyBank_i);
+        if (status)
+        {
+            throw(RpcException(status, "RpcBindingFree failed", "RPC Error"));
+        }
+    }
+
     void Bind(unsigned char* netwAddr, unsigned char* endpoint)
     {
         RPC_STATUS status;

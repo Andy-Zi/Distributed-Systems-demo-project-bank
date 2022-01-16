@@ -24,7 +24,7 @@ bool MyBankConsoleClient::start(string netwAddr_from_cmd, string endpoint_from_c
     string netwAddr = netwAddr_from_cmd;
     string endpoint = endpoint_from_cmd;
     long connected = 0;
-    if (netwAddr == "" || endpoint == "")
+    if (netwAddr == "" || (endpoint == "" && port_need))
     {
         cout << "Welcomme at MyBank!\n" << "Please enter the serveraddress:\n";
         getline(cin, in);
@@ -37,8 +37,11 @@ bool MyBankConsoleClient::start(string netwAddr_from_cmd, string endpoint_from_c
         else
         {
             netwAddr = in;
-            cout << "Please enter the port:\n";
-            getline(cin, endpoint);
+            if(port_need)
+            {
+                cout << "Please enter the port:\n";
+                getline(cin, endpoint);
+            }
         }
     }
     cout << "Bank will be connected\n";
@@ -134,6 +137,12 @@ void MyBankConsoleClient::_parseSingleCommand(string func, bool* exit, bool* act
         cout << "Enter a comment\n";
         getline(cin, comment);
         cout << bank.transfer_c(stod(from_account_number), stod(to_account_number), stof(amount), comment);
+    }
+    else if (func == "statement")
+    {
+        string detailed = string("0");
+        string account_number = string("-1");
+        cout << bank.statement_c(stod(account_number), stod(detailed));
     }
     else if (func == "payinto")
     {
@@ -271,8 +280,11 @@ void MyBankConsoleClient::_parseFullCommadn(string func, bool* exit, bool* activ
             string account_number = string("-1");
             if ((pos = func.find(delimiter_dash)) != string::npos)
             {
-                detailed = string("1");
-                func.erase(0, pos + delimiter_space.length());
+                if(func.substr(0, pos) == "detail")
+                {
+                    detailed = string("1");
+                    func.erase(0, pos + delimiter_space.length());
+                }                
             }
             if ((pos = func.find(delimiter_space)) != string::npos)
             {

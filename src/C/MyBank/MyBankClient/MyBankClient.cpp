@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 
     MyBankClientFunctions bank;
 
-    MyBankConsoleClient console(bank);
+    MyBankConsoleClient console(bank,1);
 
     bool connected = false;
 
@@ -32,26 +32,14 @@ int main(int argc, char* argv[])
     try
     {
         console.run(username, password);
-        UnBind();
+        bank.UnBind();
     }
     catch (...)
     {
-        UnBind();
-        cout << "Unexpected error occurred on the server. Please contact a system administrator.\n";
+        bank.UnBind();
+        cout << "\nUnexpected error occurred on the server. Please contact a system administrator.\n";
         cout << "Maybe the server can no longer be reached.\n";
     }
     printf("Press enter!\n");
     getchar();
-}
-
-void UnBind(void)
-{
-    RPC_STATUS status;
-
-    // Freigabe des Binding-Handles 
-    status = RpcBindingFree(&hMyBank_i);
-    if (status)
-    {
-        throw(RpcException(status, "RpcBindingFree failed", "RPC Error"));
-    }
 }

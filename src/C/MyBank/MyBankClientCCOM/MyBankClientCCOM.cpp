@@ -7,32 +7,32 @@ int main(int argc, char* argv[])
 {
     char empty = '\0';
     char* netwAddr = &empty;
-    char* endpointCln = &empty;
     char* username = &empty;
     char* password = &empty;
 
     if (argc > 1) netwAddr = argv[1];
-    if (argc > 2) endpointCln = argv[2];
-    if (argc > 3) username = argv[3];
-    if (argc > 4) password = argv[4];
+    if (argc > 2) username = argv[2];
+    if (argc > 3) password = argv[3];
 
     MyBankClientFunctions bank;
 
-    MyBankConsoleClient console(bank);
+    MyBankConsoleClient console(bank,0);
 
     bool connected = false;
   
     while (!connected)
     {
-        connected = console.start(netwAddr, endpointCln);
+        connected = console.start((string)netwAddr);
     }
     try
     {
-        console.run(username, password);
+        console.run((string)username, (string)password);
+        bank.UnBind();
     }
     catch (...)
     {
-        cout << "Unexpected error occurred on the server. Please contact a system administrator.\n";
+        bank.UnBind();
+        cout << "\nUnexpected error occurred on the server. Please contact a system administrator.\n";
         cout << "Maybe the server can no longer be reached.\n";
     }
     printf("Press enter!\n");

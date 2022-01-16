@@ -31,7 +31,9 @@ public:
     string login_c(string username, string password, bool& logged_in)
     {
         logged_in = false;
-        auto result = comInterfacePtr->Login(String2BSTR(username), String2BSTR(password), &token);
+        int longToken;
+        auto result = comInterfacePtr->Login(String2BSTR(username), String2BSTR(password), &longToken);
+        token = longToken;
         if (HandleResult(result)) {
             this->isLoggedIn = true;
             logged_in = true;
@@ -42,7 +44,7 @@ public:
 
     string newaccount_c(string username, string description)
     {
-        long accountnumber;
+        int accountnumber;
         auto result = comInterfacePtr->NewAccount(token, String2BSTR(username), String2BSTR(description), &accountnumber);
         if (HandleResult(result)) {
             return "A account for " + username + " has been created\n";
@@ -81,7 +83,11 @@ public:
 
     string payinto_c(long account_number, float amount)
     {
-        return "Not Implemented im COM! :(";
+        auto result = comInterfacePtr->PayInto(token, account_number, amount);
+        if (HandleResult(result)) {
+            return "Money has been deposited\n";
+        }
+        return "";
     }
 
     string statement_c(long account_number, long detailed)
@@ -99,14 +105,17 @@ public:
     {
         auto result = comInterfacePtr->Logout(token);
         HandleResult(result);
+        return "Until next time.\n";
+    }
+
+    void UnBind() {
         comInterfacePtr.Release();
         CoUninitialize();
-        return "Until next time.\n";
     }
 
     void Bind(unsigned char* netwAddr, unsigned char* endpoint)
     {
-        string netwAddress = (string)reinterpret_cast<char*>(netwAddr) + ":" + (string)reinterpret_cast<char*>(endpoint);
+        string netwAddress = (string)reinterpret_cast<char*>(netwAddr);
         BSTR b = _com_util::ConvertStringToBSTR(netwAddress.c_str());
         LPWSTR lp = b;
 
@@ -143,7 +152,9 @@ private:
 
     bool HandleResult(HRESULT result) {
         if (result != S_OK) {
-
+            if (result == 0x800706ba) {
+                throw std::exception("Can't reach Server");
+            }
             if (this->isConnected) {
                 BSTR errormessage;
                 comInterfacePtr->GetError(&errormessage);
