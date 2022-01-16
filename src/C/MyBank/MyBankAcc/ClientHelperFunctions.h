@@ -10,4 +10,4 @@
 list<Accountdesc> DeserializeAccountDescriptions(string jsonString);
 list<Statement> DeserializeStatements(string jsonString);
 void PrettyPrintAccountDescriptions(list<Accountdesc> accounts);
-void PrettyPrintStatements(list<Statement> statements);
+void PrettyPrintStatements(list<Statement> statements,long detailed);

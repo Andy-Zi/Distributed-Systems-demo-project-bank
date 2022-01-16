@@ -21,7 +21,7 @@ public:
         {
             string error = string(e.what());
             if (!error.compare(Server_error_code))
-                throw;
+                return "Can't connect to given server!\n";
             else
                 return e.what();
         }
@@ -202,7 +202,7 @@ public:
             {
                 midl_user_free(result);
                 list<Statement> statements = DeserializeStatements((string)(reinterpret_cast<char*>(statement_out)));
-                PrettyPrintStatements(statements);
+                PrettyPrintStatements(statements, detailed);
                 midl_user_free(statement_out);
                 return "";
             }

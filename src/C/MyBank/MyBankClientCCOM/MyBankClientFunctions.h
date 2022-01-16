@@ -102,7 +102,7 @@ public:
         auto result = comInterfacePtr->Statement(token, account_number, detailed, &jsonString);
         if (HandleResult(result)) {
             auto statements = DeserializeStatements(BSTR2String(jsonString));
-            PrettyPrintStatements(statements);
+            PrettyPrintStatements(statements, detailed);
         }
         return "";
     }

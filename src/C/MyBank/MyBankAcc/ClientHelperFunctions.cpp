@@ -28,7 +28,7 @@ void PrettyPrintAccountDescriptions(list<Accountdesc> accounts) {
     }
 }
 
-void PrettyPrintStatements(list<Statement> statements) {
+void PrettyPrintStatements(list<Statement> statements, long detailed) {
 
     for (auto it = statements.begin(); it != statements.end(); it++)
     {
@@ -41,30 +41,34 @@ void PrettyPrintStatements(list<Statement> statements) {
         cout << "AccountNumber: " << account.getAccountnumber() << "\n";
         cout << "Description: " << account.getDescription() << "\n";
         cout << "Owner: " << account.getOwnerID() << "\n";
-        cout << "Value: " << to_string(account.getValue())<<"€" << "\n";
-        cout << "------------------------------------------------\n\n";
-        list<Transaction> transactions = currentStatement.trans;
+        cout << "Value: " << to_string(account.getValue()) << "\n";
 
-        cout << "Transactions:\n";
-        if (transactions.size() == 0) {
-            cout << "No Transactions found!\n\n";
-        }
-        else {
-            for (auto it_t = transactions.begin(); it_t != transactions.end(); it_t++)
-            {
+        if (detailed)
+        {
+            cout << "------------------------------------------------\n\n";
+            list<Transaction> transactions = currentStatement.trans;
 
-                Transaction currentTransaction = (*it_t);
-                std::time_t time = currentTransaction.getTime();
-                char buffer[32];
-                std::tm* ptm = std::localtime(&time);
-                std::strftime(buffer, 32, "%a, %d.%m.%Y %H:%M:%S", ptm);
-                cout << "------------------------------------------------\n";
-                cout << "From: " << currentTransaction.getStartaccID() << "\n";
-                cout << "To: " << currentTransaction.getEndaccID() << "\n";
-                cout << "Value: " << currentTransaction.getAmount() << "\n";
-                cout << "Time: " << buffer << "\n";
-                cout << "Comment: " << currentTransaction.getComment()<<"\n";
-                cout << "------------------------------------------------\n\n";
+            cout << "Transactions:\n";
+            if (transactions.size() == 0) {
+                cout << "No Transactions found!\n\n";
+            }
+            else {
+                for (auto it_t = transactions.begin(); it_t != transactions.end(); it_t++)
+                {
+
+                    Transaction currentTransaction = (*it_t);
+                    std::time_t time = currentTransaction.getTime();
+                    char buffer[32];
+                    std::tm* ptm = std::localtime(&time);
+                    std::strftime(buffer, 32, "%a, %d.%m.%Y %H:%M:%S", ptm);
+                    cout << "------------------------------------------------\n";
+                    cout << "From: " << currentTransaction.getStartaccID() << "\n";
+                    cout << "To: " << currentTransaction.getEndaccID() << "\n";
+                    cout << "Value: " << currentTransaction.getAmount() << "\n";
+                    cout << "Time: " << buffer << "\n";
+                    cout << "Comment: " << currentTransaction.getComment() << "\n";
+                    cout << "------------------------------------------------\n\n";
+                }
             }
         }
         cout << "################################################\n\n\n";

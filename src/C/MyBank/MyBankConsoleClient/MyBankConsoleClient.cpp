@@ -216,7 +216,7 @@ void MyBankConsoleClient::_parseFullCommadn(string func, bool* exit, bool* activ
                     }
                 }
             }
-            cout << "wrong parameter for newaccount try using 'help'";
+            cout << "wrong parameter for newaccount try using 'help'\n";
         }
         else if (substr == "newuser")
         {
@@ -237,7 +237,7 @@ void MyBankConsoleClient::_parseFullCommadn(string func, bool* exit, bool* activ
                     }
                 }
             }
-            cout << "wrong parameter for newuser try using 'help'";
+            cout << "wrong parameter for newuser try using 'help'\n";
         }
         else if (substr == "transfer")
         {
@@ -272,31 +272,43 @@ void MyBankConsoleClient::_parseFullCommadn(string func, bool* exit, bool* activ
                     }
                 }
             }
-            cout << "wrong parameter for transfer try using 'help'";
+            cout << "wrong parameter for transfer try using 'help'\n";
         }
         else if (substr == "statement")
         {
             string detailed = string("0");
             string account_number = string("-1");
-            if ((pos = func.find(delimiter_dash)) != string::npos)
+            if (func.find(delimiter_dash) != string::npos)
             {
-                if(func.substr(0, pos) == "detail")
+                if ((pos = func.find(delimiter_space)) != string::npos)
                 {
-                    detailed = string("1");
-                    func.erase(0, pos + delimiter_space.length());
-                }                
+                    if (func.substr(0, pos) == "-detail")
+                    {
+                        detailed = string("1");
+                        func.erase(0, pos + delimiter_space.length());
+                    }
+                }
+                else
+                {
+                    if (func == "-detail")
+                    {
+                        detailed = string("1");
+                        func = "";
+                    }
+                }
+                                
             }
-            if ((pos = func.find(delimiter_space)) != string::npos)
+            if (func.find(delimiter_space) != string::npos)
             {
-                account_number = func.substr(0, pos);
-                func.erase(0, pos + delimiter_space.length());
-            }
-            if (func == "")
-            {
-                cout << bank.statement_c(stod(account_number), stod(detailed));
+                cout << "wrong parameter for statement try using 'help'\n";
                 return;
             }
-            cout << "wrong parameter for statement try using 'help'";
+            if(func != "")
+            {
+                account_number = func;
+            }
+            cout << bank.statement_c(stod(account_number), stod(detailed));
+            return;
         }
         else if (substr == "payinto")
         {
@@ -306,21 +318,18 @@ void MyBankConsoleClient::_parseFullCommadn(string func, bool* exit, bool* activ
             {
                 account_number = func.substr(0, pos);
                 func.erase(0, pos + delimiter_space.length());
-                if ((pos = func.find(delimiter_space)) != string::npos)
+                if ((pos = func.find(delimiter_space)) == string::npos)
                 {
                     amount = func.substr(0, pos);
                     func.erase(0, pos + delimiter_space.length());
-                    if (func == "")
-                    {
-                        cout << bank.payinto_c(stod(account_number), stof(amount));
-                        return;
-                    }
+                    cout << bank.payinto_c(stod(account_number), stof(amount));
+                    return;
                 }
             }
-            cout << "wrong parameter for newuser try using 'help'";
+            cout << "wrong parameter for payinto try using 'help'\n";
         }
         else {
-            cout << "unknown function" << func << "'\n";
+            cout << "unknown function" << substr << "\n";
         }
     }
     else
