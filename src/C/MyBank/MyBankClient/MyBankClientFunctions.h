@@ -138,12 +138,12 @@ public:
         }
     }
 
-    string transfer_c(long from_account_number, long to_account_number, float amount, string comment)
+    string transfer_c(long from_account_number, long to_account_number, string receiver_name, float amount, string comment)
     {
         try
         {
             unsigned char* result = NULL;
-            error_status_t stat = transfer(token, from_account_number, to_account_number, amount, (unsigned char*)comment.c_str(), &result);
+            error_status_t stat = transfer(token, from_account_number, to_account_number, (unsigned char*)receiver_name.c_str(), amount, (unsigned char*)comment.c_str(), &result);
             handle_rpc_result(stat);
             if (!memcmp(result, (unsigned char*)"0", 1))
             {

@@ -126,17 +126,20 @@ void MyBankConsoleClient::_parseSingleCommand(string func, bool* exit, bool* act
     {
         string to_account_number;
         string from_account_number;
+        string receiver_name;
         string amount;
         string comment;
         cout << "Which account to send from?\n";
         getline(cin, to_account_number);
         cout << "Who is the recipient?\n";
         getline(cin, from_account_number);
+        cout << "Who owns the receiving account?";
+        getline(cin, receiver_name);
         cout << "How much to transfer?\n";
         getline(cin, amount);
         cout << "Enter a comment\n";
         getline(cin, comment);
-        cout << bank.transfer_c(stod(from_account_number), stod(to_account_number), stof(amount), comment);
+        cout << bank.transfer_c(stod(from_account_number), stod(to_account_number), receiver_name, stof(amount), comment);
     }
     else if (func == "statement")
     {
@@ -243,30 +246,37 @@ void MyBankConsoleClient::_parseFullCommadn(string func, bool* exit, bool* activ
         {
             string to_account_number;
             string from_account_number;
+            string receiver_name;
             string amount;
             string comment;
             if ((pos = func.find(delimiter_space)) != string::npos)
             {
-                to_account_number = func.substr(0, pos);
+                from_account_number = func.substr(0, pos);
                 func.erase(0, pos + delimiter_space.length());
                 if ((pos = func.find(delimiter_space)) != string::npos)
                 {
-                    from_account_number = func.substr(0, pos);
+                    to_account_number = func.substr(0, pos);
                     func.erase(0, pos + delimiter_space.length());
                     if ((pos = func.find(delimiter_space)) != string::npos)
                     {
-                        amount = func.substr(0, pos);
+                        receiver_name = func.substr(0, pos);
                         func.erase(0, pos + delimiter_space.length());
-                        if ((pos = func.find(delimiter_stringescape)) != string::npos)
+
+                        if ((pos = func.find(delimiter_space)) != string::npos)
                         {
-                            func.erase(0, pos + delimiter_stringescape.length());
+                            amount = func.substr(0, pos);
+                            func.erase(0, pos + delimiter_space.length());
                             if ((pos = func.find(delimiter_stringescape)) != string::npos)
                             {
-                                comment = func.substr(0, pos);
                                 func.erase(0, pos + delimiter_stringescape.length());
-                                if (func == "")
-                                cout << bank.transfer_c(stod(from_account_number), stod(to_account_number), stof(amount), comment);
-                                return;
+                                if ((pos = func.find(delimiter_stringescape)) != string::npos)
+                                {
+                                    comment = func.substr(0, pos);
+                                    func.erase(0, pos + delimiter_stringescape.length());
+                                    if (func == "")
+                                        cout << bank.transfer_c(stod(from_account_number), stod(to_account_number), receiver_name, stof(amount), comment);
+                                    return;
+                                }
                             }
                         }
                     }

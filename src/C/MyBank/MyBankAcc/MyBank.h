@@ -25,7 +25,7 @@ public:
 		NewAccount(0, "Thats an account of admin.");
 		NewAccount(1, "Thats an account of user");
 		PayInto(0, 100);
-		Transfer(0, 1, 10, "Thats an transacton from admin to user.");
+		Transfer(0, 1,"user", 10, "Thats an transacton from admin to user.");
 	}
 
 	MyBank(string saveDirectory) {
@@ -38,7 +38,7 @@ public:
 			NewAccount(0, "Thats an account of admin.");
 			NewAccount(1, "Thats an account of user");
 			PayInto(0, 100);
-			Transfer(0, 1, 10, "Thats an transacton from admin to user.");
+			Transfer(0, 1,"user", 10, "Thats an transacton from admin to user.");
 		}
 	}
 
@@ -48,7 +48,7 @@ public:
 	int NewAccount(int ownerID, string description);
 	list<Account> ListAccounts(int Token);
 	int PayInto(int Accountnumber, float amount);
-	int Transfer(int from_accountnumber, int to_accountnumber, float amount, string comment = "");
+	int Transfer(int from_accountnumber, int to_accountnumber,string receiver_name, float amount, string comment = "");
 	Priviliges getPriviligesbyToken(int Token);
 	Priviliges getPriviligesbyID(int ID);
 	Priviliges getPriviligesbyUsername(string username);

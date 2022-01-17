@@ -66,17 +66,28 @@ void MyBankServiceConnector::payinto(int token, int account_number, float amount
 	
 }
 
-void MyBankServiceConnector::transfer(int token, int from_account_number, int to_account_number, float amount, string comment)
+void MyBankServiceConnector::transfer(int token, int from_account_number, int to_account_number, string receiver_name, float amount, string comment)
 {
+	bool sender_exists = false;
+	bool receiver_exists = false;
 	list<Account> myaccs = mybank->ListAccounts(token);
 	for (auto it = myaccs.begin(); it != myaccs.end(); it++)
 	{
 		if ((*it).getAccountnumber() == from_account_number)
 		{
-			mybank->Transfer(from_account_number, to_account_number, amount, comment);
-			break;
+			sender_exists = true;
+		}
+		if ((*it).getAccountnumber() == to_account_number)
+		{
+			receiver_exists = true;
+		}
+		if(sender_exists && receiver_exists)
+		{
+			mybank->Transfer(from_account_number, to_account_number, receiver_name, amount, comment);
+			return;
 		}
 	}
+	throw std::invalid_argument("Please check the accountnumber. Sender or Receiver doesn't exist.\n");
 }
 
 list<Statement> MyBankServiceConnector::statement(int token, int account_number, bool detailed)

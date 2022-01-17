@@ -60,7 +60,7 @@ Token: The Token of the User making the request[Hex-String]
 Account_Number: The Account Number of the Account to pay into [string (GUID)]
 Amount: The Amount to pay into the Account [float]
 */
-    void transfer(int token, int from_account_number, int to_account_number, float amount, string comment);
+    void transfer(int token, int from_account_number, int to_account_number, string receiver_name, float amount, string comment);
 /*
 ## e) transfer(in token, in from_account_number, in to_account_number, in amount, in comment)
 Token: The Token of the User making the request[Hex-String]

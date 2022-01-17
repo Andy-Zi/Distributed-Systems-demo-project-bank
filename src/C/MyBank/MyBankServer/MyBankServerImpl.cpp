@@ -101,10 +101,10 @@ error_status_t payinto(long token,long account_number,float amount, unsigned cha
     return RPC_S_OK;
 }
 
-error_status_t transfer(long token, long from_account_number, long to_account_number, float amount, unsigned char* comment, unsigned char** res)
+error_status_t transfer(long token, long from_account_number, long to_account_number, unsigned char* receiver_name,  float amount, unsigned char* comment, unsigned char** res)
 {
     try {
-        bank.transfer(token, from_account_number, to_account_number, amount, (string) reinterpret_cast<char*>(comment));
+        bank.transfer(token, from_account_number, to_account_number, (string) reinterpret_cast<char*>(receiver_name), amount, (string) reinterpret_cast<char*>(comment));
         int strResLen = strlen("0") + 1;
         *res = (unsigned char*)MIDL_user_allocate(strResLen);
         memcpy(*res, (unsigned char*)("0"), strResLen);

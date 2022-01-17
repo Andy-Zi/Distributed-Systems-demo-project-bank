@@ -83,6 +83,7 @@ interface MyBank_i
     error_status_t transfer([in] long token,
                     [in] long from_account_number,
                     [in] long to_account_number,
+                    [in, string] char* receiver_name,
                     [in] float amount,
                     [in, string] char* comment,
                     [out, string] char** res

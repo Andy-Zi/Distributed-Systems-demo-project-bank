@@ -101,11 +101,29 @@ list<Account> MyBank::ListAccounts(int Token)
 
 int MyBank::PayInto(int Accountnumber, float amount)
 {
-    return this->Transfer(-1, Accountnumber, amount, "cash deposit");
+    string username;
+    for (auto it = this->Accounts.begin(); it != this->Accounts.end(); it++)
+    {
+        try
+        {
+            if ((*it).getAccountnumber() == Accountnumber)
+            {
+                username = getUserByID((*it).getOwnerID())->getName();
+            }
+
+        }
+        catch (const std::exception&)
+        {
+            throw std::invalid_argument("Check the accountnumber. Couldn't find the give accountnumber.\n");
+        }
+    }
+    return this->Transfer(-1, Accountnumber, username, amount, "cash deposit");
 }
 
-int MyBank::Transfer(int from_accountnumber, int to_accountnumber, float amount, string comment)
+int MyBank::Transfer(int from_accountnumber, int to_accountnumber,string receiver_name, float amount, string comment)
 {
+    bool sender_added = false;
+    bool receiver_added = false;
     int transid = this->Transactions.size();
     Transaction t(from_accountnumber, to_accountnumber, amount, comment, transid);
     for (auto it = this->Accounts.begin(); it != this->Accounts.end(); it++)
@@ -115,11 +133,15 @@ int MyBank::Transfer(int from_accountnumber, int to_accountnumber, float amount,
             if ((*it).getAccountnumber() == from_accountnumber && from_accountnumber != -1)
             {
                 (*it).addTransaction(t);
+                sender_added = true;
             }
             if ((*it).getAccountnumber() == to_accountnumber)
             {
                 (*it).addTransaction(t);
+                receiver_added = true;
             }
+            if (sender_added && receiver_added)
+                break;
         }
         catch (const std::exception&)
         {

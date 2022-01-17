@@ -20,7 +20,7 @@ public:
 
 	virtual string listaccounts_c() = 0;
 
-	virtual string transfer_c(long from_account_number, long to_account_number, float amount, string comment) = 0;
+	virtual string transfer_c(long from_account_number, long to_account_number, string receiver_name, float amount, string comment) = 0;
 
 	virtual string payinto_c(long account_number, float amount) = 0;
 
