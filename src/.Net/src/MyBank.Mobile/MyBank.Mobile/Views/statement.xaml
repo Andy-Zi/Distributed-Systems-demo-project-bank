@@ -31,6 +31,7 @@
                                         <Label HorizontalOptions="StartAndExpand" Text="Empfänger:"/>
                                         <Label Text="{Binding RecieverAccount}"/>
                                     </StackLayout>
+                                    <Label HorizontalTextAlignment="End" Text="{Binding RecieverName}"/>
                                     <StackLayout Orientation="Horizontal">
                                         <Label HorizontalOptions="StartAndExpand" Text="Sender:"/>
                                         <Label Text="{Binding SenderAccount}"/>

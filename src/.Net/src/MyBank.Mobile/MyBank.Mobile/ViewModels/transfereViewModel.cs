@@ -14,11 +14,12 @@ namespace MyBank.Mobile.ViewModels
             Transfere = new Command(OnTransfere);
         }
         public ICommand Transfere { get; }
-        string _from_acc_nr = "9acd01b3af694ca49d2de2e5e6f5efa1";
-        string _to_acc_nr = "aafa6b18f39347cb85c20761aaa90037";
+        string _from_acc_nr = "791e840e0848468caa161a7beb665524";
+        string _to_acc_nr = "34ad2e8ad5914b72bc8463e79f362184";
         string _transfere = "Transfere";
-        float _amount;
-        string _comment;
+        float _amount = 10;
+        string _comment = "Das ist ein Komentar";
+        string _recipiant_name = "lukas";
 
         public string Transferestr
         {
@@ -37,6 +38,11 @@ namespace MyBank.Mobile.ViewModels
             set { _to_acc_nr = value; OnPropertyChanged(); }
         }
 
+        public string Recipiant_Name_Transfere
+        {
+            get { return _recipiant_name; }
+            set { _recipiant_name = value; OnPropertyChanged(); }
+        }
         public float Amount_Transfere
         {
             get { return _amount; }
@@ -55,8 +61,8 @@ namespace MyBank.Mobile.ViewModels
             try
             {
                 IsBusy = true;
-                App.mybank.Transfere(App.Token, _from_acc_nr, _to_acc_nr, _amount, _comment);
-                Application.Current.MainPage.DisplayAlert("Succes:", "Money has been transferes.", "Ok");
+                App.mybank.Transfere(App.Token, _from_acc_nr, _to_acc_nr, _recipiant_name, _amount, _comment);
+                Application.Current.MainPage.DisplayAlert("Succes:", "Money has been transfered.", "Ok");
                 IsBusy = false;
             }
             catch (Exception ex)
