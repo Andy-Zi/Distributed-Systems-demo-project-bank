@@ -161,6 +161,7 @@ namespace MyBank.Server
                 Comment = "Das ist eine Transaktion",
                 RecieverAccount = ac2.AccountNumber,
                 SenderAccount = ac1.AccountNumber,
+                RecieverName = "lukas"
             };
             transactionRepository.Entities.TryAdd(t1.GetMappingKey(), t1);
 

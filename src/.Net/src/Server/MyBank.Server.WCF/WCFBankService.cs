@@ -82,11 +82,11 @@ namespace MyBank.Server.WCF
             return result;
         }
 
-        public void Transfere(string token, string from_accountNumber, string to_accountNumber, float amount, string comment = "")
+        public void Transfere(string token, string from_accountNumber, string to_accountNumber, string recieverName, float amount, string comment = "")
         {
             Execute(() =>
             {
-                BankService.Transfere(token, from_accountNumber, to_accountNumber, amount, comment);
+                BankService.Transfere(token, from_accountNumber, to_accountNumber, recieverName, amount, comment);
             });
         }
 

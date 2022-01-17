@@ -121,9 +121,9 @@ namespace MyBank.RESTConnector
             return MakeRequest<List<IAccount>>(request);
         }
 
-        public void Transfere(string token, string from_accountNumber, string to_accountNumber, float amount, string comment = "")
+        public void Transfere(string token, string from_accountNumber, string to_accountNumber,string recieverName, float amount, string comment = "")
         {
-            var request = new RestRequest($"Transfere?token={token}&from_accountNumber={from_accountNumber}&to_accountNumber={to_accountNumber}&amount={amount}&comment={comment}", DataFormat.Json);
+            var request = new RestRequest($"Transfere?token={token}&from_accountNumber={from_accountNumber}&to_accountNumber={to_accountNumber}&recieverName={recieverName}&amount={amount}&comment={comment}", DataFormat.Json);
             MakeRequest<string>(request);
         }
     }

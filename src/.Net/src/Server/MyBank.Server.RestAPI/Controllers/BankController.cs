@@ -58,9 +58,9 @@ namespace MyBank.Server.RestAPI.Controllers
 
         [HttpGet]
         [ActionName("Transfere")]
-        public void Transfere(string token, string from_accountNumber, string to_accountNumber, float amount, string comment = "")
+        public void Transfere(string token, string from_accountNumber, string to_accountNumber,string recieverName, float amount, string comment = "")
         {
-            this.bankService.Transfere(token, from_accountNumber, to_accountNumber, amount, comment);
+            this.bankService.Transfere(token, from_accountNumber, to_accountNumber, recieverName, amount, comment);
         }
 
         [HttpGet]

@@ -28,7 +28,7 @@ namespace MyBank.Server.WCF
         void PayInto(string token, string accountNumber, float amount);
         [FaultContract(typeof(UserFault))]
         [OperationContract]
-        void Transfere(string token, string from_accountNumber, string to_accountNumber, float amount, string comment = "");
+        void Transfere(string token, string from_accountNumber, string to_accountNumber, string recieverName ,float amount, string comment = "");
         [FaultContract(typeof(UserFault))]
         [OperationContract]
         List<Account> Statement(string token, string account_number = "", bool detailed = true);

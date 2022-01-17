@@ -154,11 +154,11 @@ namespace MyBank.CCOMConnector
         }
 
 
-        public void Transfere(string token, string from_accountNumber, string to_accountNumber, float amount, string comment = "")
+        public void Transfere(string token, string from_accountNumber, string to_accountNumber,string recieverName ,float amount, string comment = "")
         {
             Execute(() =>
             {
-                ccomClient.Transfer(Int32.Parse(token), Int32.Parse(from_accountNumber), Int32.Parse(to_accountNumber), amount, comment);
+                ccomClient.Transfer(Int32.Parse(token), Int32.Parse(from_accountNumber), Int32.Parse(to_accountNumber), recieverName, amount, comment);
             });
         }
 

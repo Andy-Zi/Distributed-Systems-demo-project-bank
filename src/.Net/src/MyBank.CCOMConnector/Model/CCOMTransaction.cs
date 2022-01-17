@@ -42,6 +42,8 @@ namespace MyBank.CCOMConnector.Model
 
         public long time { get; set; }
 
+        public string RecieverName { get; set; }
+
         protected static DateTime UnixTimeStampToDateTime(long unixTimeStamp)
         {
             // Unix timestamp is seconds past epoch

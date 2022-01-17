@@ -59,7 +59,7 @@ public:
 	STDMETHOD(Logout)(INT token);
 	STDMETHOD(NewAccount)(INT token, BSTR username, BSTR description, INT* accountNumber);
 	STDMETHOD(PayInto)(INT token, INT accountNumber, FLOAT amount);
-	STDMETHOD(Transfer)(INT token, INT fromAccountNumber, INT toAccountNumber, FLOAT amount, BSTR comment);
+	STDMETHOD(Transfer)(INT token, INT fromAccountNumber, INT toAccountNumber, BSTR receiverName, FLOAT amount, BSTR comment);
 	STDMETHOD(Statement)(INT token, INT accountNumber, BOOL detailed, BSTR* statement);
 	STDMETHOD(GetError)(BSTR* error);
 };

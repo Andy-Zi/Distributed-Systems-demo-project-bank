@@ -9,5 +9,6 @@ namespace MyBank.Interfaces
         string Comment { get; set; }
         string SenderAccount { get; set; }
         string RecieverAccount { get; set; }
+        string RecieverName { get; set; }
     }
 }

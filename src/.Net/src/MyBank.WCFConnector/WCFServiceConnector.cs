@@ -115,11 +115,11 @@ namespace MyBank.WCFConnector
             return result;
         }
 
-        public void Transfere(string token, string from_accountNumber, string to_accountNumber, float amount, string comment = "")
+        public void Transfere(string token, string from_accountNumber, string to_accountNumber, string recieverName, float amount, string comment = "")
         {
             Execute(() =>
             {
-                Client.Transfere(token, from_accountNumber, to_accountNumber, amount, comment);
+                Client.Transfere(token, from_accountNumber, to_accountNumber, recieverName, amount, comment);
             });
         }
     }

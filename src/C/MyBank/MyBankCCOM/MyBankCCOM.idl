@@ -23,7 +23,7 @@ interface IMyBankATL : IDispatch
 	[id(4)] HRESULT Logout([in] INT token);
 	[id(5)] HRESULT NewAccount([in] INT token, [in] BSTR username, [in] BSTR description, [out, retval] INT* accountNumber);
 	[id(6)] HRESULT PayInto([in] INT token, [in] INT accountNumber, [in] FLOAT amount);
-	[id(7)] HRESULT Transfer([in] INT token, [in] INT fromAccountNumber, [in] INT toAccountNumber, [in] FLOAT amount, [in] BSTR comment);
+	[id(7)] HRESULT Transfer([in] INT token, [in] INT fromAccountNumber, [in] INT toAccountNumber,[in] BSTR receiverName, [in] FLOAT amount, [in] BSTR comment);
 	[id(8)] HRESULT Statement([in] INT token, [in] INT accountNumber, [in] BOOL detailed, [out, retval] BSTR* statement);
 	[id(9)] HRESULT GetError([out, retval] BSTR* error);
 };

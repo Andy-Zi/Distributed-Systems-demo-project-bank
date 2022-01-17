@@ -84,6 +84,20 @@ namespace MyBank.Client.Controlls
 
             this.dataGridView_Transactions.Columns.Add(recieverColumn);
 
+            var recieverNameColumn = new DataGridViewColumn()
+            {
+                HeaderText = "Reciever Name",
+                Name = "Reciever Name",
+                CellTemplate = new DataGridViewTextBoxCell(),
+                Visible = true,
+                Width = 200,
+                DataPropertyName = "RecieverName",
+                ReadOnly = true
+
+            };
+
+            this.dataGridView_Transactions.Columns.Add(recieverNameColumn);
+
             var valueColumn = new DataGridViewColumn()
             {
                 HeaderText = "Amount",

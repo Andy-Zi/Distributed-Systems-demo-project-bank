@@ -114,7 +114,7 @@ namespace MyBank.Server.Backend
             TransactionRepository.Entities.TryAdd(transaction.GetMappingKey(), transaction);
         }
 
-        public void Transfere(string token, string from_accountNumber,string to_accountNumber, float amount, string comment = "")
+        public void Transfere(string token, string from_accountNumber,string to_accountNumber, string recieverName, float amount, string comment = "")
         {
             Authenticate(token, Privileges.User);
 
@@ -126,6 +126,17 @@ namespace MyBank.Server.Backend
 
             if (amount < 0.01)
                 throw new ArgumentException($"Transaction Amount has to be 0,01 or higher!");
+
+            if (!string.IsNullOrEmpty(recieverName))
+            {
+                if (AccountRepository.Entities.TryGetValue(to_accountNumber, out var targetAccount))
+                {
+                    if (!targetAccount.Owner.Equals(recieverName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new ArgumentException($"Reciever '{recieverName}' does not own Account '{to_accountNumber}' the Transaction was canceled");
+                    }
+                }
+            }
 
             var from_Account = AccountRepository.Entities[from_accountNumber];
             var username = AuthenticationService.LoggedInUsers[token];
@@ -146,7 +157,8 @@ namespace MyBank.Server.Backend
                     RecieverAccount = to_Account.AccountNumber,
                     Date = DateTime.Now,
                     Amount = amount,
-                    Comment = comment
+                    Comment = comment,
+                    RecieverName = recieverName ?? string.Empty,
                 };
 
                 TransactionRepository.Entities.TryAdd(tranaction.GetMappingKey(), tranaction);

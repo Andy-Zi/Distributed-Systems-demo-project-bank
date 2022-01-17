@@ -78,9 +78,9 @@ public:
         return "";
     }
 
-    string transfer_c(long from_account_number, long to_account_number, float amount, string comment)
+    string transfer_c(long from_account_number, long to_account_number, string receiver_name, float amount, string comment)
     {
-        auto result = comInterfacePtr->Transfer(token, from_account_number, to_account_number, amount, String2BSTR(comment));
+        auto result = comInterfacePtr->Transfer(token, from_account_number, to_account_number, String2BSTR(receiver_name) ,amount, String2BSTR(comment));
         if (HandleResult(result)) {
             return "Money has been transfered\n";
         }
