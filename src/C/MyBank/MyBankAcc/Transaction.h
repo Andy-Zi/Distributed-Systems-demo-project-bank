@@ -10,7 +10,7 @@ using nlohmann::json;
 class Transaction {
 public:
 	~Transaction(){}
-	Transaction(int startaccountID, int endaccountID, float amount, std::string comment, int id) : startaccID{ startaccountID }, endaccID{ endaccountID }, amount{ amount }, comment{ comment },id{ id }
+	Transaction(int startaccountID, int endaccountID, std::string receiver_name, float amount, std::string comment, int id) : startaccID{ startaccountID }, endaccID{ endaccountID }, receiver_name{ receiver_name }, amount{ amount }, comment{ comment }, id{ id }
 	{
 		checkValidTransaction();
 		auto now = std::chrono::system_clock::now();
@@ -21,6 +21,7 @@ public:
 	}
 	int getStartaccID();
 	int getEndaccID();
+	std::string getReceiver_name();
 	float getAmount();
 	std::string getComment();
 	int getId();
@@ -32,6 +33,7 @@ public:
 private:
 	int startaccID;
 	int endaccID ;
+	std::string receiver_name;
 	float amount;
 	std::string comment;
 	int id;

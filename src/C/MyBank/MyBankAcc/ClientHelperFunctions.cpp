@@ -64,6 +64,7 @@ void PrettyPrintStatements(list<Statement> statements, long detailed) {
                     cout << "------------------------------------------------\n";
                     cout << "From: " << currentTransaction.getStartaccID() << "\n";
                     cout << "To: " << currentTransaction.getEndaccID() << "\n";
+                    cout << "Recipient: " << currentTransaction.getReceiver_name() << "\n";
                     cout << "Value: " << currentTransaction.getAmount() << "\n";
                     cout << "Time: " << buffer << "\n";
                     cout << "Comment: " << currentTransaction.getComment() << "\n";

@@ -122,10 +122,15 @@ int MyBank::PayInto(int Accountnumber, float amount)
 
 int MyBank::Transfer(int from_accountnumber, int to_accountnumber,string receiver_name, float amount, string comment)
 {
+    Account acc = getAccountByID(to_accountnumber);
+    if (getUserByID(acc.getOwnerID())->getName()!= receiver_name)
+    {
+        throw std::invalid_argument("The given user doesn't own the give account.\n");
+    }
     bool sender_added = false;
     bool receiver_added = false;
     int transid = this->Transactions.size();
-    Transaction t(from_accountnumber, to_accountnumber, amount, comment, transid);
+    Transaction t(from_accountnumber, to_accountnumber, receiver_name, amount, comment, transid);
     for (auto it = this->Accounts.begin(); it != this->Accounts.end(); it++)
     {
         try
@@ -145,7 +150,7 @@ int MyBank::Transfer(int from_accountnumber, int to_accountnumber,string receive
         }
         catch (const std::exception&)
         {
-            throw std::invalid_argument("You do not have enough funds to do this transaction.\n");
+            throw;
         }   
     }
     mybank_mutex.lock();

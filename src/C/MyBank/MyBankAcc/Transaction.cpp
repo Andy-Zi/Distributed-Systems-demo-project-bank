@@ -16,6 +16,11 @@ float Transaction::getAmount()
 	return this->amount;
 }
 
+std::string Transaction::getReceiver_name()
+{
+	return this->receiver_name;
+}
+
 std::string Transaction::getComment()
 {
 	return this->comment;
@@ -52,6 +57,7 @@ void Transaction::to_json(json& j) {
 	j = json{
 		{"startaccID",startaccID},
 		{"endaccID", endaccID},
+		{"receiver_name", receiver_name},
 		{"amount",amount},
 		{"comment", comment},
 		{"id",id},
@@ -63,6 +69,7 @@ void Transaction::from_json(const json& j) {
 	//Deserilaize the Account
 	j.at("startaccID").get_to(startaccID);
 	j.at("endaccID").get_to(endaccID);
+	j.at("receiver_name").get_to(receiver_name);
 	j.at("amount").get_to(amount);
 	j.at("comment").get_to(comment);
 	j.at("id").get_to(id);
