@@ -8,7 +8,7 @@
         <viewmodels:transfereViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <Grid RowDefinitions="*,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+        <Grid RowDefinitions="*,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
             <Label 
                 Grid.Row="0"
                 Text="{Binding Transferestr}"
@@ -31,20 +31,27 @@
                 Text="{Binding To_AccountNumber_Transfere}"/>
             <Label
                 Grid.Row="5"
-                Text="Amount:"
+                Text="Recipiant Name:"
                 FontSize="Body"/>
             <Entry
                 Grid.Row="6"
-                Text="{Binding Amount_Transfere}"/>
+                Text="{Binding Recipiant_Name_Transfere}"/>
             <Label
                 Grid.Row="7"
-                Text="Comment:"
+                Text="Amount:"
                 FontSize="Body"/>
             <Entry
                 Grid.Row="8"
+                Text="{Binding Amount_Transfere}"/>
+            <Label
+                Grid.Row="9"
+                Text="Comment:"
+                FontSize="Body"/>
+            <Entry
+                Grid.Row="10"
                 Text="{Binding Comment_Transfere}"/>
             <Button
-                Grid.Row="9"
+                Grid.Row="11"
                 Command="{Binding Transfere}"
                 Text="Transfere"/>
         </Grid>
