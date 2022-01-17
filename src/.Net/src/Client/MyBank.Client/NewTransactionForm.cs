@@ -42,7 +42,8 @@ namespace MyBank.Client
             var toAccount = textBox_to.Text;
             var amount = (float)numericUpDown_amount.Value;
             var comment = richTextBox_Comment.Text;
-            ApplicationEnvironment.ServiceConnector.Transfere(ApplicationEnvironment.CurrentToken, fromAccount, toAccount, amount, comment);
+            var recieverName = textBox_recieverName.Text;
+            ApplicationEnvironment.ServiceConnector.Transfere(ApplicationEnvironment.CurrentToken, fromAccount, toAccount, recieverName, amount, comment);
             HandleClose();
         }
     }

@@ -20,6 +20,9 @@ namespace MyBank.Server.Backend.Model
         [DataMember]
         public string RecieverAccount { get; set; }
 
+        [DataMember]
+        public string RecieverName { get; set; }
+
         public string ID { get; set; }
 
         public Transaction()

@@ -92,9 +92,9 @@ STDMETHODIMP CMyBankATL::PayInto(INT token, INT accountNumber, FLOAT amount) {
     return S_OK;
 }
 
-STDMETHODIMP CMyBankATL::Transfer(INT token, INT fromAccountNumber, INT toAccountNumber, FLOAT amount, BSTR comment) {
+STDMETHODIMP CMyBankATL::Transfer(INT token, INT fromAccountNumber, INT toAccountNumber, BSTR receiverName,FLOAT amount, BSTR comment) {
     try {
-        this->bank.transfer(token, fromAccountNumber, toAccountNumber, amount, BSTR2String(comment));
+        this->bank.transfer(token, fromAccountNumber, toAccountNumber, BSTR2String(receiverName) ,amount, BSTR2String(comment));
     }
     catch (const std::exception& e) {
         return HandleError(e, &(this->lastError));
