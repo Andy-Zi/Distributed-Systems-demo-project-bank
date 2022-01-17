@@ -143,6 +143,8 @@ namespace MyBank.Server.Backend
             if (from_Account.Owner != username)
                 throw new AuthenticationException($"You dont have access to Source Account with number '{from_accountNumber}'!");
 
+            if(from_Account.Value < amount)
+                throw new AuthenticationException($"You dont have enough money to make this transaction!");
             //Force a Lock here to ensure a threadsave List.Add()
             lock (AccountRepository.LockObject)
             {

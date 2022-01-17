@@ -12,6 +12,10 @@ namespace MyBank.CCOMConnector.Model
         [JsonProperty("comment")]
         public string Comment { get; set; }
 
+
+        [JsonProperty("receiver_name")]
+        public string RecieverName { get; set; }
+
         [JsonIgnore]
         public DateTime Date
         {
@@ -42,7 +46,7 @@ namespace MyBank.CCOMConnector.Model
 
         public long time { get; set; }
 
-        public string RecieverName { get; set; }
+
 
         protected static DateTime UnixTimeStampToDateTime(long unixTimeStamp)
         {
