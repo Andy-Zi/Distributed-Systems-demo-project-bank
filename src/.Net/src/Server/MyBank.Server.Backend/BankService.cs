@@ -100,6 +100,7 @@ namespace MyBank.Server.Backend
             if (amount < 0.01)
                 throw new ArgumentException($"PayInto Amount has to be 0,01 or higher!");
 
+           
             AccountRepository.Entities[accountNumber].Value += amount;
 
             var transaction = new Transaction
@@ -108,7 +109,8 @@ namespace MyBank.Server.Backend
                 SenderAccount = "ADMIN",
                 RecieverAccount = accountNumber,
                 Date = DateTime.Now,
-                Comment = "ADMIN Payed into your accont"
+                Comment = "ADMIN Payed into your accont",
+                RecieverName = AccountRepository.Entities[accountNumber].Owner
             };
 
             TransactionRepository.Entities.TryAdd(transaction.GetMappingKey(), transaction);
@@ -141,10 +143,11 @@ namespace MyBank.Server.Backend
             var from_Account = AccountRepository.Entities[from_accountNumber];
             var username = AuthenticationService.LoggedInUsers[token];
             if (from_Account.Owner != username)
-                throw new AuthenticationException($"You dont have access to Source Account with number '{from_accountNumber}'!");
+                throw new ArgumentException($"You dont have access to Source Account with number '{from_accountNumber}'!");
 
             if(from_Account.Value < amount)
-                throw new AuthenticationException($"You dont have enough money to make this transaction!");
+                throw new ArgumentException($"You dont have enough money to make this transaction!");
+
             //Force a Lock here to ensure a threadsave List.Add()
             lock (AccountRepository.LockObject)
             {
