@@ -96,7 +96,7 @@ namespace MyBank.Server
 
 
             wcfThread.Start();
-            Task.Delay(200).Wait();
+            Task.Delay(500).Wait();
             Console.WriteLine("Press Any Key to stop the Server!");
             Console.ReadLine();
 

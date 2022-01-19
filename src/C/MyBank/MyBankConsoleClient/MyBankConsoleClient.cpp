@@ -130,10 +130,10 @@ void MyBankConsoleClient::_parseSingleCommand(string func, bool* exit, bool* act
         string amount;
         string comment;
         cout << "Which account to send from?\n";
-        getline(cin, to_account_number);
-        cout << "Who is the recipient?\n";
         getline(cin, from_account_number);
-        cout << "Who owns the receiving account?";
+        cout << "Who is the recipient?\n";
+        getline(cin, to_account_number);
+        cout << "Who owns the receiving account?\n";
         getline(cin, receiver_name);
         cout << "How much to transfer?\n";
         getline(cin, amount);
