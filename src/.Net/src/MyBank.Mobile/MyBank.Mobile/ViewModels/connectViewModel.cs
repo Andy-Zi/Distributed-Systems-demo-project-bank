@@ -39,8 +39,25 @@ namespace MyBank.Mobile.ViewModels
                 IsBusy = false;
                 if (App.mybank.IsConnected())
                 {
-                    var route = $"..?Connect_color=green";
-                    await Shell.Current.GoToAsync(route);
+                    try
+                    {
+                        App.mybank.ListAccounts("");
+                    }
+                    catch (Exception ex)
+                    {
+                        if(ex.Message != "Server can't be reached! Is your Connection Working?")
+                        {
+                            var route = $"..?Connect_color=green";
+                            await Shell.Current.GoToAsync(route);
+                        }
+                        else
+                        {
+                            var route = $"..?Connect_color=red";
+                            await Shell.Current.GoToAsync(route);
+                            await Application.Current.MainPage.DisplayAlert("Error:", "Connecttion Failed", "Ok");
+                        }
+                    }
+                                       
                 }
                 else
                 {

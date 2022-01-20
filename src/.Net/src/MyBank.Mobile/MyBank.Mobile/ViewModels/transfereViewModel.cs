@@ -14,12 +14,12 @@ namespace MyBank.Mobile.ViewModels
             Transfere = new Command(OnTransfere);
         }
         public ICommand Transfere { get; }
-        string _from_acc_nr = "791e840e0848468caa161a7beb665524";
-        string _to_acc_nr = "34ad2e8ad5914b72bc8463e79f362184";
+        string _from_acc_nr = "161c378db8654183976a1dd661013235";
+        string _to_acc_nr = "a13d6b7ac8a94494a12834913abdf37e";
         string _transfere = "Transfere";
         float _amount = 10;
         string _comment = "Das ist ein Komentar";
-        string _recipiant_name = "lukas";
+        string _recipiant_name = "user";
 
         public string Transferestr
         {
