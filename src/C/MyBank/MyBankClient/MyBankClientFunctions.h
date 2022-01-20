@@ -7,6 +7,14 @@
 class MyBankClientFunctions : public IMyBankClientFunctions
 {
 public:
+    /*
+    * Establishes a connection to the given rpc server and checks if it is working.
+    * 
+    * @param netwAddr Networkaddress to connect to.
+    * @param endpoint Port to connect to.
+    * @param[out] connected If server is connected.
+    * @return String for console to print.
+    */
     string connect_c(string netwAddr, string endpoint, long& connected)
     {
         try
@@ -27,6 +35,14 @@ public:
         }
     }
 
+    /*
+    * Sends a login request via rpc.
+    * 
+    * @param username Username to log in.
+    * @param password Password of the given User.
+    * @param[out] logged_in shows if login was succesful.
+    * @return String for console to print.
+    */
     string login_c(string username, string password, bool& logged_in)
     {
         try
@@ -55,6 +71,13 @@ public:
         }
     }
 
+    /*
+    * Tries to create a new account via rpc.
+    * 
+    * @param username Username, which the new account is for.
+    * @param description Description of the new account.
+    * @return String for console to print.
+    */
     string newaccount_c(string username, string description)
     {
         try
@@ -82,6 +105,14 @@ public:
         }
     }
 
+    /*
+    * Tries to create a new user via rpc.
+    * 
+    * @param netwAddr Networkaddress to connect to.
+    * @param endpoint Port to connect to.
+    * @param[out] connected If server is connected.
+    * @return String for console to print.
+    */
     string newuser_c(string username, string password)
     {
         try
@@ -108,6 +139,11 @@ public:
         }
     }
 
+    /*
+    * Prints a list if all accounts via rpc.
+    * 
+    * @return String for console to print.
+    */
     string listaccounts_c()
     {
         try
@@ -138,6 +174,16 @@ public:
         }
     }
 
+    /*
+    * Creats a new Transaction via rpc.
+    * 
+    * @param from_account_number Account to send money from.
+    * @param to_account_number Account to send money to.
+    * @param receiver_name Username of the receiving Account.
+    * @param amount Amount to send.
+    * @param comment Comment for the Transaction.
+    * @return String for console to print.
+    */
     string transfer_c(long from_account_number, long to_account_number, string receiver_name, float amount, string comment)
     {
         try
@@ -164,6 +210,13 @@ public:
         }
     }
 
+    /*
+    * Pays money into an account via rpc.
+    * 
+    * @param account_number Accountnumber to pay into.
+    * @param amount Amount to pay into.
+    * @return String for console to print.
+    */
     string payinto_c(long account_number, float amount)
     {
         try
@@ -190,6 +243,13 @@ public:
         }
     }
 
+    /*
+    * Lists a statement via rpc.
+    * 
+    * @param account_number Networkaddress to connect to.
+    * @param detailed Port to connect to.
+    * @return String for console to print.
+    */
     string statement_c(long account_number, long detailed)
     {
         try
@@ -220,6 +280,11 @@ public:
         }
     }
 
+    /*
+    * logges the user out and disconects via rpc.
+    * 
+    * @return String for console to print.
+    */
     string bye_c()
     {
         try
@@ -246,7 +311,9 @@ public:
         }
     }
 
-
+    /*
+    * UnBinds the rpc binding.
+    */
     void UnBind(void)
     {
         RPC_STATUS status;
@@ -259,6 +326,12 @@ public:
         }
     }
 
+    /*
+    * Creats the rpc binding
+    * 
+    * @param netwAddr Networkaddress to connect to.
+    * @param endpoint Port to connect to
+    */
     void Bind(unsigned char* netwAddr, unsigned char* endpoint)
     {
         RPC_STATUS status;

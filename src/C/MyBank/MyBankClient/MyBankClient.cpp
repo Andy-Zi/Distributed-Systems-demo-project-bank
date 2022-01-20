@@ -4,7 +4,6 @@
 #include "MyBankConsoleClient.h"
 #include <MyBankClient/MyBankClientFunctions.h>
 
-static void UnBind(void);
 
 int main(int argc, char* argv[])
 {

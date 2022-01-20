@@ -1,6 +1,10 @@
 #include "MyBankConsoleClient.h"
 #include <stdio.h>
 
+/*
+* While not logged in asks for login
+* While logged in runs the client routine
+*/
 void MyBankConsoleClient::run(string username_from_cmd, string password_from_cmd)
 {
     bool logged_in = false;
@@ -16,6 +20,9 @@ void MyBankConsoleClient::run(string username_from_cmd, string password_from_cmd
     }
 }
 
+/*
+* Connects the Server by asking for server ip and Port 
+*/
 bool MyBankConsoleClient::start(string netwAddr_from_cmd, string endpoint_from_cmd) {
     string in;
     string delimiter = ":";
@@ -95,6 +102,7 @@ bool MyBankConsoleClient::_login(string username_from_cmd, string password_from_
     cout << bank.login_c(username, password, logged_in);
     return logged_in;
 }
+
 void MyBankConsoleClient::_parseSingleCommand(string func, bool* exit, bool* active, bool* logged_in)
 {
     if (func == "newaccount")
@@ -185,6 +193,7 @@ void MyBankConsoleClient::_parseSingleCommand(string func, bool* exit, bool* act
         cout << "unknown command: " << func << "'\n";
     }
 }
+
 void MyBankConsoleClient::_parseFullCommadn(string func, bool* exit, bool* active, bool* logged_in)
 {
     size_t pos = 0;
@@ -339,7 +348,7 @@ void MyBankConsoleClient::_parseFullCommadn(string func, bool* exit, bool* activ
             cout << "wrong parameter for payinto try using 'help'\n";
         }
         else {
-            cout << "unknown function" << substr << "\n";
+            cout << "unknown function: " << substr << "\n";
         }
     }
     else
@@ -349,6 +358,7 @@ void MyBankConsoleClient::_parseFullCommadn(string func, bool* exit, bool* activ
 
     
 }
+
 bool MyBankConsoleClient::_loop(bool* logged_in) {
     string func;
     bool exit = false;
